@@ -1,0 +1,78 @@
+/* ========================================
+   DESIGN TOKENS — Persona 5 Palette (v3)
+   Tier system colors, reduced red
+   ======================================== */
+
+:root {
+  /* Colors */
+  --black: #000000;
+  --red: #E60012;
+  --red-dark: #B0000E;
+  --red-muted: #8B0000;
+  --white: #FFFFFF;
+  --grey: #2A2A2A;
+  --grey-light: #999999;
+  --grey-dark: #1A1A1A;
+  --grey-mid: #3A3A3A;
+  --grey-surface: #222222;
+
+  /* Tier Colors (S-F) — maximally distinct */
+  --tier-s: #FFD700;    /* Vivid Gold */
+  --tier-a: #00E676;    /* Bright Emerald */
+  --tier-b: #00BCD4;    /* Cyan / Teal */
+  --tier-c: #FF9100;    /* Amber / Orange */
+  --tier-d: #FF5252;    /* Coral Red */
+  --tier-f: #D50000;    /* Deep Crimson */
+
+  /* Legacy trust colors */
+  --trust-high: var(--tier-a);
+  --trust-mid: var(--tier-c);
+  --trust-low: var(--tier-f);
+
+  /* Typography */
+  --font-heading: 'Bebas Neue', 'Impact', sans-serif;
+  --font-sub: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Roboto Condensed', 'Arial', sans-serif;
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* Shadows */
+  --shadow-red: 6px 6px 0 var(--red);
+  --shadow-red-sm: 3px 3px 0 var(--red);
+  --shadow-red-lg: 10px 10px 0 var(--red);
+  --shadow-black: 6px 6px 0 var(--black);
+  --shadow-black-sm: 3px 3px 0 var(--black);
+  --shadow-white: 4px 4px 0 var(--white);
+  --shadow-grey: 6px 6px 0 var(--grey-mid);
+
+  /* Z-index layers */
+  --z-base: 1;
+  --z-card: 10;
+  --z-banner: 20;
+  --z-sidebar: 40;
+  --z-sticky: 50;
+  --z-nav: 100;
+  --z-modal: 200;
+  --z-top: 999;
+
+  /* Transitions */
+  --ease-slam: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 350ms;
+  --duration-slow: 500ms;
+
+  /* Skew */
+  --skew-x: -12deg;
+  --skew-y: 3deg;
+  --skew-x-sm: -6deg;
+  --skew-y-sm: 2deg;
+}

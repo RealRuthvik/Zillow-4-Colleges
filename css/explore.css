@@ -1,0 +1,216 @@
+/* ========================================
+   EXPLORE PAGE (v4) — Improved styling
+   ======================================== */
+
+.explore {
+  padding: 90px var(--space-2xl) var(--space-2xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.explore__header {
+  margin-bottom: var(--space-xl);
+  padding-top: var(--space-lg);
+}
+
+.explore__title {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+
+.explore__subtitle {
+  font-family: var(--font-sub);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--grey-light);
+}
+
+.explore__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+  gap: var(--space-lg);
+}
+
+.explore__search {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.explore__search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--font-sub);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--white);
+  background: var(--grey-dark);
+  border: 1px solid var(--grey-mid);
+  transition: border-color var(--duration-fast) var(--ease-snap);
+}
+
+.explore__search-input:focus {
+  border-color: var(--white);
+}
+
+.explore__search-input::placeholder {
+  color: var(--grey-light);
+}
+
+.explore__sort-info {
+  font-family: var(--font-sub);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--grey-light);
+}
+
+.explore__sort-info span {
+  color: var(--white);
+}
+
+.explore__table-wrap {
+  border: 1px solid var(--grey-mid);
+}
+
+/* ---- EXPLORE TABLE ---- */
+
+.explore-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.explore-table th {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--grey-light);
+  padding: 14px 20px;
+  text-align: left;
+  border-bottom: 2px solid var(--grey-mid);
+  background: var(--grey-dark);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-snap);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.explore-table th:hover {
+  color: var(--white);
+}
+
+.explore-table th.sorted {
+  color: var(--white);
+}
+
+.explore-table th .sort-arrow {
+  margin-left: 6px;
+  font-size: 10px;
+}
+
+.explore-table td {
+  padding: 18px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  border-bottom: 1px solid var(--grey-mid);
+  vertical-align: middle;
+  background: var(--black);
+}
+
+.explore-table tr {
+  transition: background var(--duration-fast) var(--ease-snap);
+  cursor: pointer;
+}
+
+.explore-table tbody tr:hover td {
+  background: var(--grey-dark);
+}
+
+.explore-table__name {
+  font-family: var(--font-sub);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+
+.explore-table__location {
+  font-size: 11px;
+  color: var(--grey-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Trust score cell */
+.explore-trust-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.explore-trust-bar {
+  width: 60px;
+  height: 6px;
+  background: var(--grey-mid);
+}
+
+.explore-trust-bar__fill {
+  height: 100%;
+}
+
+.explore-trust-value {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  min-width: 28px;
+}
+
+/* CTC cells */
+.explore-ctc-actual {
+  font-family: var(--font-sub);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.explore-ctc-claimed {
+  font-size: 13px;
+  color: var(--grey-light);
+  text-decoration: line-through;
+  text-decoration-color: var(--red);
+}
+
+/* Bond status */
+.explore-bond {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  display: inline-block;
+}
+
+.explore-bond--yes {
+  color: var(--red);
+  background: rgba(230, 0, 18, 0.1);
+  border: 1px solid var(--red-muted);
+}
+
+.explore-bond--no {
+  color: var(--trust-high);
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}

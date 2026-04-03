@@ -1,0 +1,702 @@
+/* ========================================
+   RESPONSIVE — Mobile-first media queries
+   Breakpoints: 768px (tablet), 480px (phone)
+   ======================================== */
+
+/* ======== TABLET (max-width: 768px) ======== */
+@media (max-width: 768px) {
+
+  /* ---- NAV ---- */
+  .nav {
+    padding: 0 var(--space-md);
+    height: 50px;
+  }
+
+  .nav__logo {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .nav__links {
+    gap: var(--space-md);
+  }
+
+  .nav__link {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .nav__submit-btn {
+    font-size: 9px;
+    padding: 6px 10px;
+    letter-spacing: 1px;
+  }
+
+  .page {
+    padding-top: 58px;
+  }
+
+  /* ---- LANDING ---- */
+  .landing {
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+  }
+
+  .hero {
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero__title {
+    font-size: 48px;
+    letter-spacing: 3px;
+  }
+
+  .hero__subtitle {
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: var(--space-lg);
+  }
+
+  .search-bar {
+    max-width: 100%;
+    transform: skewX(-6deg);
+  }
+
+  .search-bar:focus-within {
+    transform: skewX(-6deg) scale(1.01);
+    box-shadow: 6px 6px 0 var(--red);
+  }
+
+  .search-bar__input {
+    font-size: 16px;
+    padding: 14px 44px 14px 16px;
+    transform: skewX(6deg);
+  }
+
+  .search-bar__icon {
+    font-size: 18px;
+    right: 14px;
+    transform: translateY(-50%) skewX(6deg);
+  }
+
+  .search-dropdown {
+    max-width: calc(100% - 16px);
+  }
+
+  .recently-searched__title {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .college-card {
+    transform: skewX(-2deg);
+    padding: var(--space-md);
+  }
+
+  .college-card > * {
+    transform: skewX(2deg);
+  }
+
+  .college-card:hover {
+    transform: skewX(-2deg) translateY(-3px);
+    box-shadow: 4px 4px 0 var(--red);
+  }
+
+  .college-card__name {
+    font-size: 22px;
+  }
+
+  .college-card__location {
+    font-size: 11px;
+  }
+
+  /* ---- EXPLORE ---- */
+  .explore {
+    padding: 70px var(--space-md) var(--space-lg);
+  }
+
+  .explore__title {
+    font-size: 32px;
+  }
+
+  .explore__controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .explore__search {
+    max-width: 100%;
+  }
+
+  .explore__sort-info {
+    text-align: right;
+  }
+
+  .explore__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .explore-table {
+    min-width: 700px;
+  }
+
+  .explore-table th {
+    padding: 10px 12px;
+    font-size: 10px;
+  }
+
+  .explore-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .explore-table__name {
+    font-size: 13px;
+  }
+
+  /* ---- COLLEGE DETAIL ---- */
+  .detail {
+    flex-direction: column;
+    padding: var(--space-md);
+    gap: 0;
+  }
+
+  .detail-index {
+    position: static;
+    width: 100%;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--space-sm) 0;
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .detail-index__list {
+    flex-direction: row;
+    gap: 0;
+    white-space: nowrap;
+  }
+
+  .detail-index__item {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 14px;
+    font-size: 10px;
+  }
+
+  .detail-index__item--active {
+    border-left-color: transparent;
+    border-bottom-color: var(--red);
+  }
+
+  .detail-sticky {
+    top: 50px;
+    padding: 10px var(--space-md);
+  }
+
+  .detail-sticky__name {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+
+  .detail-sticky__sub-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .detail-sticky__location {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .detail-sticky__type {
+    font-size: 9px;
+  }
+
+  .tier-badge--xl {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .tier-badge--lg {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .detail-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .summary-stat__value {
+    font-size: 20px;
+  }
+
+  .summary-stat__label {
+    font-size: 9px;
+  }
+
+  .detail-section__title {
+    font-size: 28px;
+  }
+
+  /* Recruiter tiles on tablet */
+  .recruiter-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Report cards */
+  .report-card__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* ---- ADMIN ---- */
+  .admin-page {
+    padding: 58px var(--space-md) var(--space-lg);
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .admin-header__title {
+    font-size: 28px;
+  }
+
+  .admin-list-header {
+    display: none;
+  }
+
+  .admin-college-row {
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-sm);
+  }
+
+  .admin-college-row__tags {
+    display: none;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-editor__body {
+    max-height: 60vh;
+  }
+
+  .admin-editor__title {
+    font-size: 22px;
+  }
+}
+
+
+/* ======== PHONE (max-width: 480px) ======== */
+@media (max-width: 480px) {
+
+  /* ---- NAV ---- */
+  .nav {
+    padding: 0 var(--space-sm);
+    height: 48px;
+  }
+
+  .nav__logo {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .nav__links {
+    gap: var(--space-sm);
+  }
+
+  .nav__link {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .nav__submit-btn {
+    font-size: 8px;
+    padding: 5px 8px;
+    letter-spacing: 1px;
+  }
+
+  .page {
+    padding-top: 54px;
+  }
+
+  /* ---- LANDING ---- */
+  .landing {
+    padding: var(--space-lg) var(--space-sm) var(--space-md);
+  }
+
+  .hero {
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__title {
+    font-size: 36px;
+    letter-spacing: 2px;
+  }
+
+  .hero__title-wrap::before {
+    height: 14px;
+    left: -10px;
+    bottom: -4px;
+  }
+
+  .hero__subtitle {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .search-bar {
+    transform: skewX(-4deg);
+    border-width: 2px;
+    box-shadow: var(--shadow-black-sm);
+  }
+
+  .search-bar:focus-within {
+    transform: skewX(-4deg) scale(1.01);
+    box-shadow: 4px 4px 0 var(--red);
+  }
+
+  .search-bar__input {
+    font-size: 14px;
+    padding: 12px 40px 12px 14px;
+    transform: skewX(4deg);
+    letter-spacing: 1px;
+  }
+
+  .search-bar__icon {
+    font-size: 16px;
+    right: 12px;
+    transform: translateY(-50%) skewX(4deg);
+  }
+
+  .search-dropdown__item {
+    padding: 10px 14px;
+  }
+
+  .search-dropdown__item-name {
+    font-size: 13px;
+  }
+
+  .search-dropdown__item-location {
+    font-size: 10px;
+  }
+
+  .recently-searched__title {
+    font-size: 22px;
+  }
+
+  .college-card {
+    transform: none;
+    box-shadow: 3px 3px 0 var(--grey-mid);
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .college-card > * {
+    transform: none;
+  }
+
+  .college-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--red);
+  }
+
+  .college-card__name {
+    font-size: 18px;
+  }
+
+  .college-card__stats { gap: var(--space-md); }
+
+  .college-card__stat-value { font-size: 16px; }
+  .college-card__stat-label { font-size: 8px; }
+
+  /* ---- EXPLORE ---- */
+  .explore {
+    padding: 58px var(--space-sm) var(--space-md);
+  }
+
+  .explore__title {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+
+  .explore__subtitle {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .explore__search-input {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  /* ---- COLLEGE DETAIL ---- */
+  .detail {
+    padding: var(--space-sm);
+  }
+
+  .detail-sticky {
+    top: 48px;
+    padding: 8px var(--space-sm);
+  }
+
+  .detail-sticky__top-row {
+    gap: var(--space-sm);
+  }
+
+  .detail-sticky__back {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 14px;
+  }
+
+  .detail-sticky__name {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .detail-sticky__sub-row {
+    gap: 4px;
+  }
+
+  .detail-sticky__location {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .detail-sticky__type {
+    font-size: 8px;
+    padding: 1px 5px;
+  }
+
+  .detail-sticky__bond {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+
+  .tier-badge--xl {
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+
+  .tier-badge--lg {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .tier-badge--md {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .detail-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .summary-stat {
+    padding: var(--space-sm);
+  }
+
+  .summary-stat__value {
+    font-size: 18px;
+  }
+
+  .summary-stat__label {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .bond-alert {
+    font-size: 11px;
+    padding: var(--space-sm);
+  }
+
+  .detail-section__title {
+    font-size: 22px;
+  }
+
+  /* Tab buttons */
+  .detail-tabs {
+    gap: var(--space-sm);
+  }
+
+  .detail-tab {
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+  }
+
+  /* Recruiter tiles */
+  .recruiter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recruiter-tile__name {
+    font-size: 14px;
+  }
+
+  /* Report cards */
+  .report-card__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Overview summary cards */
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Pagination */
+  .pagination {
+    gap: 4px;
+  }
+
+  .pagination__btn {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  /* Source cards */
+  .source-card {
+    padding: var(--space-sm);
+  }
+
+  /* ---- ADMIN ---- */
+  .admin-page {
+    padding: 54px var(--space-sm) var(--space-md);
+  }
+
+  .admin-header {
+    padding: var(--space-md) 0;
+  }
+
+  .admin-header__title {
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+
+  .admin-header__actions {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .admin-college-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    padding: 12px;
+    position: relative;
+  }
+
+  .admin-college-row__tier {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+
+  .admin-college-row__reports {
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .admin-college-row__reports::before {
+    content: 'Reports: ';
+    font-family: var(--font-sub);
+    font-size: 10px;
+    color: var(--grey-light);
+    letter-spacing: 1px;
+  }
+
+  .admin-college-row__actions {
+    justify-content: flex-end;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-grid--compact {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-editor__header {
+    padding: var(--space-md);
+  }
+
+  .admin-editor__title {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .admin-editor__body {
+    padding: var(--space-sm);
+    max-height: 55vh;
+  }
+
+  .admin-section__title {
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+
+  .admin-editor__footer {
+    padding: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .admin-login__card {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .admin-login__title {
+    font-size: 28px;
+  }
+
+  .admin-login__form {
+    flex-direction: column;
+  }
+
+  .admin-tags-grid {
+    gap: 4px;
+  }
+
+  .admin-tag-toggle {
+    padding: 4px 8px;
+  }
+
+  .admin-tag-toggle span {
+    font-size: 9px;
+  }
+
+  /* ---- FOOTER ---- */
+  .page-footer__tagline {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .page-footer__honesty {
+    font-size: 10px;
+  }
+
+  /* ---- QUESTIONS PAGE ---- */
+  .questions-table {
+    min-width: 500px;
+  }
+
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 20px; }
+}
