@@ -75,7 +75,7 @@
 .search-dropdown {
   display: none;
   position: absolute;
-  top: calc(100% - var(--space-xl));
+  top: 100%;
   left: 0;
   right: 0;
   max-height: 420px;

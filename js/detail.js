@@ -32,8 +32,8 @@ export function renderDetail(container, collegeId) {
   sticky.className = 'detail-sticky';
   sticky.innerHTML = `
     <div class="detail-sticky__top-row">
-      <button class="detail-sticky__back" id="sticky-back">←</button>
-      <div class="detail-sticky__name-block">
+      <button class="detail-sticky__back" id="sticky-back">◄</button>
+      <div class="detail-sticky__name-block" style="padding-left: 10px;">
         <h1 class="detail-sticky__name">${college.name}</h1>
         <div class="detail-sticky__sub-row">
           <span class="detail-sticky__location">📍 ${college.location}</span>
@@ -48,6 +48,25 @@ export function renderDetail(container, collegeId) {
   `;
   sticky.querySelector('#sticky-back').addEventListener('click', () => window.location.hash = '#/');
   container.appendChild(sticky);
+
+  // Hide main nav on scroll so only the college header shows
+  const nav = document.querySelector('.nav');
+  if (nav) {
+    const onScroll = () => {
+      if (window.scrollY > 80) {
+        nav.style.transform = 'translateY(-100%)';
+        nav.style.transition = 'transform 0.25s ease';
+      } else {
+        nav.style.transform = 'translateY(0)';
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    // Cleanup when navigating away
+    window.addEventListener('hashchange', () => {
+      nav.style.transform = 'translateY(0)';
+      window.removeEventListener('scroll', onScroll);
+    }, { once: true });
+  }
 
   // -- LAYOUT --
   const layout = document.createElement('div');
@@ -396,22 +415,11 @@ function buildRecruiters(college) {
     const tile = document.createElement('div');
     tile.className = 'recruiter-tile';
 
-    // Tile header (always visible)
-    const offerCount = data.offers.length;
-    const questionCount = data.questions.length;
-    let ctcLabel = '';
-    if (data.offers.length > 0 && data.offers[0].ctcOffered) {
-      ctcLabel = data.offers[0].ctcOffered;
-    }
-
+    // Tile header — just company name + logo initial
     tile.innerHTML = `
       <div class="recruiter-tile__header">
+        <div class="recruiter-tile__logo">${company.charAt(0)}</div>
         <div class="recruiter-tile__name">${company}</div>
-        <div class="recruiter-tile__meta">
-          ${ctcLabel ? `<span class="recruiter-tile__ctc">${ctcLabel}</span>` : ''}
-          <span class="recruiter-tile__counts">${offerCount} offer${offerCount !== 1 ? 's' : ''} · ${questionCount} Q</span>
-        </div>
-        <span class="recruiter-tile__arrow">▼</span>
       </div>
       <div class="recruiter-tile__body">
         ${buildRecruiterBody(data)}

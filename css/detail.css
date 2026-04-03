@@ -16,13 +16,13 @@
 
 .detail-index {
   position: sticky;
-  top: 120px;
+  top: 100px;
   width: 180px;
   flex-shrink: 0;
   align-self: flex-start;
   padding-top: var(--space-md);
   z-index: var(--z-sidebar);
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 120px);
   overflow-y: auto;
 }
 
@@ -65,15 +65,16 @@
   min-width: 0;
 }
 
-/* ---- STICKY HEADER (bigger name, fixed back button) ---- */
+/* ---- STICKY HEADER (Persona 5 themed) ---- */
 
 .detail-sticky {
   position: sticky;
-  top: 56px;
+  top: 0;
   z-index: var(--z-sticky);
   background: var(--black);
-  border-bottom: 2px solid var(--grey-mid);
-  padding: 14px var(--space-xl) 12px;
+  border-bottom: 3px solid var(--red);
+  padding: 16px var(--space-xl) 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .detail-sticky__top-row {
@@ -85,30 +86,34 @@
 .detail-sticky__left {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   min-width: 0;
   flex: 1;
 }
 
 .detail-sticky__back {
-  background: none;
-  border: 1px solid var(--grey-mid);
-  color: var(--grey-light);
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
+  background: var(--red);
+  border: none;
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 700;
   transition: all var(--duration-fast) var(--ease-snap);
   flex-shrink: 0;
+  transform: skewX(-8deg);
+  box-shadow: 3px 3px 0 var(--red-dark);
 }
 
 .detail-sticky__back:hover {
-  border-color: var(--white);
-  color: var(--white);
+  background: var(--red-dark);
+  transform: skewX(-8deg) translateY(-2px);
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
 }
 
 .detail-sticky__name-block {
@@ -118,12 +123,26 @@
 
 .detail-sticky__name {
   font-family: var(--font-heading);
-  font-size: 42px;
+  font-size: 44px;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 5px;
   color: var(--white);
   line-height: 1;
   margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* Red accent slash before the name */
+.detail-sticky__name::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 4px;
+  width: 6px;
+  height: 80%;
+  background: var(--red);
+  transform: skewX(-12deg);
 }
 
 .detail-sticky__sub-row {
@@ -135,11 +154,12 @@
 
 .detail-sticky__location {
   font-family: var(--font-sub);
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: var(--grey-light);
+  color: var(--white);
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .detail-sticky__type {
@@ -147,10 +167,13 @@
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--grey-light);
-  padding: 2px 8px;
-  border: 1px solid var(--grey-mid);
+  color: var(--white);
+  padding: 3px 10px;
+  background: var(--grey-mid);
+  border: none;
   white-space: nowrap;
+  transform: skewX(-6deg);
+  font-weight: 600;
 }
 
 .detail-sticky__right {
@@ -166,10 +189,11 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--red);
-  padding: 4px 10px;
-  border: 1px solid var(--red-muted);
-  background: rgba(230, 0, 18, 0.08);
+  color: var(--white);
+  padding: 4px 12px;
+  background: var(--red);
+  transform: skewX(-6deg);
+  box-shadow: 2px 2px 0 var(--red-dark);
 }
 
 /* ---- TIER BADGE ---- */
@@ -792,52 +816,33 @@
 }
 
 .recruiter-tile__header {
-  padding: 14px 16px;
+  padding: 20px 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
+}
+
+.recruiter-tile__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--grey-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--white);
+  flex-shrink: 0;
+  text-transform: uppercase;
 }
 
 .recruiter-tile__name {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 20px;
   text-transform: uppercase;
   color: var(--white);
   letter-spacing: 1px;
-}
-
-.recruiter-tile__meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.recruiter-tile__ctc {
-  font-family: var(--font-sub);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--white);
-}
-
-.recruiter-tile__counts {
-  font-family: var(--font-sub);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--grey-light);
-}
-
-.recruiter-tile__arrow {
-  font-size: 10px;
-  color: var(--grey-light);
-  transition: transform var(--duration-fast) var(--ease-snap);
-  flex-shrink: 0;
-}
-
-.recruiter-tile--open .recruiter-tile__arrow {
-  transform: rotate(180deg);
 }
 
 .recruiter-tile__body {

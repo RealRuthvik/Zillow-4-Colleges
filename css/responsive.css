@@ -206,6 +206,19 @@
     letter-spacing: 2px;
   }
 
+  .detail-sticky__name::before {
+    left: -10px;
+    width: 4px;
+    top: 2px;
+  }
+
+  .detail-sticky__back {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 16px;
+  }
+
   .detail-sticky__sub-row {
     flex-wrap: wrap;
     gap: 6px;
@@ -456,16 +469,24 @@
     gap: var(--space-sm);
   }
 
-  .detail-sticky__back {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    font-size: 14px;
-  }
 
   .detail-sticky__name {
     font-size: 18px;
     letter-spacing: 1px;
+  }
+
+  .detail-sticky__name::before {
+    left: -8px;
+    width: 3px;
+    top: 1px;
+  }
+
+  .detail-sticky__back {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 12px;
+    transform: skewX(-4deg);
   }
 
   .detail-sticky__sub-row {
