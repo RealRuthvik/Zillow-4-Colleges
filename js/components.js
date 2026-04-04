@@ -35,6 +35,39 @@ export function tierBadgeHTML(score, size = 'md') {
 }
 
 /**
+ * Format string "12.5 LPA" to full indian currency "₹12,50,000"
+ */
+export function formatFullCTC(ctcStr) {
+  if (!ctcStr || typeof ctcStr !== 'string') return null;
+  const matchLPA = ctcStr.match(/([\d\.]+)\s*LPA/i);
+  const matchCR = ctcStr.match(/([\d\.]+)\s*CR/i);
+
+  let num = 0;
+  if (matchLPA) {
+    num = parseFloat(matchLPA[1]) * 100000;
+  } else if (matchCR) {
+    num = parseFloat(matchCR[1]) * 10000000;
+  } else {
+    return null;
+  }
+
+  return '₹' + num.toLocaleString('en-IN');
+}
+
+/**
+ * Renders CTC value elegantly.
+ */
+export function renderDetailedCTC(ctcStr) {
+  const full = formatFullCTC(ctcStr);
+  if (!full) return ctcStr;
+
+  return `<div class="ctc-detailed">
+    <div class="ctc-detailed__main">${full}</div>
+    <div class="ctc-detailed__sub">${ctcStr} CTC</div>
+  </div>`;
+}
+
+/**
  * Get report type info
  */
 function getReportTypeInfo(report) {
@@ -114,53 +147,58 @@ export function createReportCard(report, index = 0) {
     headerTags += `<span class="report-card__tag">${report.ctcOffered}</span>`;
   }
 
-  // Build body
-  let bodyHTML = `<div class="report-card__comment">${report.comment}</div>`;
-
-  // Report type description
-  bodyHTML += `<div class="report-card__type-desc">${typeInfo.desc}</div>`;
+  let bodyHTML = `<p class="report-card__comment">${report.comment}</p>`;
 
   // Offer details (Personal / Multi-Personal)
   if (report.ctcOffered) {
-    bodyHTML += `
-      <div class="report-card__offer">
-        <div class="report-card__offer-row">
-          <div>
-            <div class="report-card__offer-company">${report.company}</div>
-            <div class="report-card__offer-role">${report.role}</div>
-          </div>
-          <div class="report-card__offer-ctc">${report.ctcOffered} <span class="report-card__offer-ctc-label">CTC</span></div>
-        </div>
-      </div>
-    `;
+    bodyHTML += `<div class="report-card__section-label">INDIVIDUAL EXPERIENCE</div>`;
 
-    // Breakdown
+    // Breakdown logic
+    let breakdownHTML = '';
     if (report.ctcBreakdown) {
       const b = report.ctcBreakdown;
       const rows = [
         ['Base Pay', b.basePay],
         ['Variable Pay', b.variablePay],
-        ['Joining Bonus', b.joiningBonus],
-        ['Relocation', b.relocation],
+        ['Joining Bonus', formatFullCTC(b.joiningBonus) || b.joiningBonus],
+        ['Relocation', formatFullCTC(b.relocation) || b.relocation],
       ].filter(([, v]) => v && v !== '—');
 
-      bodyHTML += `
-        <div class="report-card__breakdown">
-          <div class="report-card__breakdown-title">CTC Breakdown</div>
-          ${rows.map(([label, value]) => `
-            <div class="report-card__breakdown-row"><span>${label}</span><span>${value}</span></div>
-          `).join('')}
-          ${b.other && b.other !== '—' ? `<div class="report-card__breakdown-other">+ ${b.other}</div>` : ''}
-        </div>
+      let otherHTML = b.other && b.other !== '—' ? `<div class="report-card__breakdown-other">+ ${b.other}</div>` : '';
+
+      breakdownHTML = `
+        <details class="report-card__breakdown-details">
+          <summary class="report-card__breakdown-summary">CTC Breakdown</summary>
+          <div class="report-card__breakdown-content">
+            ${rows.map(([label, value]) => `
+              <div class="report-card__breakdown-row"><span>${label}</span><span>${value}</span></div>
+            `).join('')}
+            ${otherHTML}
+          </div>
+        </details>
       `;
-    } else {
-      bodyHTML += `<div class="report-card__breakdown"><div class="report-card__breakdown-title">CTC Breakdown</div><div style="padding: 10px 0; color: var(--grey-light); font-size: 13px;">N/A — Not provided by reporter</div></div>`;
     }
+
+    bodyHTML += `
+      <div class="report-card__offer">
+        <div class="report-card__offer-header">
+          <div>
+            <div class="report-card__offer-company">${report.company}</div>
+            <div class="report-card__offer-role">${report.role}</div>
+          </div>
+          <div class="report-card__offer-ctc-wrap">
+            ${renderDetailedCTC(report.ctcOffered)}
+          </div>
+        </div>
+        ${breakdownHTML}
+      </div>
+    `;
   }
 
   // Data badges (Aggregate / Multi-Personal batch data)
   if (report.dataReported) {
     const d = report.dataReported;
+    bodyHTML += `<div class="report-card__section-label">BATCH REPORTING</div>`;
     if (d.type === 'batch_stats') {
       const items = [];
       if (d.median) items.push(`Median: ${d.median}`);

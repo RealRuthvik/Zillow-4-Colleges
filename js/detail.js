@@ -497,6 +497,16 @@ function setupScrollTracking(sidebar, sections) {
 
   items.forEach(item => {
     item.addEventListener('click', () => {
+      if (item.dataset.section === 'summary') {
+        const nav = document.querySelector('.nav');
+        if (nav) {
+          nav.style.transform = 'translateY(-100%)';
+          nav.style.transition = 'transform 0.25s ease';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       const target = document.getElementById(item.dataset.section);
       if (target) {
         // If scrolling to top section, temporarily hide nav to prevent overlap
