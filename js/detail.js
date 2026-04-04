@@ -33,16 +33,16 @@ export function renderDetail(container, collegeId) {
   sticky.innerHTML = `
     <div class="detail-sticky__top-row">
       <button class="detail-sticky__back" id="sticky-back">◄</button>
-      <div class="detail-sticky__name-block" style="padding-left: 10px;">
+      <div class="detail-sticky__name-block">
         <h1 class="detail-sticky__name">${college.name}</h1>
         <div class="detail-sticky__sub-row">
-          <span class="detail-sticky__location">📍 ${college.location}</span>
+          <span class="detail-sticky__location">${college.location}</span>
           <span class="detail-sticky__type">${college.type}</span>
-          ${college.hasHiddenBond ? '<span class="detail-sticky__bond">⚠ BOND</span>' : ''}
+          ${college.hasHiddenBond ? '<span class="detail-sticky__bond">BOND</span>' : ''}
         </div>
       </div>
       <div class="detail-sticky__right">
-        ${tierBadgeHTML(college.trustScore, 'lg')}
+        <a href="#/methodology#tiers" class="tier-badge-link">${tierBadgeHTML(college.trustScore, 'lg')}<sup class="tier-info-sup">?</sup></a>
       </div>
     </div>
   `;
@@ -105,43 +105,56 @@ export function renderDetail(container, collegeId) {
   summarySection.id = 'summary';
 
   const s = college.summary;
+  const updated = college.lastUpdated || 'N/A';
+  const updatedFull = college.lastUpdatedFull || updated;
   summarySection.innerHTML = `
-    <div class="detail-section__title">Summary</div>
+    <div class="detail-section__title">
+      Summary
+      <span class="detail-section__updated">Updated ${updatedFull}</span>
+    </div>
     <div class="detail-summary">
       <div class="summary-stat">
         <div class="summary-stat__value summary-stat__value--muted">${s.claimedCTC}</div>
         <div class="summary-stat__label">Advertised CTC</div>
+        <div class="summary-stat__date">Source: College site</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedMedian}</div>
         <div class="summary-stat__label">Reported Median</div>
+        <div class="summary-stat__date">${updated}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedAverage}</div>
         <div class="summary-stat__label">Reported Avg</div>
+        <div class="summary-stat__date">${updated}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedLowest}</div>
         <div class="summary-stat__label">Lowest</div>
+        <div class="summary-stat__date">${updated}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedHighest}</div>
         <div class="summary-stat__label">Highest</div>
+        <div class="summary-stat__date">${updated}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.totalReports}</div>
         <div class="summary-stat__label">Reports</div>
+        <div class="summary-stat__date">All time</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.placementRate}</div>
         <div class="summary-stat__label">Placed</div>
+        <div class="summary-stat__date">${updated}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.batchSize}</div>
         <div class="summary-stat__label">Batch Size</div>
+        <div class="summary-stat__date">Approx.</div>
       </div>
     </div>
-    ${college.hasHiddenBond ? `<div class="bond-alert">⚠ HIDDEN BOND: ${college.bondDetails}</div>` : ''}
+    ${college.hasHiddenBond ? `<div class="bond-alert">HIDDEN BOND — ${college.bondDetails}</div>` : ''}
   `;
   main.appendChild(summarySection);
 
@@ -149,7 +162,7 @@ export function renderDetail(container, collegeId) {
   const reportsSection = document.createElement('section');
   reportsSection.className = 'detail-section';
   reportsSection.id = 'student-reports';
-  reportsSection.innerHTML = `<div class="detail-section__title">Student Reports</div>`;
+  reportsSection.innerHTML = `<div class="detail-section__title">Student Reports<span class="detail-section__updated">Updated ${updatedFull}</span></div>`;
 
   // Tabs
   const tabBar = document.createElement('div');
@@ -187,7 +200,7 @@ export function renderDetail(container, collegeId) {
   const recruitersSection = document.createElement('section');
   recruitersSection.className = 'detail-section';
   recruitersSection.id = 'recruiters';
-  recruitersSection.innerHTML = `<div class="detail-section__title">Recruiters</div>`;
+  recruitersSection.innerHTML = `<div class="detail-section__title">Recruiters<span class="detail-section__updated">Updated ${updatedFull}</span></div>`;
   recruitersSection.appendChild(buildRecruiters(college));
   main.appendChild(recruitersSection);
 
@@ -195,7 +208,7 @@ export function renderDetail(container, collegeId) {
   const sourcesSection = document.createElement('section');
   sourcesSection.className = 'detail-section';
   sourcesSection.id = 'online-sources';
-  sourcesSection.innerHTML = `<div class="detail-section__title">Online Sources</div>`;
+  sourcesSection.innerHTML = `<div class="detail-section__title">Online Sources<span class="detail-section__updated">Updated ${updatedFull}</span></div>`;
   if (college.onlineSources && college.onlineSources.length > 0) {
     const sourcesList = document.createElement('div');
     sourcesList.className = 'sources-list';
@@ -246,9 +259,9 @@ function buildOverview(college) {
       <div class="overview-card__title">Report Breakdown</div>
       <div class="overview-stats-row">
         <div class="overview-stat-item"><div class="overview-stat-item__value">${reports.length}</div><div class="overview-stat-item__label">Total</div></div>
-        <div class="overview-stat-item"><div class="overview-stat-item__value">${personalCount}</div><div class="overview-stat-item__label">👤 Personal</div></div>
-        <div class="overview-stat-item"><div class="overview-stat-item__value">${aggCount}</div><div class="overview-stat-item__label">📊 Aggregate</div></div>
-        <div class="overview-stat-item"><div class="overview-stat-item__value">${multiCount}</div><div class="overview-stat-item__label">👥 Multi</div></div>
+        <div class="overview-stat-item"><div class="overview-stat-item__value">${personalCount}</div><div class="overview-stat-item__label">Personal</div></div>
+        <div class="overview-stat-item"><div class="overview-stat-item__value">${aggCount}</div><div class="overview-stat-item__label">Aggregate</div></div>
+        <div class="overview-stat-item"><div class="overview-stat-item__value">${multiCount}</div><div class="overview-stat-item__label">Multi</div></div>
       </div>
     </div>
   `;
@@ -485,7 +498,15 @@ function setupScrollTracking(sidebar, sections) {
   items.forEach(item => {
     item.addEventListener('click', () => {
       const target = document.getElementById(item.dataset.section);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (target) {
+        // If scrolling to top section, temporarily hide nav to prevent overlap
+        const nav = document.querySelector('.nav');
+        if (nav) {
+          nav.style.transform = 'translateY(-100%)';
+          nav.style.transition = 'transform 0.25s ease';
+        }
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 

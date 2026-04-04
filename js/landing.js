@@ -110,7 +110,7 @@ function renderDropdown(dropdown, query) {
   if (matches.length === 0) {
     dropdown.innerHTML = `
       <div class="search-dropdown__empty">
-        <div class="search-dropdown__empty-icon">🔍</div>
+        <div class="search-dropdown__empty-icon">NONE</div>
         <div class="search-dropdown__empty-text">No colleges found for "${query}"</div>
         <div class="search-dropdown__empty-cta">
           Know about this college? <a href="#/submit" class="search-dropdown__submit-link">Submit information</a>
@@ -125,7 +125,7 @@ function renderDropdown(dropdown, query) {
     <div class="search-dropdown__item" data-id="${c.id}">
       <div class="search-dropdown__item-left">
         <div class="search-dropdown__item-name">${c.name}</div>
-        <div class="search-dropdown__item-location">📍 ${c.location}</div>
+        <div class="search-dropdown__item-location">${c.location}</div>
       </div>
       <div class="search-dropdown__item-right">
         ${tierBadgeHTML(c.trustScore, 'sm')}

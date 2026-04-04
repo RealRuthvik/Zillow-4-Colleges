@@ -178,6 +178,7 @@
 
 .report-card {
   display: flex;
+  flex-direction: column;
   background: var(--grey-dark);
   border: 1px solid var(--grey-mid);
   overflow: hidden;
@@ -697,4 +698,79 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+}
+
+/* ---- VERIFIED / UNVERIFIED BADGES ---- */
+
+.report-verify-badge {
+  font-family: var(--font-sub);
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  transform: skewX(-4deg);
+  transition: all var(--duration-fast) ease;
+  white-space: nowrap;
+}
+
+.report-verify-badge--verified {
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: #4ade80;
+  cursor: pointer;
+}
+
+.report-verify-badge--verified:hover {
+  background: rgba(74, 222, 128, 0.2);
+  border-color: #4ade80;
+}
+
+.report-verify-badge__info {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #4ade80;
+  transform: skewX(4deg);
+}
+
+.report-verify-badge--unverified {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--grey-light);
+}
+
+/* ---- TIER BADGE LINK ---- */
+
+.tier-badge-link {
+  text-decoration: none;
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.tier-info-sup {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--grey-light);
+  margin-left: 2px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.tier-badge-link:hover .tier-info-sup {
+  opacity: 1;
+  color: var(--white);
 }

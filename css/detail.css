@@ -119,6 +119,7 @@
 .detail-sticky__name-block {
   min-width: 0;
   flex: 1;
+  padding-left: 24px;
 }
 
 .detail-sticky__name {
@@ -137,7 +138,7 @@
 .detail-sticky__name::before {
   content: '';
   position: absolute;
-  left: -14px;
+  left: -18px;
   top: 4px;
   width: 6px;
   height: 80%;
@@ -301,6 +302,15 @@
   color: var(--grey-light);
 }
 
+.summary-stat__date {
+  font-family: var(--font-sub);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
 .bond-alert {
   background: rgba(230,0,18,0.08);
   border: 1px solid var(--red-muted);
@@ -328,6 +338,23 @@
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--grey-mid);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+}
+
+.detail-section__updated {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--grey-light);
+  background: rgba(255,255,255,0.06);
+  padding: 3px 10px;
+  transform: skewX(-6deg);
+  display: inline-block;
+  border-left: 2px solid var(--red);
 }
 
 /* ---- REPORT TABS ---- */

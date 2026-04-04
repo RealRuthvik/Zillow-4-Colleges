@@ -14,6 +14,8 @@ const COLLEGES = [
     hasHiddenBond: true,
     bondDetails: "2-year service bond worth ₹2,00,000 — not disclosed during admission counselling.",
     searchCount: 2847,
+    lastUpdated: "Mar 2026",
+    lastUpdatedFull: "28 Mar 2026",
     summary: {
       claimedCTC: "12.5 LPA",
       reportedMedian: "3.6 LPA",
@@ -163,6 +165,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 3201,
+    lastUpdated: "Mar 2026",
+    lastUpdatedFull: "28 Mar 2026",
     summary: {
       claimedCTC: "10.8 LPA",
       reportedMedian: "4.2 LPA",
@@ -246,6 +250,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 1956,
+    lastUpdated: "Feb 2026",
+    lastUpdatedFull: "14 Feb 2026",
     summary: {
       claimedCTC: "9.5 LPA",
       reportedMedian: "5.8 LPA",
@@ -327,6 +333,8 @@ const COLLEGES = [
     hasHiddenBond: true,
     bondDetails: "₹1,50,000 bond for 1 year with partner companies.",
     searchCount: 1523,
+    lastUpdated: "Jan 2026",
+    lastUpdatedFull: "22 Jan 2026",
     summary: {
       claimedCTC: "8.0 LPA",
       reportedMedian: "2.8 LPA",
@@ -391,6 +399,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 2105,
+    lastUpdated: "Mar 2026",
+    lastUpdatedFull: "28 Mar 2026",
     summary: {
       claimedCTC: "7.5 LPA",
       reportedMedian: "3.0 LPA",
@@ -456,6 +466,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 4521,
+    lastUpdated: "Mar 2026",
+    lastUpdatedFull: "28 Mar 2026",
     summary: {
       claimedCTC: "18.0 LPA",
       reportedMedian: "12.5 LPA",
@@ -522,6 +534,8 @@ const COLLEGES = [
     hasHiddenBond: true,
     bondDetails: "Mandatory 6-month internship acts as de-facto bond. Leaving early = degree withheld.",
     searchCount: 876,
+    lastUpdated: "Dec 2025",
+    lastUpdatedFull: "10 Dec 2025",
     summary: {
       claimedCTC: "8.2 LPA",
       reportedMedian: "3.8 LPA",
@@ -570,6 +584,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 1342,
+    lastUpdated: "Feb 2026",
+    lastUpdatedFull: "14 Feb 2026",
     summary: {
       claimedCTC: "9.0 LPA",
       reportedMedian: "5.5 LPA",
@@ -635,6 +651,8 @@ const COLLEGES = [
     hasHiddenBond: true,
     bondDetails: "1-year service bond. ₹50,000 to ₹2,00,000 depending on company.",
     searchCount: 645,
+    lastUpdated: "Nov 2025",
+    lastUpdatedFull: "05 Nov 2025",
     summary: {
       claimedCTC: "6.5 LPA",
       reportedMedian: "2.2 LPA",
@@ -682,6 +700,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 1876,
+    lastUpdated: "Mar 2026",
+    lastUpdatedFull: "28 Mar 2026",
     summary: {
       claimedCTC: "9.0 LPA",
       reportedMedian: "3.2 LPA",
@@ -730,6 +750,8 @@ const COLLEGES = [
     hasHiddenBond: false,
     bondDetails: "",
     searchCount: 1234,
+    lastUpdated: "Jan 2026",
+    lastUpdatedFull: "22 Jan 2026",
     summary: {
       claimedCTC: "8.5 LPA",
       reportedMedian: "4.5 LPA",
@@ -777,6 +799,8 @@ const COLLEGES = [
     hasHiddenBond: true,
     bondDetails: "Some partner companies require 1-year commitment facilitated by college.",
     searchCount: 1567,
+    lastUpdated: "Feb 2026",
+    lastUpdatedFull: "14 Feb 2026",
     summary: {
       claimedCTC: "7.8 LPA",
       reportedMedian: "3.5 LPA",

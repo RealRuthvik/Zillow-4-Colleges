@@ -39,13 +39,13 @@ export function tierBadgeHTML(score, size = 'md') {
  */
 function getReportTypeInfo(report) {
   if (report.reportType === 'aggregate') {
-    return { label: 'Aggregate', icon: '📊', class: 'report-type--aggregate', desc: 'Based on batch-wide observation' };
+    return { label: 'Aggregate', icon: '', class: 'report-type--aggregate', desc: 'Based on batch-wide observation' };
   }
   if (report.reportType === 'multi_personal') {
-    return { label: 'Multi-Personal', icon: '👥', class: 'report-type--multi', desc: 'Reporting for multiple students' };
+    return { label: 'Multi-Personal', icon: '', class: 'report-type--multi', desc: 'Reporting for multiple students' };
   }
   // Default: personal
-  return { label: 'Personal', icon: '👤', class: 'report-type--personal', desc: 'Individual experience' };
+  return { label: 'Personal', icon: '', class: 'report-type--personal', desc: 'Individual experience' };
 }
 
 /**
@@ -66,7 +66,7 @@ export function createCollegeCard(college, index = 0) {
     <div class="college-card__top">
       <div>
         <div class="college-card__name">${college.shortName || college.name}</div>
-        <div class="college-card__location">📍 ${college.location}</div>
+        <div class="college-card__location">${college.location}</div>
       </div>
       ${tierBadgeHTML(college.trustScore, 'lg')}
     </div>
@@ -106,7 +106,7 @@ export function createReportCard(report, index = 0) {
   const typeInfo = getReportTypeInfo(report);
 
   // Compressed header tags
-  let headerTags = `<span class="report-card__type-tag ${typeInfo.class}">${typeInfo.icon} ${typeInfo.label}</span>`;
+  let headerTags = `<span class="report-card__type-tag ${typeInfo.class}">${typeInfo.label}</span>`;
   if (report.company) {
     headerTags += `<span class="report-card__tag report-card__tag--company">${report.company}</span>`;
   }
@@ -118,7 +118,7 @@ export function createReportCard(report, index = 0) {
   let bodyHTML = `<div class="report-card__comment">${report.comment}</div>`;
 
   // Report type description
-  bodyHTML += `<div class="report-card__type-desc">${typeInfo.icon} ${typeInfo.desc}</div>`;
+  bodyHTML += `<div class="report-card__type-desc">${typeInfo.desc}</div>`;
 
   // Offer details (Personal / Multi-Personal)
   if (report.ctcOffered) {
@@ -169,7 +169,7 @@ export function createReportCard(report, index = 0) {
       if (d.above5LPA) items.push(`Above 5 LPA: ${d.above5LPA}`);
       bodyHTML += `
         <div class="report-card__data-badge report-card__data-badge--stats">
-          <div class="report-card__data-badge-title">📊 Batch Stats Reported</div>
+          <div class="report-card__data-badge-title">BATCH STATS REPORTED</div>
           <div class="report-card__data-badge-items">
             ${items.map(s => `<span class="report-card__data-item">${s}</span>`).join('')}
           </div>
@@ -178,7 +178,7 @@ export function createReportCard(report, index = 0) {
     } else if (d.type === 'bond_report') {
       bodyHTML += `
         <div class="report-card__data-badge report-card__data-badge--bond">
-          <div class="report-card__data-badge-title">⚠ Bond Report</div>
+          <div class="report-card__data-badge-title">BOND REPORT</div>
           <div class="report-card__data-badge-items">
             <span class="report-card__data-item">Amount: ${d.bondAmount}</span>
             <span class="report-card__data-item">Duration: ${d.bondDuration}</span>
@@ -188,11 +188,18 @@ export function createReportCard(report, index = 0) {
     } else if (d.type === 'practice_report') {
       bodyHTML += `
         <div class="report-card__data-badge report-card__data-badge--practice">
-          <div class="report-card__data-badge-title">📝 Practice/Policy Report</div>
+          <div class="report-card__data-badge-title">PRACTICE / POLICY REPORT</div>
         </div>
       `;
     }
   }
+
+  // Verified / Unverified badge
+  const isVerified = report.trustScore >= 65;
+  const verificationMethod = report.verificationMethod || (isVerified ? 'Cross-verified with multiple sources' : null);
+  const verifyBadgeHTML = isVerified
+    ? `<span class="report-verify-badge report-verify-badge--verified" title="${verificationMethod}">VERIFIED <span class="report-verify-badge__info">i</span></span>`
+    : `<span class="report-verify-badge report-verify-badge--unverified">UNVERIFIED</span>`;
 
   card.innerHTML = `
     <div class="report-card__header">
@@ -204,7 +211,7 @@ export function createReportCard(report, index = 0) {
         </div>
       </div>
       <div class="report-card__header-right">
-        ${tierBadgeHTML(report.trustScore, 'sm')}
+        ${verifyBadgeHTML}
         <span class="report-card__expand-icon">▼</span>
       </div>
     </div>
@@ -248,7 +255,7 @@ export function createPQCard(pq, collegeName, index = 0) {
       <span class="pq-card__difficulty pq-card__difficulty--${diffClass}">${pq.difficulty}</span>
     </div>
     <div class="pq-card__meta">
-      <span>📅 ${pq.date}</span>
+      <span>${pq.date}</span>
     </div>
     <ol class="pq-card__questions">
       ${pq.questions.map(q => `<li class="pq-card__question">${q}</li>`).join('')}

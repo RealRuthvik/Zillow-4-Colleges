@@ -28,7 +28,7 @@ function renderLogin(container) {
   wrap.className = 'admin-login';
   wrap.innerHTML = `
     <div class="admin-login__card">
-      <div class="admin-login__icon">🔒</div>
+      <div class="admin-login__icon">ADMIN</div>
       <h2 class="admin-login__title">Admin Access</h2>
       <p class="admin-login__sub">Enter the admin password to continue</p>
       <div class="admin-login__form">
@@ -119,7 +119,7 @@ function renderCollegeList(list) {
           <div class="admin-college-row__name">
             <strong>${c.shortName}</strong>
             <span class="admin-college-row__fullname">${c.name}</span>
-            <span class="admin-college-row__location">📍 ${c.location}</span>
+            <span class="admin-college-row__location">${c.location}</span>
           </div>
           <div class="admin-college-row__tier">
             ${tierBadgeHTML(c.trustScore, 'sm')}

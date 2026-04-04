@@ -7,6 +7,8 @@ import { renderDetail } from './detail.js';
 import { renderExplore } from './explore.js';
 import { renderQuestions } from './questions.js';
 import { renderAdmin } from './admin.js';
+import { renderSubmit } from './submit.js';
+import { renderMethodology } from './methodology.js';
 
 const app = document.getElementById('app');
 
@@ -25,6 +27,12 @@ function router() {
     updateActiveNav('questions');
   } else if (hash === '#/admin') {
     renderAdmin(pageContainer);
+    updateActiveNav('');
+  } else if (hash === '#/submit') {
+    renderSubmit(pageContainer);
+    updateActiveNav('');
+  } else if (hash.startsWith('#/methodology')) {
+    renderMethodology(pageContainer);
     updateActiveNav('');
   } else if (hash.startsWith('#/college/')) {
     const collegeId = hash.replace('#/college/', '');
