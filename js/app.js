@@ -1,5 +1,5 @@
 // ========================================
-// APP — Router & Initialization (v4)
+// APP — Router & Initialization (v4 - History API)
 // ========================================
 
 import { renderLanding } from './landing.js';
@@ -12,30 +12,36 @@ import { renderMethodology } from './methodology.js';
 
 const app = document.getElementById('app');
 
+// Global navigation function
+export function navigateTo(path) {
+  window.history.pushState({}, '', path);
+  router();
+}
+
 function router() {
-  const hash = window.location.hash || '#/';
+  const path = window.location.pathname;
   const pageContainer = document.getElementById('page-container');
 
-  if (hash === '#/' || hash === '' || hash === '#') {
+  if (path === '/' || path === '') {
     renderLanding(pageContainer);
     updateActiveNav('home');
-  } else if (hash === '#/explore') {
+  } else if (path === '/explore') {
     renderExplore(pageContainer);
     updateActiveNav('explore');
-  } else if (hash === '#/questions') {
+  } else if (path === '/questions') {
     renderQuestions(pageContainer);
     updateActiveNav('questions');
-  } else if (hash === '#/admin') {
+  } else if (path === '/admin') {
     renderAdmin(pageContainer);
     updateActiveNav('');
-  } else if (hash === '#/submit') {
+  } else if (path === '/submit') {
     renderSubmit(pageContainer);
     updateActiveNav('');
-  } else if (hash.startsWith('#/methodology')) {
+  } else if (path.startsWith('/methodology')) {
     renderMethodology(pageContainer);
     updateActiveNav('');
-  } else if (hash.startsWith('#/college/')) {
-    const collegeId = hash.replace('#/college/', '');
+  } else if (path.startsWith('/college/')) {
+    const collegeId = path.replace('/college/', '');
     renderDetail(pageContainer, collegeId);
     updateActiveNav('');
   } else {
@@ -56,21 +62,30 @@ function init() {
       <div class="nav__left">
         <div class="nav__logo" id="nav-logo">COLLEGE<span>EXPOSED</span></div>
         <div class="nav__links">
-          <a class="nav__link nav__link--active" data-nav="home" href="#/">Home</a>
-          <a class="nav__link" data-nav="explore" href="#/explore">Explore</a>
-          <a class="nav__link" data-nav="questions" href="#/questions">Questions</a>
+          <a class="nav__link nav__link--active" data-nav="home" href="/" data-link>Home</a>
+          <a class="nav__link" data-nav="explore" href="/explore" data-link>Explore</a>
+          <a class="nav__link" data-nav="questions" href="/questions" data-link>Questions</a>
         </div>
       </div>
-      <a class="nav__submit-btn" href="#/submit">+ SUBMIT INFO</a>
+      <a class="nav__submit-btn" href="/submit" data-link>+ SUBMIT INFO</a>
     </nav>
     <main id="page-container" class="page"></main>
   `;
 
   document.getElementById('nav-logo').addEventListener('click', () => {
-    window.location.hash = '#/';
+    navigateTo('/');
   });
 
-  window.addEventListener('hashchange', router);
+  // Intercept all link clicks with 'data-link' to prevent page reload
+  document.body.addEventListener('click', e => {
+    if (e.target.matches('[data-link]') || e.target.closest('[data-link]')) {
+      e.preventDefault();
+      const target = e.target.matches('[data-link]') ? e.target : e.target.closest('[data-link]');
+      navigateTo(target.getAttribute('href'));
+    }
+  });
+
+  window.addEventListener('popstate', router);
   router();
 }
 

@@ -5,7 +5,8 @@
 // ========================================
 
 import { COLLEGES } from './data.js';
-import { getTier, tierBadgeHTML, getTrustColor, createReportCard, createSourceCard, createPQCard } from './components.js';
+import { getTier, tierBadgeHTML, createReportCard, createSourceCard } from './components.js';
+import { navigateTo } from './app.js';
 
 const REPORTS_PER_PAGE = 5;
 
@@ -16,7 +17,7 @@ export function renderDetail(container, collegeId) {
     container.innerHTML = `
       <div class="page" style="text-align:center; padding: 160px 40px;">
         <h1 style="font-family: var(--font-heading); font-size: 64px; color: var(--grey-light);">NOT FOUND</h1>
-        <p style="margin-top: 16px;"><a href="#/" style="color: var(--white);">← Go back</a></p>
+        <p style="margin-top: 16px;"><a href="/" data-link style="color: var(--white);">← Go back</a></p>
       </div>
     `;
     return;
@@ -27,7 +28,6 @@ export function renderDetail(container, collegeId) {
 
   const tier = getTier(college.trustScore);
 
-  // -- STICKY HEADER --
   const sticky = document.createElement('div');
   sticky.className = 'detail-sticky';
   sticky.innerHTML = `
@@ -42,14 +42,13 @@ export function renderDetail(container, collegeId) {
         </div>
       </div>
       <div class="detail-sticky__right">
-        <a href="#/methodology#tiers" class="tier-badge-link">${tierBadgeHTML(college.trustScore, 'lg')}<sup class="tier-info-sup">?</sup></a>
+        <a href="/methodology#tiers" data-link class="tier-badge-link">${tierBadgeHTML(college.trustScore, 'lg')}<sup class="tier-info-sup">?</sup></a>
       </div>
     </div>
   `;
-  sticky.querySelector('#sticky-back').addEventListener('click', () => window.location.hash = '#/');
+  sticky.querySelector('#sticky-back').addEventListener('click', () => navigateTo('/'));
   container.appendChild(sticky);
 
-  // Hide main nav on scroll so only the college header shows
   const nav = document.querySelector('.nav');
   if (nav) {
     const onScroll = () => {
@@ -61,18 +60,17 @@ export function renderDetail(container, collegeId) {
       }
     };
     window.addEventListener('scroll', onScroll);
-    // Cleanup when navigating away
-    window.addEventListener('hashchange', () => {
+    const cleanUp = () => {
       nav.style.transform = 'translateY(0)';
       window.removeEventListener('scroll', onScroll);
-    }, { once: true });
+      window.removeEventListener('popstate', cleanUp);
+    };
+    window.addEventListener('popstate', cleanUp);
   }
 
-  // -- LAYOUT --
   const layout = document.createElement('div');
   layout.className = 'detail';
 
-  // -- SIDEBAR INDEX --
   const sidebar = document.createElement('nav');
   sidebar.className = 'detail-index';
   sidebar.id = 'detail-index';
@@ -95,11 +93,9 @@ export function renderDetail(container, collegeId) {
   `;
   layout.appendChild(sidebar);
 
-  // -- MAIN CONTENT --
   const main = document.createElement('div');
   main.className = 'detail-main';
 
-  // === SECTION: Summary ===
   const summarySection = document.createElement('section');
   summarySection.className = 'detail-section';
   summarySection.id = 'summary';
@@ -158,13 +154,11 @@ export function renderDetail(container, collegeId) {
   `;
   main.appendChild(summarySection);
 
-  // === SECTION: Student Reports ===
   const reportsSection = document.createElement('section');
   reportsSection.className = 'detail-section';
   reportsSection.id = 'student-reports';
   reportsSection.innerHTML = `<div class="detail-section__title">Student Reports<span class="detail-section__updated">Updated ${updatedFull}</span></div>`;
 
-  // Tabs
   const tabBar = document.createElement('div');
   tabBar.className = 'report-tabs';
   tabBar.innerHTML = `
@@ -196,7 +190,6 @@ export function renderDetail(container, collegeId) {
 
   main.appendChild(reportsSection);
 
-  // === SECTION: Recruiters ===
   const recruitersSection = document.createElement('section');
   recruitersSection.className = 'detail-section';
   recruitersSection.id = 'recruiters';
@@ -204,7 +197,6 @@ export function renderDetail(container, collegeId) {
   recruitersSection.appendChild(buildRecruiters(college));
   main.appendChild(recruitersSection);
 
-  // === SECTION: Online Sources ===
   const sourcesSection = document.createElement('section');
   sourcesSection.className = 'detail-section';
   sourcesSection.id = 'online-sources';
@@ -217,7 +209,6 @@ export function renderDetail(container, collegeId) {
   }
   main.appendChild(sourcesSection);
 
-  // Footer
   const footer = document.createElement('footer');
   footer.className = 'page-footer';
   footer.innerHTML = `
@@ -235,25 +226,19 @@ export function renderDetail(container, collegeId) {
   window.scrollTo(0, 0);
 }
 
-// ---- OVERVIEW ----
 function buildOverview(college) {
   const frag = document.createDocumentFragment();
   const reports = college.reports;
 
   const offerReports = reports.filter(r => r.ctcOffered);
-  const batchReports = reports.filter(r => r.dataReported && r.dataReported.type === 'batch_stats');
-  const bondReports = reports.filter(r => r.dataReported && r.dataReported.type === 'bond_report');
-
   const personalCount = reports.filter(r => (r.reportType || 'personal') === 'personal').length;
   const aggCount = reports.filter(r => r.reportType === 'aggregate').length;
   const multiCount = reports.filter(r => r.reportType === 'multi_personal').length;
-
   const avgTrust = Math.round(reports.reduce((sum, r) => sum + r.trustScore, 0) / reports.length);
 
   const grid = document.createElement('div');
   grid.className = 'overview-grid';
 
-  // Card 1: Report breakdown by type
   grid.innerHTML += `
     <div class="overview-card">
       <div class="overview-card__title">Report Breakdown</div>
@@ -266,7 +251,6 @@ function buildOverview(college) {
     </div>
   `;
 
-  // Card 2: Average tier
   grid.innerHTML += `
     <div class="overview-card">
       <div class="overview-card__title">Report Credibility</div>
@@ -277,7 +261,6 @@ function buildOverview(college) {
     </div>
   `;
 
-  // Card 3: CTC range
   if (offerReports.length > 0) {
     const ctcValues = offerReports.map(r => parseFloat(r.ctcOffered));
     const minCTC = Math.min(...ctcValues);
@@ -295,7 +278,6 @@ function buildOverview(college) {
     `;
   }
 
-  // Card 4: Companies
   if (offerReports.length > 0) {
     const companies = [...new Set(offerReports.map(r => r.company))];
     grid.innerHTML += `
@@ -308,7 +290,6 @@ function buildOverview(college) {
 
   frag.appendChild(grid);
 
-  // Key findings
   if (reports.length > 0) {
     const findings = document.createElement('div');
     findings.className = 'overview-findings';
@@ -326,10 +307,8 @@ function buildOverview(college) {
   return frag;
 }
 
-// ---- DETAILED REPORTS (accordion + pagination) ----
 function renderDetailedReports(container, reports, page) {
   container.innerHTML = '';
-
   const totalPages = Math.ceil(reports.length / REPORTS_PER_PAGE);
   const start = (page - 1) * REPORTS_PER_PAGE;
   const pageReports = reports.slice(start, start + REPORTS_PER_PAGE);
@@ -342,30 +321,20 @@ function renderDetailedReports(container, reports, page) {
     list.appendChild(card);
   });
 
-  // ACCORDION: only one open at a time
   list.addEventListener('click', (e) => {
     const header = e.target.closest('.report-card__header');
     if (!header) return;
-
     const card = header.closest('.report-card');
     const wasExpanded = card.classList.contains('report-card--expanded');
-
-    // Close all
     list.querySelectorAll('.report-card--expanded').forEach(c => c.classList.remove('report-card--expanded'));
-
-    // Toggle clicked
-    if (!wasExpanded) {
-      card.classList.add('report-card--expanded');
-    }
+    if (!wasExpanded) card.classList.add('report-card--expanded');
   });
 
   container.appendChild(list);
 
-  // Pagination
   if (totalPages > 1) {
     const pag = document.createElement('div');
     pag.className = 'pagination';
-
     const prevBtn = document.createElement('button');
     prevBtn.className = 'pagination__btn';
     prevBtn.textContent = '← Prev';
@@ -392,10 +361,8 @@ function renderDetailedReports(container, reports, page) {
   }
 }
 
-// ---- RECRUITERS (tiles, click to expand) ----
 function buildRecruiters(college) {
   const frag = document.createDocumentFragment();
-
   const companyMap = {};
   college.reports.forEach(r => {
     if (r.company) {
@@ -411,7 +378,6 @@ function buildRecruiters(college) {
   }
 
   const companies = Object.keys(companyMap);
-
   if (companies.length === 0) {
     const empty = document.createElement('p');
     empty.style.cssText = 'color: var(--grey-light); font-style: italic;';
@@ -427,8 +393,6 @@ function buildRecruiters(college) {
     const data = companyMap[company];
     const tile = document.createElement('div');
     tile.className = 'recruiter-tile';
-
-    // Tile header — just company name + logo initial
     tile.innerHTML = `
       <div class="recruiter-tile__header">
         <div class="recruiter-tile__logo">${company.charAt(0)}</div>
@@ -441,7 +405,6 @@ function buildRecruiters(college) {
 
     tile.querySelector('.recruiter-tile__header').addEventListener('click', () => {
       const wasOpen = tile.classList.contains('recruiter-tile--open');
-      // Close others
       grid.querySelectorAll('.recruiter-tile--open').forEach(t => t.classList.remove('recruiter-tile--open'));
       if (!wasOpen) tile.classList.add('recruiter-tile--open');
     });
@@ -455,7 +418,6 @@ function buildRecruiters(college) {
 
 function buildRecruiterBody(data) {
   let html = '';
-
   if (data.offers.length > 0) {
     const offer = data.offers[0];
     html += `<div class="recruiter-detail-grid">`;
@@ -467,7 +429,6 @@ function buildRecruiterBody(data) {
     }
     html += `</div>`;
   }
-
   if (data.questions.length > 0) {
     html += `<div class="recruiter-questions-section">`;
     html += `<div class="recruiter-questions-title">Interview Questions</div>`;
@@ -487,14 +448,11 @@ function buildRecruiterBody(data) {
     });
     html += `</div>`;
   }
-
   return html;
 }
 
-// ---- SCROLL TRACKING ----
 function setupScrollTracking(sidebar, sections) {
   const items = sidebar.querySelectorAll('.detail-index__item');
-
   items.forEach(item => {
     item.addEventListener('click', () => {
       if (item.dataset.section === 'summary') {
@@ -506,10 +464,8 @@ function setupScrollTracking(sidebar, sections) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
-
       const target = document.getElementById(item.dataset.section);
       if (target) {
-        // If scrolling to top section, temporarily hide nav to prevent overlap
         const nav = document.querySelector('.nav');
         if (nav) {
           nav.style.transform = 'translateY(-100%)';

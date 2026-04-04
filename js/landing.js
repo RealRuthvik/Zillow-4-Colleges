@@ -4,15 +4,12 @@
 
 import { COLLEGES } from './data.js';
 import { createCollegeCard, tierBadgeHTML } from './components.js';
+import { navigateTo } from './app.js';
 
-/**
- * Render the full landing page
- */
 export function renderLanding(container) {
   container.innerHTML = '';
   container.className = 'page landing page-enter';
 
-  // -- HERO --
   const hero = document.createElement('section');
   hero.className = 'hero';
   hero.innerHTML = `
@@ -22,13 +19,7 @@ export function renderLanding(container) {
     <p class="hero__subtitle animate-fade-up stagger-2">Stop believing brochures. See real placement data.</p>
     <div class="hero__search-wrap animate-fade-up stagger-3">
       <div class="search-bar" id="search-bar">
-        <input 
-          type="text" 
-          class="search-bar__input" 
-          id="search-input"
-          placeholder="Search colleges..." 
-          autocomplete="off"
-        />
+        <input type="text" class="search-bar__input" id="search-input" placeholder="Search colleges..." autocomplete="off" />
         <span class="search-bar__icon">⌕</span>
       </div>
       <div class="search-dropdown" id="search-dropdown"></div>
@@ -36,7 +27,6 @@ export function renderLanding(container) {
   `;
   container.appendChild(hero);
 
-  // -- RECENTLY SEARCHED SECTION --
   const section = document.createElement('section');
   section.className = 'recently-searched';
   section.innerHTML = `
@@ -52,7 +42,6 @@ export function renderLanding(container) {
   section.appendChild(cardGrid);
   container.appendChild(section);
 
-  // -- FOOTER --
   const footer = document.createElement('footer');
   footer.className = 'page-footer animate-fade-up';
   footer.innerHTML = `
@@ -63,10 +52,8 @@ export function renderLanding(container) {
   `;
   container.appendChild(footer);
 
-  // Render cards (always show all, sorted by search count — never filtered)
   renderCards(cardGrid);
 
-  // Search dropdown handler
   const searchInput = hero.querySelector('#search-input');
   const dropdown = hero.querySelector('#search-dropdown');
 
@@ -80,20 +67,15 @@ export function renderLanding(container) {
     if (query.length > 0) renderDropdown(dropdown, query);
   });
 
-  // Close dropdown on outside click
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.hero__search-wrap')) {
       dropdown.classList.remove('search-dropdown--open');
     }
   });
 
-  // Focus search on page load
   setTimeout(() => searchInput.focus(), 500);
 }
 
-/**
- * Render dropdown results
- */
 function renderDropdown(dropdown, query) {
   if (!query || query.length < 1) {
     dropdown.classList.remove('search-dropdown--open');
@@ -113,7 +95,7 @@ function renderDropdown(dropdown, query) {
         <div class="search-dropdown__empty-icon">NONE</div>
         <div class="search-dropdown__empty-text">No colleges found for "${query}"</div>
         <div class="search-dropdown__empty-cta">
-          Know about this college? <a href="#/submit" class="search-dropdown__submit-link">Submit information</a>
+          Know about this college? <a href="/submit" data-link class="search-dropdown__submit-link">Submit information</a>
         </div>
       </div>
     `;
@@ -135,22 +117,16 @@ function renderDropdown(dropdown, query) {
 
   dropdown.classList.add('search-dropdown--open');
 
-  // Click handlers
   dropdown.querySelectorAll('.search-dropdown__item').forEach(item => {
     item.addEventListener('click', () => {
-      window.location.hash = `#/college/${item.dataset.id}`;
+      navigateTo(`/college/${item.dataset.id}`);
     });
   });
 }
 
-/**
- * Render college cards (always full list, never filtered by search)
- */
 function renderCards(grid) {
   grid.innerHTML = '';
-
   const sorted = [...COLLEGES].sort((a, b) => b.searchCount - a.searchCount);
-
   sorted.forEach((college, i) => {
     const card = createCollegeCard(college, i);
     grid.appendChild(card);

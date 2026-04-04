@@ -4,6 +4,7 @@
 
 import { COLLEGES } from './data.js';
 import { getTier, tierBadgeHTML } from './components.js';
+import { navigateTo } from './app.js';
 
 let sortField = 'trustScore';
 let sortDir = 'desc';
@@ -58,11 +59,8 @@ export function renderExplore(container) {
 
 function getSortLabel(field) {
   const labels = {
-    trustScore: 'Trust Score',
-    reportedMedian: 'Reported Median',
-    claimedCTC: 'Claimed CTC',
-    name: 'Name',
-    searchCount: 'Popularity',
+    trustScore: 'Trust Score', reportedMedian: 'Reported Median',
+    claimedCTC: 'Claimed CTC', name: 'Name', searchCount: 'Popularity',
   };
   return labels[field] || field;
 }
@@ -93,12 +91,9 @@ function renderTable(wrap) {
   });
 
   const columns = [
-    { id: 'name', label: 'College' },
-    { id: 'trustScore', label: 'Tier' },
-    { id: 'reportedMedian', label: 'Median CTC' },
-    { id: 'claimedCTC', label: 'Advertised' },
-    { id: 'searchCount', label: 'Searches' },
-    { id: 'bond', label: 'Bond', sortable: false },
+    { id: 'name', label: 'College' }, { id: 'trustScore', label: 'Tier' },
+    { id: 'reportedMedian', label: 'Median CTC' }, { id: 'claimedCTC', label: 'Advertised' },
+    { id: 'searchCount', label: 'Searches' }, { id: 'bond', label: 'Bond', sortable: false },
     { id: 'reports', label: 'Reports', sortable: false },
   ];
 
@@ -163,7 +158,7 @@ function renderTable(wrap) {
 
   wrap.querySelectorAll('tr[data-id]').forEach(row => {
     row.addEventListener('click', () => {
-      window.location.hash = `#/college/${row.dataset.id}`;
+      navigateTo(`/college/${row.dataset.id}`);
     });
   });
 }

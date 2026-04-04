@@ -18,21 +18,18 @@ export function renderMethodology(container) {
     </div>
 
     <div class="methodology-layout">
-      <!-- SIDEBAR NAV -->
       <nav class="methodology-nav">
-        <a class="methodology-nav__item methodology-nav__item--active" href="#/methodology#tiers" data-section="tiers">Tier System</a>
-        <a class="methodology-nav__item" href="#/methodology#trust-score" data-section="trust-score">Trust Scores</a>
-        <a class="methodology-nav__item" href="#/methodology#data-sources" data-section="data-sources">Data Sources</a>
-        <a class="methodology-nav__item" href="#/methodology#verification" data-section="verification">Verification</a>
-        <a class="methodology-nav__item" href="#/methodology#calculations" data-section="calculations">Calculations</a>
-        <a class="methodology-nav__item" href="#/methodology#reporting" data-section="reporting">Report Types</a>
-        <a class="methodology-nav__item" href="#/methodology#disclaimer" data-section="disclaimer">Disclaimer</a>
+        <a class="methodology-nav__item methodology-nav__item--active" href="/methodology#tiers" data-link data-section="tiers">Tier System</a>
+        <a class="methodology-nav__item" href="/methodology#trust-score" data-link data-section="trust-score">Trust Scores</a>
+        <a class="methodology-nav__item" href="/methodology#data-sources" data-link data-section="data-sources">Data Sources</a>
+        <a class="methodology-nav__item" href="/methodology#verification" data-link data-section="verification">Verification</a>
+        <a class="methodology-nav__item" href="/methodology#calculations" data-link data-section="calculations">Calculations</a>
+        <a class="methodology-nav__item" href="/methodology#reporting" data-link data-section="reporting">Report Types</a>
+        <a class="methodology-nav__item" href="/methodology#disclaimer" data-link data-section="disclaimer">Disclaimer</a>
       </nav>
 
-      <!-- CONTENT -->
       <div class="methodology-content">
 
-        <!-- TIERS -->
         <section class="methodology-section" id="tiers">
           <h2 class="methodology-section__title">The Tier System</h2>
           <p class="methodology-section__intro">Every college on CollegeExposed is assigned a tier based on its Trust Score. This score reflects data accuracy, transparency, and student-reported alignment with advertised claims.</p>
@@ -93,7 +90,6 @@ export function renderMethodology(container) {
           </div>
         </section>
 
-        <!-- TRUST SCORE -->
         <section class="methodology-section" id="trust-score">
           <h2 class="methodology-section__title">Trust Score Calculation</h2>
           <p class="methodology-section__intro">The Trust Score (0-100) for each college is determined by comparing advertised placement data against student-reported data across multiple dimensions.</p>
@@ -137,7 +133,6 @@ export function renderMethodology(container) {
           </div>
         </section>
 
-        <!-- DATA SOURCES -->
         <section class="methodology-section" id="data-sources">
           <h2 class="methodology-section__title">Data Sources</h2>
           <p class="methodology-section__intro">CollegeExposed aggregates data from multiple sources to build each college's profile.</p>
@@ -166,7 +161,6 @@ export function renderMethodology(container) {
           </div>
         </section>
 
-        <!-- VERIFICATION -->
         <section class="methodology-section" id="verification">
           <h2 class="methodology-section__title">Verification Process</h2>
           <p class="methodology-section__intro">Reports can be either Verified or Unverified. Here's how the verification works.</p>
@@ -196,7 +190,6 @@ export function renderMethodology(container) {
           </div>
         </section>
 
-        <!-- CALCULATIONS -->
         <section class="methodology-section" id="calculations">
           <h2 class="methodology-section__title">How Numbers Are Calculated</h2>
           <p class="methodology-section__intro">All aggregate numbers shown on college profiles are derived directly from student reports.</p>
@@ -221,7 +214,6 @@ export function renderMethodology(container) {
           </div>
         </section>
 
-        <!-- REPORTING -->
         <section class="methodology-section" id="reporting">
           <h2 class="methodology-section__title">Report Types</h2>
           <p class="methodology-section__intro">CollegeExposed accepts three distinct types of student reports.</p>
@@ -245,7 +237,6 @@ export function renderMethodology(container) {
           </div>
         </section>
 
-        <!-- DISCLAIMER -->
         <section class="methodology-section" id="disclaimer">
           <h2 class="methodology-section__title">Disclaimer</h2>
           <div class="methodology-disclaimer">
@@ -263,7 +254,6 @@ export function renderMethodology(container) {
 
   container.appendChild(page);
 
-  // --- Scroll to section if hash includes an anchor ---
   setTimeout(() => {
     const hash = window.location.hash;
     const anchor = hash.includes('#') ? hash.split('#').pop() : null;
@@ -275,7 +265,6 @@ export function renderMethodology(container) {
     }
   }, 100);
 
-  // --- Sidebar scroll tracking ---
   const navItems = page.querySelectorAll('.methodology-nav__item');
   navItems.forEach(item => {
     item.addEventListener('click', (e) => {

@@ -5,6 +5,7 @@
 
 import { COLLEGES } from './data.js';
 import { getTier, tierBadgeHTML } from './components.js';
+import { navigateTo } from './app.js';
 
 const ADMIN_PASSWORD = 'expose2024';
 let isAuthenticated = false;
@@ -71,6 +72,7 @@ function renderDashboard(container) {
       <p class="admin-header__sub">${COLLEGES.length} colleges in database</p>
     </div>
     <div class="admin-header__actions">
+      <button class="admin-btn admin-btn--primary" id="admin-export-data">EXPORT JSON</button>
       <button class="admin-btn admin-btn--primary" id="admin-add-college">+ ADD COLLEGE</button>
       <button class="admin-btn admin-btn--ghost" id="admin-logout">LOGOUT</button>
     </div>
@@ -98,7 +100,17 @@ function renderDashboard(container) {
   });
   header.querySelector('#admin-logout').addEventListener('click', () => {
     isAuthenticated = false;
-    window.location.hash = '#/';
+    navigateTo('/');
+  });
+  header.querySelector('#admin-export-data').addEventListener('click', () => {
+    const dataStr = "const COLLEGES = " + JSON.stringify(COLLEGES, null, 2) + ";\n\nfunction getAllPlacementQuestions() {\n  const all = [];\n  COLLEGES.forEach(college => {\n    if (college.placementQuestions) {\n      college.placementQuestions.forEach(pq => {\n        all.push({ ...pq, collegeId: college.id, collegeName: college.shortName });\n      });\n    }\n  });\n  return all;\n}\n\nexport { COLLEGES, getAllPlacementQuestions };";
+    const blob = new Blob([dataStr], { type: 'text/javascript' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.js';
+    a.click();
+    URL.revokeObjectURL(url);
   });
 }
 
@@ -137,7 +149,6 @@ function renderCollegeList(list) {
     }).join('')}
   `;
 
-  // Edit buttons
   list.querySelectorAll('[data-edit]').forEach(btn => {
     btn.addEventListener('click', () => {
       const college = COLLEGES.find(c => c.id === btn.dataset.edit);
@@ -148,7 +159,6 @@ function renderCollegeList(list) {
     });
   });
 
-  // Delete buttons
   list.querySelectorAll('[data-delete]').forEach(btn => {
     btn.addEventListener('click', () => {
       if (confirm(`Delete college "${btn.dataset.delete}"? This cannot be undone.`)) {
@@ -157,7 +167,6 @@ function renderCollegeList(list) {
           COLLEGES.splice(idx, 1);
           renderCollegeList(list);
           document.getElementById('admin-editor').innerHTML = '';
-          // Update header count
           const sub = document.querySelector('.admin-header__sub');
           if (sub) sub.textContent = `${COLLEGES.length} colleges in database`;
         }
@@ -170,24 +179,10 @@ function renderCollegeList(list) {
 function renderEditor(editorEl, college) {
   const isNew = !college;
   const c = college || {
-    id: '',
-    name: '',
-    shortName: '',
-    location: '',
-    type: 'Private University',
-    trustScore: 50,
-    hasHiddenBond: false,
-    bondDetails: '',
-    searchCount: 0,
-    summary: {
-      claimedCTC: '', reportedMedian: '', reportedAverage: '',
-      reportedLowest: '', reportedHighest: '', totalReports: 0,
-      topRecruiters: [], placementRate: '', batchSize: ''
-    },
-    onlineSources: [],
-    reports: [],
-    placementQuestions: [],
-    tags: []
+    id: '', name: '', shortName: '', location: '', type: 'Private University',
+    trustScore: 50, hasHiddenBond: false, bondDetails: '', searchCount: 0,
+    summary: { claimedCTC: '', reportedMedian: '', reportedAverage: '', reportedLowest: '', reportedHighest: '', totalReports: 0, topRecruiters: [], placementRate: '', batchSize: '' },
+    onlineSources: [], reports: [], placementQuestions: [], tags: []
   };
 
   const allTags = ['Bond Alert', 'CTC Inflated', 'No Bonds', 'Mass Recruiter Heavy', 'Verified Base CTC', 'High Fees', 'Branch Dependent', 'Mega Batch Size', 'Marketing Heavy', 'BPO Heavy', 'Self-Placements', 'Forced Internship', 'Location Advantage', 'Brand Premium', 'Outlier Driven Stats', 'Extra Fees', 'Overcrowded', 'Elite Tier'];
@@ -199,7 +194,6 @@ function renderEditor(editorEl, college) {
     </div>
 
     <div class="admin-editor__body">
-      <!-- SECTION: Basic Info -->
       <div class="admin-section">
         <div class="admin-section__title">Basic Information</div>
         <div class="admin-form-grid">
@@ -236,7 +230,6 @@ function renderEditor(editorEl, college) {
         </div>
       </div>
 
-      <!-- SECTION: Bond -->
       <div class="admin-section">
         <div class="admin-section__title">Bond Information</div>
         <div class="admin-form-grid">
@@ -253,50 +246,21 @@ function renderEditor(editorEl, college) {
         </div>
       </div>
 
-      <!-- SECTION: Summary Stats -->
       <div class="admin-section">
         <div class="admin-section__title">Placement Summary</div>
         <div class="admin-form-grid">
-          <div class="admin-field">
-            <label>Advertised CTC</label>
-            <input type="text" id="ed-claimedCTC" value="${c.summary.claimedCTC}" placeholder="e.g. 12.5 LPA" />
-          </div>
-          <div class="admin-field">
-            <label>Reported Median</label>
-            <input type="text" id="ed-reportedMedian" value="${c.summary.reportedMedian}" placeholder="e.g. 3.6 LPA" />
-          </div>
-          <div class="admin-field">
-            <label>Reported Average</label>
-            <input type="text" id="ed-reportedAverage" value="${c.summary.reportedAverage}" placeholder="e.g. 4.1 LPA" />
-          </div>
-          <div class="admin-field">
-            <label>Reported Lowest</label>
-            <input type="text" id="ed-reportedLowest" value="${c.summary.reportedLowest}" />
-          </div>
-          <div class="admin-field">
-            <label>Reported Highest</label>
-            <input type="text" id="ed-reportedHighest" value="${c.summary.reportedHighest}" />
-          </div>
-          <div class="admin-field">
-            <label>Total Reports</label>
-            <input type="number" id="ed-totalReports" value="${c.summary.totalReports}" min="0" />
-          </div>
-          <div class="admin-field">
-            <label>Placement Rate</label>
-            <input type="text" id="ed-placementRate" value="${c.summary.placementRate}" placeholder="e.g. 72%" />
-          </div>
-          <div class="admin-field">
-            <label>Batch Size</label>
-            <input type="text" id="ed-batchSize" value="${c.summary.batchSize}" placeholder="e.g. ~8,000" />
-          </div>
-          <div class="admin-field admin-field--full">
-            <label>Top Recruiters (comma-separated)</label>
-            <input type="text" id="ed-topRecruiters" value="${(c.summary.topRecruiters || []).join(', ')}" placeholder="e.g. TCS, Infosys, Wipro" />
-          </div>
+          <div class="admin-field"><label>Advertised CTC</label><input type="text" id="ed-claimedCTC" value="${c.summary.claimedCTC}" /></div>
+          <div class="admin-field"><label>Reported Median</label><input type="text" id="ed-reportedMedian" value="${c.summary.reportedMedian}" /></div>
+          <div class="admin-field"><label>Reported Average</label><input type="text" id="ed-reportedAverage" value="${c.summary.reportedAverage}" /></div>
+          <div class="admin-field"><label>Reported Lowest</label><input type="text" id="ed-reportedLowest" value="${c.summary.reportedLowest}" /></div>
+          <div class="admin-field"><label>Reported Highest</label><input type="text" id="ed-reportedHighest" value="${c.summary.reportedHighest}" /></div>
+          <div class="admin-field"><label>Total Reports</label><input type="number" id="ed-totalReports" value="${c.summary.totalReports}" min="0" /></div>
+          <div class="admin-field"><label>Placement Rate</label><input type="text" id="ed-placementRate" value="${c.summary.placementRate}" /></div>
+          <div class="admin-field"><label>Batch Size</label><input type="text" id="ed-batchSize" value="${c.summary.batchSize}" /></div>
+          <div class="admin-field admin-field--full"><label>Top Recruiters (comma-separated)</label><input type="text" id="ed-topRecruiters" value="${(c.summary.topRecruiters || []).join(', ')}" /></div>
         </div>
       </div>
 
-      <!-- SECTION: Tags -->
       <div class="admin-section">
         <div class="admin-section__title">Tags</div>
         <div class="admin-tags-grid" id="ed-tags">
@@ -309,7 +273,6 @@ function renderEditor(editorEl, college) {
         </div>
       </div>
 
-      <!-- SECTION: Reports -->
       <div class="admin-section">
         <div class="admin-section__title">
           Student Reports (${c.reports.length})
@@ -320,7 +283,6 @@ function renderEditor(editorEl, college) {
         </div>
       </div>
 
-      <!-- SECTION: Online Sources -->
       <div class="admin-section">
         <div class="admin-section__title">
           Online Sources (${c.onlineSources.length})
@@ -331,7 +293,6 @@ function renderEditor(editorEl, college) {
         </div>
       </div>
 
-      <!-- SECTION: Placement Questions -->
       <div class="admin-section">
         <div class="admin-section__title">
           Placement Questions (${c.placementQuestions.length})
@@ -349,49 +310,39 @@ function renderEditor(editorEl, college) {
     </div>
   `;
 
-  // Close / Cancel
   editorEl.querySelector('#editor-close').addEventListener('click', () => { editorEl.innerHTML = ''; });
   editorEl.querySelector('#ed-cancel').addEventListener('click', () => { editorEl.innerHTML = ''; });
 
-  // Add report
   editorEl.querySelector('#ed-add-report').addEventListener('click', () => {
     const listEl = editorEl.querySelector('#ed-reports-list');
     const count = listEl.querySelectorAll('.admin-report-item').length;
     listEl.insertAdjacentHTML('beforeend', renderReportRow({
-      id: `r${count + 1}`, author: `Anonymous #${count + 1}`, batch: '2024', branch: 'CSE',
-      timestamp: 'Just now', trustScore: 50, upvotes: 0, reportType: 'personal',
-      company: '', role: '', ctcOffered: '', ctcBreakdown: null, comment: '',
-      dataReported: { type: 'individual_offer' }
+      id: `r${count + 1}`, author: `Anonymous #${count + 1}`, batch: '2024', branch: 'CSE', timestamp: 'Just now', trustScore: 50, upvotes: 0, reportType: 'personal', company: '', role: '', ctcOffered: '', ctcBreakdown: null, comment: '', dataReported: { type: 'individual_offer' }
     }, count));
   });
 
-  // Add source
   editorEl.querySelector('#ed-add-source').addEventListener('click', () => {
     const listEl = editorEl.querySelector('#ed-sources-list');
     const count = listEl.querySelectorAll('.admin-source-item').length;
     listEl.insertAdjacentHTML('beforeend', renderSourceRow({ name: '', trustLevel: 'Medium', finding: '' }, count));
   });
 
-  // Add PQ
   editorEl.querySelector('#ed-add-pq').addEventListener('click', () => {
     const listEl = editorEl.querySelector('#ed-pq-list');
     const count = listEl.querySelectorAll('.admin-pq-item').length;
     listEl.insertAdjacentHTML('beforeend', renderPQRow({ company: '', role: '', year: 2024, date: '', questions: [], difficulty: 'Easy' }, count));
   });
 
-  // SAVE
   editorEl.querySelector('#ed-save').addEventListener('click', () => {
     saveCollege(editorEl, c, isNew);
   });
 }
 
-// ---- RENDER ROWS ----
 function renderReportRow(r, i) {
   return `
     <div class="admin-report-item admin-sub-card" data-index="${i}">
       <div class="admin-sub-card__header">
         <span class="admin-sub-card__label">${r.author} · ${r.batch} ${r.branch}</span>
-        <button class="admin-btn admin-btn--sm admin-btn--danger admin-remove-row" data-target="report" data-idx="${i}">✕</button>
       </div>
       <div class="admin-form-grid admin-form-grid--compact">
         <div class="admin-field"><label>Author</label><input type="text" class="rpt-author" value="${r.author}" /></div>
@@ -420,7 +371,6 @@ function renderSourceRow(s, i) {
     <div class="admin-source-item admin-sub-card" data-index="${i}">
       <div class="admin-sub-card__header">
         <span class="admin-sub-card__label">${s.name || 'New Source'}</span>
-        <button class="admin-btn admin-btn--sm admin-btn--danger admin-remove-row">✕</button>
       </div>
       <div class="admin-form-grid admin-form-grid--compact">
         <div class="admin-field"><label>Source Name</label><input type="text" class="src-name" value="${s.name}" /></div>
@@ -444,7 +394,6 @@ function renderPQRow(pq, i) {
     <div class="admin-pq-item admin-sub-card" data-index="${i}">
       <div class="admin-sub-card__header">
         <span class="admin-sub-card__label">${pq.company || 'New'} · ${pq.role || 'Role'}</span>
-        <button class="admin-btn admin-btn--sm admin-btn--danger admin-remove-row">✕</button>
       </div>
       <div class="admin-form-grid admin-form-grid--compact">
         <div class="admin-field"><label>Company</label><input type="text" class="pq-company" value="${pq.company}" /></div>
@@ -463,7 +412,6 @@ function renderPQRow(pq, i) {
   `;
 }
 
-// ---- SAVE ----
 function saveCollege(editorEl, original, isNew) {
   const id = editorEl.querySelector('#ed-id').value.trim();
   const name = editorEl.querySelector('#ed-name').value.trim();
@@ -473,16 +421,11 @@ function saveCollege(editorEl, original, isNew) {
     return;
   }
 
-  // Build college object
   const college = {
-    id: id,
-    name: name,
-    shortName: editorEl.querySelector('#ed-shortName').value.trim() || name,
-    location: editorEl.querySelector('#ed-location').value.trim(),
-    type: editorEl.querySelector('#ed-type').value,
+    id: id, name: name, shortName: editorEl.querySelector('#ed-shortName').value.trim() || name,
+    location: editorEl.querySelector('#ed-location').value.trim(), type: editorEl.querySelector('#ed-type').value,
     trustScore: parseInt(editorEl.querySelector('#ed-trustScore').value) || 50,
-    hasHiddenBond: editorEl.querySelector('#ed-hasBond').checked,
-    bondDetails: editorEl.querySelector('#ed-bondDetails').value.trim(),
+    hasHiddenBond: editorEl.querySelector('#ed-hasBond').checked, bondDetails: editorEl.querySelector('#ed-bondDetails').value.trim(),
     searchCount: parseInt(editorEl.querySelector('#ed-searchCount').value) || 0,
     summary: {
       claimedCTC: editorEl.querySelector('#ed-claimedCTC').value.trim(),
@@ -495,10 +438,8 @@ function saveCollege(editorEl, original, isNew) {
       placementRate: editorEl.querySelector('#ed-placementRate').value.trim(),
       batchSize: editorEl.querySelector('#ed-batchSize').value.trim()
     },
-    onlineSources: collectSources(editorEl),
-    reports: collectReports(editorEl),
-    placementQuestions: collectPQs(editorEl),
-    tags: collectTags(editorEl)
+    onlineSources: collectSources(editorEl), reports: collectReports(editorEl),
+    placementQuestions: collectPQs(editorEl), tags: collectTags(editorEl)
   };
 
   if (isNew) {
@@ -508,7 +449,6 @@ function saveCollege(editorEl, original, isNew) {
     if (idx !== -1) COLLEGES[idx] = college;
   }
 
-  // Refresh
   editorEl.innerHTML = '';
   const listEl = document.getElementById('admin-college-list');
   if (listEl) renderCollegeList(listEl);
@@ -518,44 +458,27 @@ function saveCollege(editorEl, original, isNew) {
   alert(isNew ? 'College created!' : 'Changes saved!');
 }
 
-function collectTags(el) {
-  return [...el.querySelectorAll('#ed-tags input:checked')].map(cb => cb.value);
-}
-
+function collectTags(el) { return [...el.querySelectorAll('#ed-tags input:checked')].map(cb => cb.value); }
 function collectReports(el) {
   return [...el.querySelectorAll('.admin-report-item')].map(item => ({
-    id: `r${Math.random().toString(36).substr(2, 5)}`,
-    author: item.querySelector('.rpt-author').value,
-    batch: item.querySelector('.rpt-batch').value,
-    branch: item.querySelector('.rpt-branch').value,
-    timestamp: 'Recently',
-    trustScore: parseInt(item.querySelector('.rpt-trust').value) || 50,
-    upvotes: 0,
-    reportType: item.querySelector('.rpt-type').value,
-    company: item.querySelector('.rpt-company').value || null,
-    role: item.querySelector('.rpt-role').value || null,
-    ctcOffered: item.querySelector('.rpt-ctc').value || null,
-    ctcBreakdown: null,
-    comment: item.querySelector('.rpt-comment').value,
-    dataReported: { type: 'individual_offer' }
+    id: `r${Math.random().toString(36).substr(2, 5)}`, author: item.querySelector('.rpt-author').value,
+    batch: item.querySelector('.rpt-batch').value, branch: item.querySelector('.rpt-branch').value,
+    timestamp: 'Recently', trustScore: parseInt(item.querySelector('.rpt-trust').value) || 50,
+    upvotes: 0, reportType: item.querySelector('.rpt-type').value,
+    company: item.querySelector('.rpt-company').value || null, role: item.querySelector('.rpt-role').value || null,
+    ctcOffered: item.querySelector('.rpt-ctc').value || null, ctcBreakdown: null,
+    comment: item.querySelector('.rpt-comment').value, dataReported: { type: 'individual_offer' }
   }));
 }
-
 function collectSources(el) {
   return [...el.querySelectorAll('.admin-source-item')].map(item => ({
-    name: item.querySelector('.src-name').value,
-    trustLevel: item.querySelector('.src-trust').value,
-    finding: item.querySelector('.src-finding').value
+    name: item.querySelector('.src-name').value, trustLevel: item.querySelector('.src-trust').value, finding: item.querySelector('.src-finding').value
   }));
 }
-
 function collectPQs(el) {
   return [...el.querySelectorAll('.admin-pq-item')].map(item => ({
-    company: item.querySelector('.pq-company').value,
-    role: item.querySelector('.pq-role').value,
-    year: parseInt(item.querySelector('.pq-year').value) || 2024,
-    date: item.querySelector('.pq-date').value,
-    questions: item.querySelector('.pq-questions').value.split('\n').filter(Boolean),
-    difficulty: item.querySelector('.pq-difficulty').value
+    company: item.querySelector('.pq-company').value, role: item.querySelector('.pq-role').value,
+    year: parseInt(item.querySelector('.pq-year').value) || 2024, date: item.querySelector('.pq-date').value,
+    questions: item.querySelector('.pq-questions').value.split('\n').filter(Boolean), difficulty: item.querySelector('.pq-difficulty').value
   }));
 }

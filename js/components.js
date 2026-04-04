@@ -3,9 +3,8 @@
 // Tier system, accordion cards, 3 report types
 // ========================================
 
-/**
- * Score → Tier mapping
- */
+import { navigateTo } from './app.js';
+
 export function getTier(score) {
   if (score >= 80) return { letter: 'S', color: 'var(--tier-s)', label: 'Elite' };
   if (score >= 65) return { letter: 'A', color: 'var(--tier-a)', label: 'Great' };
@@ -15,16 +14,10 @@ export function getTier(score) {
   return { letter: 'F', color: 'var(--tier-f)', label: 'Avoid' };
 }
 
-/**
- * Get trust color (legacy compat)
- */
 export function getTrustColor(score) {
   return getTier(score).color;
 }
 
-/**
- * Create tier badge HTML (shows tier letter, hover shows score)
- */
 export function tierBadgeHTML(score, size = 'md') {
   const tier = getTier(score);
   const sizeClass = `tier-badge--${size}`;
@@ -34,9 +27,6 @@ export function tierBadgeHTML(score, size = 'md') {
   </span>`;
 }
 
-/**
- * Format string "12.5 LPA" to full indian currency "₹12,50,000"
- */
 export function formatFullCTC(ctcStr) {
   if (!ctcStr || typeof ctcStr !== 'string') return null;
   const matchLPA = ctcStr.match(/([\d\.]+)\s*LPA/i);
@@ -54,9 +44,6 @@ export function formatFullCTC(ctcStr) {
   return '₹' + num.toLocaleString('en-IN');
 }
 
-/**
- * Renders CTC value elegantly.
- */
 export function renderDetailedCTC(ctcStr) {
   const full = formatFullCTC(ctcStr);
   if (!full) return ctcStr;
@@ -67,9 +54,6 @@ export function renderDetailedCTC(ctcStr) {
   </div>`;
 }
 
-/**
- * Get report type info
- */
 function getReportTypeInfo(report) {
   if (report.reportType === 'aggregate') {
     return { label: 'Aggregate', icon: '', class: 'report-type--aggregate', desc: 'Based on batch-wide observation' };
@@ -77,13 +61,9 @@ function getReportTypeInfo(report) {
   if (report.reportType === 'multi_personal') {
     return { label: 'Multi-Personal', icon: '', class: 'report-type--multi', desc: 'Reporting for multiple students' };
   }
-  // Default: personal
   return { label: 'Personal', icon: '', class: 'report-type--personal', desc: 'Individual experience' };
 }
 
-/**
- * Create a college card element (landing page)
- */
 export function createCollegeCard(college, index = 0) {
   const card = document.createElement('div');
   card.className = `college-card animate-fade-up stagger-${Math.min(index + 1, 12)}`;
@@ -121,15 +101,12 @@ export function createCollegeCard(college, index = 0) {
   `;
 
   card.addEventListener('click', () => {
-    window.location.hash = `#/college/${college.id}`;
+    navigateTo(`/college/${college.id}`);
   });
 
   return card;
 }
 
-/**
- * Create a collapsible report card — accordion managed externally
- */
 export function createReportCard(report, index = 0) {
   const card = document.createElement('div');
   card.className = `report-card animate-fade-up stagger-${Math.min(index + 1, 12)}`;
@@ -138,22 +115,14 @@ export function createReportCard(report, index = 0) {
   const tier = getTier(report.trustScore);
   const typeInfo = getReportTypeInfo(report);
 
-  // Compressed header tags
   let headerTags = `<span class="report-card__type-tag ${typeInfo.class}">${typeInfo.label}</span>`;
-  if (report.company) {
-    headerTags += `<span class="report-card__tag report-card__tag--company">${report.company}</span>`;
-  }
-  if (report.ctcOffered) {
-    headerTags += `<span class="report-card__tag">${report.ctcOffered}</span>`;
-  }
+  if (report.company) headerTags += `<span class="report-card__tag report-card__tag--company">${report.company}</span>`;
+  if (report.ctcOffered) headerTags += `<span class="report-card__tag">${report.ctcOffered}</span>`;
 
   let bodyHTML = `<p class="report-card__comment">${report.comment}</p>`;
 
-  // Offer details (Personal / Multi-Personal)
   if (report.ctcOffered) {
     bodyHTML += `<div class="report-card__section-label">INDIVIDUAL EXPERIENCE</div>`;
-
-    // Breakdown logic
     let breakdownHTML = '';
     if (report.ctcBreakdown) {
       const b = report.ctcBreakdown;
@@ -165,7 +134,6 @@ export function createReportCard(report, index = 0) {
       ].filter(([, v]) => v && v !== '—');
 
       let otherHTML = b.other && b.other !== '—' ? `<div class="report-card__breakdown-other">+ ${b.other}</div>` : '';
-
       breakdownHTML = `
         <details class="report-card__breakdown-details">
           <summary class="report-card__breakdown-summary">CTC Breakdown</summary>
@@ -195,7 +163,6 @@ export function createReportCard(report, index = 0) {
     `;
   }
 
-  // Data badges (Aggregate / Multi-Personal batch data)
   if (report.dataReported) {
     const d = report.dataReported;
     bodyHTML += `<div class="report-card__section-label">BATCH REPORTING</div>`;
@@ -232,7 +199,6 @@ export function createReportCard(report, index = 0) {
     }
   }
 
-  // Verified / Unverified badge
   const isVerified = report.trustScore >= 65;
   const verificationMethod = report.verificationMethod || (isVerified ? 'Cross-verified with multiple sources' : null);
   const verifyBadgeHTML = isVerified
@@ -259,9 +225,6 @@ export function createReportCard(report, index = 0) {
   return card;
 }
 
-/**
- * Create source card
- */
 export function createSourceCard(source) {
   const el = document.createElement('div');
   el.className = 'source-card';
@@ -275,13 +238,9 @@ export function createSourceCard(source) {
   return el;
 }
 
-/**
- * Create placement question card
- */
 export function createPQCard(pq, collegeName, index = 0) {
   const card = document.createElement('div');
   card.className = `pq-card animate-fade-up stagger-${Math.min(index + 1, 12)}`;
-
   const diffClass = pq.difficulty.replace(/\s/g, '-');
 
   card.innerHTML = `

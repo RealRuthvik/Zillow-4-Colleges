@@ -21,7 +21,6 @@ export function renderSubmit(container) {
     </div>
 
     <div class="submit-layout">
-      <!-- LEFT: Trust info -->
       <aside class="submit-trust">
         <div class="submit-trust__card">
           <div class="submit-trust__icon">ANON</div>
@@ -50,10 +49,8 @@ export function renderSubmit(container) {
         </div>
       </aside>
 
-      <!-- RIGHT: Form -->
       <div class="submit-form-wrap">
         <form class="submit-form" id="submit-form">
-          <!-- Step indicator -->
           <div class="submit-steps">
             <div class="submit-step submit-step--active" data-step="1">
               <span class="submit-step__num">1</span>
@@ -71,7 +68,6 @@ export function renderSubmit(container) {
             </div>
           </div>
 
-          <!-- STEP 1: College & Type -->
           <div class="submit-panel submit-panel--active" id="step-1">
             <h2 class="submit-panel__title">Select Your College</h2>
 
@@ -134,11 +130,9 @@ export function renderSubmit(container) {
             </button>
           </div>
 
-          <!-- STEP 2: Data Entry -->
           <div class="submit-panel" id="step-2">
             <h2 class="submit-panel__title">Share the Data</h2>
 
-            <!-- Personal fields -->
             <div class="submit-group" id="personal-fields">
               <div class="submit-field-row">
                 <div class="submit-field">
@@ -174,7 +168,6 @@ export function renderSubmit(container) {
               </div>
             </div>
 
-            <!-- Aggregate fields -->
             <div class="submit-group" id="aggregate-fields" style="display:none;">
               <div class="submit-field-row">
                 <div class="submit-field">
@@ -198,7 +191,6 @@ export function renderSubmit(container) {
               </div>
             </div>
 
-            <!-- Question fields -->
             <div class="submit-group" id="question-fields" style="display:none;">
               <div class="submit-field-row">
                 <div class="submit-field">
@@ -226,7 +218,6 @@ export function renderSubmit(container) {
               </div>
             </div>
 
-            <!-- Common: Comment -->
             <div class="submit-field">
               <label class="submit-field__label">Your Comment / Experience</label>
               <textarea class="submit-field__textarea" id="submit-comment" rows="4" placeholder="Share your honest experience. This will be shown anonymously."></textarea>
@@ -238,13 +229,11 @@ export function renderSubmit(container) {
             </div>
           </div>
 
-          <!-- STEP 3: Review -->
           <div class="submit-panel" id="step-3">
             <h2 class="submit-panel__title">Review & Submit</h2>
 
             <div class="submit-review" id="submit-review">
-              <!-- Filled dynamically -->
-            </div>
+              </div>
 
             <div class="submit-disclaimer">
               <p>By submitting, you confirm this is truthful information to the best of your knowledge. All data is anonymous and will be reviewed before being published.</p>
@@ -258,14 +247,13 @@ export function renderSubmit(container) {
             </div>
           </div>
 
-          <!-- SUCCESS state -->
           <div class="submit-panel" id="step-success" style="display:none;">
             <div class="submit-success">
               <div class="submit-success__icon">✓</div>
               <h2 class="submit-success__title">Report Submitted!</h2>
               <p class="submit-success__text">Thank you for helping the community. Your submission will be reviewed and added to the database.</p>
               <div class="submit-success__actions">
-                <a href="#/" class="submit-btn submit-btn--next">Go Home</a>
+                <a href="/" data-link class="submit-btn submit-btn--next">Go Home</a>
                 <button type="button" class="submit-btn submit-btn--back" id="btn-another">Submit Another</button>
               </div>
             </div>
@@ -277,7 +265,6 @@ export function renderSubmit(container) {
 
   container.appendChild(page);
 
-  // --- Interactivity ---
   const steps = page.querySelectorAll('.submit-step');
   const panels = page.querySelectorAll('.submit-panel');
   const typeCards = page.querySelectorAll('.submit-type-card');
@@ -302,7 +289,6 @@ export function renderSubmit(container) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Type selection
   typeCards.forEach(card => {
     card.addEventListener('click', () => {
       typeCards.forEach(c => c.classList.remove('submit-type-card--active'));
@@ -316,12 +302,10 @@ export function renderSubmit(container) {
     });
   });
 
-  // College "other" toggle
   collegeSelect.addEventListener('change', () => {
     otherField.style.display = collegeSelect.value === '__other' ? '' : 'none';
   });
 
-  // Navigation
   page.querySelector('#btn-next-1').addEventListener('click', () => {
     if (!collegeSelect.value) {
       collegeSelect.focus();
@@ -334,7 +318,6 @@ export function renderSubmit(container) {
   page.querySelector('#btn-back-2').addEventListener('click', () => goToStep(1));
 
   page.querySelector('#btn-next-2').addEventListener('click', () => {
-    // Build review summary
     const collegeName = collegeSelect.value === '__other'
       ? (page.querySelector('#submit-other-name').value || 'New College')
       : (collegeSelect.options[collegeSelect.selectedIndex]?.text || '');
@@ -373,7 +356,6 @@ export function renderSubmit(container) {
 
   page.querySelector('#btn-back-3').addEventListener('click', () => goToStep(2));
 
-  // Submit
   page.querySelector('#submit-form').addEventListener('submit', (e) => {
     e.preventDefault();
     panels.forEach(p => { p.classList.remove('submit-panel--active'); p.style.display = 'none'; });
@@ -383,7 +365,6 @@ export function renderSubmit(container) {
     success.classList.add('submit-panel--active');
   });
 
-  // Submit another
   page.querySelector('#btn-another')?.addEventListener('click', () => {
     renderSubmit(container);
   });
