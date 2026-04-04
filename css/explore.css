@@ -177,7 +177,6 @@
   min-width: 28px;
 }
 
-/* CTC cells */
 .explore-ctc-actual {
   font-family: var(--font-sub);
   font-size: 16px;
@@ -186,31 +185,23 @@
 }
 
 .explore-ctc-claimed {
-  font-size: 13px;
-  color: var(--grey-light);
-  text-decoration: line-through;
-  text-decoration-color: var(--red);
-}
-
-/* Bond status */
-.explore-bond {
-  font-family: var(--font-sub);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 10px;
   display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--grey-light);
+  letter-spacing: 1px;
+  position: relative;
+  text-decoration: none;
 }
 
-.explore-bond--yes {
-  color: var(--red);
-  background: rgba(230, 0, 18, 0.1);
-  border: 1px solid var(--red-muted);
-}
-
-.explore-bond--no {
-  color: var(--trust-high);
-  background: rgba(76, 175, 80, 0.1);
-  border: 1px solid rgba(76, 175, 80, 0.3);
+.explore-ctc-claimed::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -5%;
+  width: 110%;
+  height: 2px;
+  background: var(--red);
+  transform: translateY(-50%) rotate(-8deg);
+  pointer-events: none;
 }

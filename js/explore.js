@@ -1,3 +1,7 @@
+// ========================================
+// EXPLORE PAGE (v6) — Pagination & Clean CTC
+// ========================================
+
 import { COLLEGES } from './data.js';
 import { getTier, tierBadgeHTML } from './components.js';
 import { navigateTo } from './app.js';
@@ -5,6 +9,8 @@ import { navigateTo } from './app.js';
 let sortField = 'trustScore';
 let sortDir = 'desc';
 let searchQuery = '';
+let currentPage = 1;
+const itemsPerPage = 6;
 
 export function renderExplore(container) {
   container.innerHTML = '';
@@ -22,7 +28,7 @@ export function renderExplore(container) {
   controls.className = 'explore__controls animate-fade-up stagger-2';
   controls.innerHTML = `
     <div class="explore__search">
-      <input type="text" class="explore__search-input" id="explore-search" placeholder="Filter by name or location..." autocomplete="off" />
+      <input type="text" class="explore__search-input" id="explore-search" placeholder="Filter by name or location..." autocomplete="off" value="${searchQuery}" />
     </div>
     <div class="explore__sort-info" id="sort-info">
       Sorted by: <span>${getSortLabel(sortField)}</span> (${sortDir === 'desc' ? '↓' : '↑'})
@@ -49,14 +55,18 @@ export function renderExplore(container) {
 
   document.getElementById('explore-search').addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
+    currentPage = 1; // Reset to page 1 on search
     renderTable(tableWrap);
   });
 }
 
 function getSortLabel(field) {
   const labels = {
-    trustScore: 'Trust Score', reportedMedian: 'Reported Median',
-    claimedCTC: 'Claimed CTC', name: 'Name', searchCount: 'Popularity',
+    trustScore: 'Trust Score',
+    reportedMedian: 'Reported Median',
+    claimedCTC: 'Claimed CTC',
+    name: 'Name',
+    searchCount: 'Popularity',
   };
   return labels[field] || field;
 }
@@ -86,10 +96,17 @@ function renderTable(wrap) {
     return sortDir === 'desc' ? bVal - aVal : aVal - bVal;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+  const start = (currentPage - 1) * itemsPerPage;
+  const paginated = filtered.slice(start, start + itemsPerPage);
+
   const columns = [
-    { id: 'name', label: 'College' }, { id: 'trustScore', label: 'Tier' },
-    { id: 'reportedMedian', label: 'Median CTC' }, { id: 'claimedCTC', label: 'Advertised' },
-    { id: 'searchCount', label: 'Searches' }, { id: 'bond', label: 'Bond', sortable: false },
+    { id: 'name', label: 'College' },
+    { id: 'trustScore', label: 'Tier' },
+    { id: 'reportedMedian', label: 'Median CTC' },
+    { id: 'claimedCTC', label: 'Advertised' },
+    { id: 'searchCount', label: 'Searches' },
     { id: 'reports', label: 'Reports', sortable: false },
   ];
 
@@ -108,7 +125,7 @@ function renderTable(wrap) {
         </tr>
       </thead>
       <tbody>
-        ${filtered.map(c => {
+        ${paginated.map(c => {
           return `
             <tr data-id="${c.id}">
               <td>
@@ -123,22 +140,25 @@ function renderTable(wrap) {
               <td><div class="explore-ctc-actual">${c.summary.reportedMedian}</div></td>
               <td><div class="explore-ctc-claimed">${c.summary.claimedCTC}</div></td>
               <td>${c.searchCount.toLocaleString()}</td>
-              <td>
-                <span class="explore-bond explore-bond--${c.hasWarning || c.hasHiddenBond ? 'yes' : 'no'}">
-                  ${c.hasWarning || c.hasHiddenBond ? 'YES' : 'NO'}
-                </span>
-              </td>
               <td style="font-family: var(--font-heading); font-size: 18px; color: var(--white);">${c.summary.totalReports}</td>
             </tr>
           `;
         }).join('')}
       </tbody>
     </table>
+    
+    <div class="pagination" style="padding: 20px; background: var(--grey-dark); border-top: 1px solid var(--grey-mid);">
+      <button class="pagination__btn" id="explore-prev" ${currentPage <= 1 ? 'disabled' : ''}>← Prev</button>
+      <span style="color: var(--grey-light); font-family: var(--font-sub); font-size: 12px; font-weight: 700; letter-spacing: 2px; padding: 0 10px;">
+        PAGE ${currentPage} OF ${totalPages}
+      </span>
+      <button class="pagination__btn" id="explore-next" ${currentPage >= totalPages ? 'disabled' : ''}>Next →</button>
+    </div>
   `;
 
   wrap.querySelectorAll('th[data-sort]').forEach(th => {
     const field = th.dataset.sort;
-    if (field === 'bond' || field === 'reports') return;
+    if (field === 'reports') return;
     th.addEventListener('click', () => {
       if (sortField === field) {
         sortDir = sortDir === 'desc' ? 'asc' : 'desc';
@@ -146,6 +166,7 @@ function renderTable(wrap) {
         sortField = field;
         sortDir = field === 'name' ? 'asc' : 'desc';
       }
+      currentPage = 1; // Reset to page 1 on sort
       const sortInfo = document.getElementById('sort-info');
       if (sortInfo) sortInfo.innerHTML = `Sorted by: <span>${getSortLabel(sortField)}</span> (${sortDir === 'desc' ? '↓' : '↑'})`;
       renderTable(wrap);
@@ -154,7 +175,26 @@ function renderTable(wrap) {
 
   wrap.querySelectorAll('tr[data-id]').forEach(row => {
     row.addEventListener('click', () => {
+      navigateTo(`/explore`);
+    });
+  });
+
+  wrap.querySelectorAll('tr[data-id]').forEach(row => {
+    row.addEventListener('click', (e) => {
+      // Prevent navigating if clicking the help icon
+      if (e.target.closest('.tier-badge-help')) return;
       navigateTo(`/college/${row.dataset.id}`);
     });
   });
+
+  const nextBtn = wrap.querySelector('#explore-next');
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable(wrap);
+        window.scrollTo({ top: wrap.offsetTop - 100, behavior: 'smooth' });
+      }
+    });
+  }
 }

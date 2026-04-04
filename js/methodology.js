@@ -1,6 +1,6 @@
 // ========================================
 // METHODOLOGY PAGE — Disclosure & transparency
-// How CollegeExposed operates
+// How CollegeUnredacted operates
 // ========================================
 
 export function renderMethodology(container) {
@@ -32,7 +32,7 @@ export function renderMethodology(container) {
 
         <section class="methodology-section" id="tiers">
           <h2 class="methodology-section__title">The Tier System</h2>
-          <p class="methodology-section__intro">Every college on CollegeExposed is assigned a tier based on its Trust Score. This score reflects data accuracy, transparency, and student-reported alignment with advertised claims.</p>
+          <p class="methodology-section__intro">Every college on CollegeUnredacted is assigned a tier based on its Trust Score. This score reflects data accuracy, transparency, and student-reported alignment with advertised claims.</p>
 
           <div class="methodology-tier-grid">
             <div class="methodology-tier-card" style="--t-color: var(--tier-s);">
@@ -135,7 +135,7 @@ export function renderMethodology(container) {
 
         <section class="methodology-section" id="data-sources">
           <h2 class="methodology-section__title">Data Sources</h2>
-          <p class="methodology-section__intro">CollegeExposed aggregates data from multiple sources to build each college's profile.</p>
+          <p class="methodology-section__intro">CollegeUnredacted aggregates data from multiple sources to build each college's profile.</p>
 
           <div class="methodology-sources-grid">
             <div class="methodology-source">
@@ -216,7 +216,7 @@ export function renderMethodology(container) {
 
         <section class="methodology-section" id="reporting">
           <h2 class="methodology-section__title">Report Types</h2>
-          <p class="methodology-section__intro">CollegeExposed accepts three distinct types of student reports.</p>
+          <p class="methodology-section__intro">CollegeUnredacted accepts three distinct types of student reports.</p>
 
           <div class="methodology-report-types">
             <div class="methodology-report-type">
@@ -240,7 +240,7 @@ export function renderMethodology(container) {
         <section class="methodology-section" id="disclaimer">
           <h2 class="methodology-section__title">Disclaimer</h2>
           <div class="methodology-disclaimer">
-            <p>CollegeExposed is a crowd-sourced platform. All data is submitted anonymously by students and alumni. We do not independently verify every claim.</p>
+            <p>CollegeUnredacted is a crowd-sourced platform. All data is submitted anonymously by students and alumni. We do not independently verify every claim.</p>
             <p>Numbers, tiers, and scores shown on this platform are derived from user submissions and should be treated as indicative, not authoritative. They are meant to supplement your own research, not replace it.</p>
             <p>No college pays us. No data is altered to favor or penalize any institution. Transparency is the only agenda.</p>
             <p>If you believe any data is inaccurate, please submit corrected information through our Submit page. The community self-corrects over time.</p>

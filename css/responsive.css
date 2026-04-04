@@ -7,6 +7,7 @@
 @media (max-width: 768px) {
 
   /* ---- NAV ---- */
+  /* ---- NAV ---- */
   .nav {
     padding: 0 var(--space-md);
     height: 50px;
@@ -24,6 +25,15 @@
   .nav__link {
     font-size: 10px;
     letter-spacing: 2px;
+  }
+  
+  .nav__right {
+    gap: var(--space-sm);
+  }
+  
+  .nav__methodology-btn {
+    font-size: 9px;
+    padding: 5px 10px;
   }
 
   .nav__submit-btn {
@@ -317,6 +327,7 @@
 @media (max-width: 480px) {
 
   /* ---- NAV ---- */
+  /* ---- NAV ---- */
   .nav {
     padding: 0 var(--space-sm);
     height: 48px;
@@ -334,6 +345,14 @@
   .nav__link {
     font-size: 9px;
     letter-spacing: 1px;
+  }
+  
+  .nav__right {
+    gap: var(--space-xs);
+  }
+  
+  .nav__methodology-btn {
+    display: none; /* Hide on super small screens to save space */
   }
 
   .nav__submit-btn {

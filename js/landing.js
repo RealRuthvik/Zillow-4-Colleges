@@ -10,9 +10,9 @@ export function renderLanding(container) {
   hero.className = 'hero';
   hero.innerHTML = `
     <div class="hero__title-wrap animate-slam">
-      <h1 class="hero__title">EXPOSE THE <span>TRUTH</span></h1>
+      <h1 class="hero__title">UNREDACT THE <span>TRUTH</span></h1>
     </div>
-    <p class="hero__subtitle animate-fade-up stagger-2">Stop believing brochures. See real placement data.</p>
+    <p class="hero__subtitle animate-fade-up stagger-2">Placement data for Indian colleges submitted by students.</p>
     <div class="hero__search-wrap animate-fade-up stagger-3">
       <div class="search-bar" id="search-bar">
         <input type="text" class="search-bar__input" id="search-input" placeholder="Search colleges..." autocomplete="off" />

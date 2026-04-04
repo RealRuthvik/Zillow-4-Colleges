@@ -55,19 +55,20 @@ function updateActiveNav(active) {
 }
 
 function init() {
-  if (!app) return; // Prevent crashing when loaded inside the admin tool
-
   app.innerHTML = `
     <nav class="nav">
       <div class="nav__left">
-        <div class="nav__logo" id="nav-logo">COLLEGE<span>EXPOSED</span></div>
+        <div class="nav__logo" id="nav-logo">COLLEGE<span>UNREDACTED</span></div>
         <div class="nav__links">
           <a class="nav__link nav__link--active" data-nav="home" href="/" data-link>Home</a>
           <a class="nav__link" data-nav="explore" href="/explore" data-link>Explore</a>
           <a class="nav__link" data-nav="questions" href="/questions" data-link>Questions</a>
         </div>
       </div>
-      <a class="nav__submit-btn" href="/submit" data-link>+ SUBMIT INFO</a>
+      <div class="nav__right">
+        <a class="nav__methodology-btn" href="/methodology" data-link>Methodology</a>
+        <a class="nav__submit-btn" href="/submit" data-link>SUBMIT / REPORT DATA</a>
+      </div>
     </nav>
     <main id="page-container" class="page"></main>
   `;

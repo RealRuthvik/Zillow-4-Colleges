@@ -46,7 +46,7 @@ export function renderDetail(container, collegeId) {
         </div>
       </div>
       <div class="detail-sticky__right">
-        <a href="/methodology#tiers" data-link class="tier-badge-link">${tierBadgeHTML(college.trustScore, 'lg')}<sup class="tier-info-sup">?</sup></a>
+        ${tierBadgeHTML(college.trustScore, 'lg')}
       </div>
     </div>
   `;

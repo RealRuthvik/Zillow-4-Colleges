@@ -171,6 +171,8 @@ h4 {
 
 /* ---- NAV BAR ---- */
 
+/* ---- NAV BAR ---- */
+
 .nav {
   position: fixed;
   top: 0;
@@ -234,6 +236,33 @@ h4 {
 .nav__link--active {
   color: var(--white);
   border-bottom-color: var(--red);
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav__methodology-btn {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--white);
+  background: var(--red);
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-snap);
+  transform: skewX(-6deg);
+  box-shadow: var(--shadow-black-sm);
+}
+
+.nav__methodology-btn:hover {
+  background: var(--red-dark);
+  transform: skewX(-6deg) translateY(-1px);
+  box-shadow: 4px 4px 0 var(--black);
 }
 
 .nav__submit-btn {

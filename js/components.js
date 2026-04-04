@@ -16,10 +16,14 @@ export function getTrustColor(score) {
 export function tierBadgeHTML(score, size = 'md') {
   const tier = getTier(score);
   const sizeClass = `tier-badge--${size}`;
-  return `<span class="tier-badge ${sizeClass}" style="--tier-color: ${tier.color}" title="Trust Score: ${score}/100" data-score="${score}">
-    <span class="tier-badge__letter">${tier.letter}</span>
-    <span class="tier-badge__score">${score}</span>
-  </span>`;
+  return `
+  <div class="tier-badge-wrap">
+    <span class="tier-badge ${sizeClass}" style="--tier-color: ${tier.color}" title="Trust Score: ${score}/100" data-score="${score}">
+      <span class="tier-badge__letter">${tier.letter}</span>
+      <span class="tier-badge__score">${score}</span>
+    </span>
+    <a href="/methodology" data-link class="tier-badge-help" title="How are tiers calculated?">?</a>
+  </div>`;
 }
 
 export function formatFullCTC(ctcStr) {
@@ -108,7 +112,8 @@ export function createCollegeCard(college, index = 0) {
     </div>
   `;
 
-  card.addEventListener('click', () => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('.tier-badge-help')) return;
     navigateTo(`/college/${college.id}`);
   });
 

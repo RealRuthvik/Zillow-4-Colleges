@@ -2,6 +2,38 @@
    COMPONENTS (v3) — Report cards, trust inline
    ======================================== */
 
+/* ---- TIER BADGE WRAPPER & HELP ICON ---- */
+.tier-badge-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.tier-badge-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--grey-light);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 10px;
+  text-decoration: none;
+  transform: skewX(-6deg);
+  border: 1px solid var(--grey-mid);
+  transition: all var(--duration-fast);
+  margin-top: -2px; /* Aligns perfectly with the top of the tier badge */
+}
+
+.tier-badge-help:hover {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+  transform: skewX(-6deg) scale(1.1);
+}
+
 /* ---- SEARCH BAR ---- */
 
 .search-bar {
@@ -773,5 +805,4 @@
 .tier-badge-link:hover .tier-info-sup {
   opacity: 1;
   color: var(--white);
-}
 }
