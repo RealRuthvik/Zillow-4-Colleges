@@ -1,12 +1,7 @@
-// ========================================
-// COLLEGE DETAIL PAGE (v5) — Accordion cards,
-// Recruiter tiles, sidebar fix, tier badges,
-// 3 report types
-// ========================================
-
 import { COLLEGES } from './data.js';
 import { getTier, tierBadgeHTML, createReportCard, createSourceCard } from './components.js';
 import { navigateTo } from './app.js';
+import { renderNotFound } from './notfound.js';
 
 const REPORTS_PER_PAGE = 5;
 
@@ -14,12 +9,7 @@ export function renderDetail(container, collegeId) {
   const college = COLLEGES.find(c => c.id === collegeId);
 
   if (!college) {
-    container.innerHTML = `
-      <div class="page" style="text-align:center; padding: 160px 40px;">
-        <h1 style="font-family: var(--font-heading); font-size: 64px; color: var(--grey-light);">NOT FOUND</h1>
-        <p style="margin-top: 16px;"><a href="/" data-link style="color: var(--white);">← Go back</a></p>
-      </div>
-    `;
+    renderNotFound(container);
     return;
   }
 
@@ -27,6 +17,20 @@ export function renderDetail(container, collegeId) {
   container.className = 'page page-enter';
 
   const tier = getTier(college.trustScore);
+
+  // Parse Header Tags dynamically
+  let headerTagsHTML = '';
+  if (college.tags) {
+    headerTagsHTML = college.tags.map(t => {
+      // Backwards compat for old string tags
+      if (typeof t === 'string') return `<span class="detail-sticky__type" style="background: var(--grey-mid);">${t}</span>`;
+      
+      const bg = t.color === 'red' ? 'var(--red)' : (t.color === 'yellow' ? 'var(--tier-s)' : 'var(--grey-mid)');
+      const shadow = t.color === 'red' ? 'var(--red-dark)' : (t.color === 'yellow' ? '#B89C00' : 'var(--black)');
+      const textCol = t.color === 'yellow' ? 'var(--black)' : 'var(--white)';
+      return `<span class="detail-sticky__bond" style="background: ${bg}; color: ${textCol}; box-shadow: 2px 2px 0 ${shadow};">${t.text}</span>`;
+    }).join('');
+  }
 
   const sticky = document.createElement('div');
   sticky.className = 'detail-sticky';
@@ -38,7 +42,7 @@ export function renderDetail(container, collegeId) {
         <div class="detail-sticky__sub-row">
           <span class="detail-sticky__location">${college.location}</span>
           <span class="detail-sticky__type">${college.type}</span>
-          ${college.hasHiddenBond ? '<span class="detail-sticky__bond">BOND</span>' : ''}
+          ${headerTagsHTML}
         </div>
       </div>
       <div class="detail-sticky__right">
@@ -101,8 +105,12 @@ export function renderDetail(container, collegeId) {
   summarySection.id = 'summary';
 
   const s = college.summary;
-  const updated = college.lastUpdated || 'N/A';
-  const updatedFull = college.lastUpdatedFull || updated;
+  const updatedFull = college.lastUpdatedFull || 'N/A';
+  
+  const hasWarn = college.hasWarning || college.hasHiddenBond;
+  const warnLabel = college.warningLabel || (college.hasHiddenBond ? 'HIDDEN BOND' : 'WARNING');
+  const warnDetails = college.warningDetails || college.bondDetails || '';
+
   summarySection.innerHTML = `
     <div class="detail-section__title">
       Summary
@@ -117,22 +125,22 @@ export function renderDetail(container, collegeId) {
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedMedian}</div>
         <div class="summary-stat__label">Reported Median</div>
-        <div class="summary-stat__date">${updated}</div>
+        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedAverage}</div>
         <div class="summary-stat__label">Reported Avg</div>
-        <div class="summary-stat__date">${updated}</div>
+        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedLowest}</div>
         <div class="summary-stat__label">Lowest</div>
-        <div class="summary-stat__date">${updated}</div>
+        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.reportedHighest}</div>
         <div class="summary-stat__label">Highest</div>
-        <div class="summary-stat__date">${updated}</div>
+        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.totalReports}</div>
@@ -142,7 +150,7 @@ export function renderDetail(container, collegeId) {
       <div class="summary-stat">
         <div class="summary-stat__value">${s.placementRate}</div>
         <div class="summary-stat__label">Placed</div>
-        <div class="summary-stat__date">${updated}</div>
+        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value">${s.batchSize}</div>
@@ -150,7 +158,7 @@ export function renderDetail(container, collegeId) {
         <div class="summary-stat__date">Approx.</div>
       </div>
     </div>
-    ${college.hasHiddenBond ? `<div class="bond-alert">HIDDEN BOND — ${college.bondDetails}</div>` : ''}
+    ${hasWarn ? `<div class="bond-alert"><strong>${warnLabel}</strong> — ${warnDetails}</div>` : ''}
   `;
   main.appendChild(summarySection);
 
@@ -234,7 +242,7 @@ function buildOverview(college) {
   const personalCount = reports.filter(r => (r.reportType || 'personal') === 'personal').length;
   const aggCount = reports.filter(r => r.reportType === 'aggregate').length;
   const multiCount = reports.filter(r => r.reportType === 'multi_personal').length;
-  const avgTrust = Math.round(reports.reduce((sum, r) => sum + r.trustScore, 0) / reports.length);
+  const avgTrust = Math.round(reports.reduce((sum, r) => sum + r.trustScore, 0) / Math.max(reports.length, 1));
 
   const grid = document.createElement('div');
   grid.className = 'overview-grid';
@@ -262,24 +270,31 @@ function buildOverview(college) {
   `;
 
   if (offerReports.length > 0) {
-    const ctcValues = offerReports.map(r => parseFloat(r.ctcOffered));
-    const minCTC = Math.min(...ctcValues);
-    const maxCTC = Math.max(...ctcValues);
-    const avgCTC = (ctcValues.reduce((a, b) => a + b, 0) / ctcValues.length).toFixed(1);
-    grid.innerHTML += `
-      <div class="overview-card">
-        <div class="overview-card__title">CTC Range (From Offers)</div>
-        <div class="overview-range">
-          <div class="overview-range__item"><div class="overview-range__value">${minCTC} LPA</div><div class="overview-range__label">Lowest</div></div>
-          <div class="overview-range__item"><div class="overview-range__value" style="font-size: 36px;">${avgCTC} LPA</div><div class="overview-range__label">Average</div></div>
-          <div class="overview-range__item"><div class="overview-range__value">${maxCTC} LPA</div><div class="overview-range__label">Highest</div></div>
+    const ctcValues = offerReports.map(r => parseFloat(r.ctcOffered)).filter(n => !isNaN(n));
+    if (ctcValues.length > 0) {
+      const minCTC = Math.min(...ctcValues);
+      const maxCTC = Math.max(...ctcValues);
+      const avgCTC = (ctcValues.reduce((a, b) => a + b, 0) / ctcValues.length).toFixed(1);
+      grid.innerHTML += `
+        <div class="overview-card">
+          <div class="overview-card__title">CTC Range (From Offers)</div>
+          <div class="overview-range">
+            <div class="overview-range__item"><div class="overview-range__value">${minCTC} LPA</div><div class="overview-range__label">Lowest</div></div>
+            <div class="overview-range__item"><div class="overview-range__value" style="font-size: 36px;">${avgCTC} LPA</div><div class="overview-range__label">Average</div></div>
+            <div class="overview-range__item"><div class="overview-range__value">${maxCTC} LPA</div><div class="overview-range__label">Highest</div></div>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 
-  if (offerReports.length > 0) {
-    const companies = [...new Set(offerReports.map(r => r.company))];
+  // AUTO POPULATE COMPANIES
+  const companySet = new Set();
+  college.reports?.forEach(r => { if(r.company) companySet.add(r.company.trim()); });
+  college.placementQuestions?.forEach(pq => { if(pq.company) companySet.add(pq.company.trim()); });
+  const companies = Array.from(companySet);
+
+  if (companies.length > 0) {
     grid.innerHTML += `
       <div class="overview-card">
         <div class="overview-card__title">Companies Reported</div>

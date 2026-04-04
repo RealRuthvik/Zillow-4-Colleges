@@ -1,7 +1,3 @@
-// ========================================
-// LANDING PAGE (v3) — Dropdown search, improved footer
-// ========================================
-
 import { COLLEGES } from './data.js';
 import { createCollegeCard, tierBadgeHTML } from './components.js';
 import { navigateTo } from './app.js';

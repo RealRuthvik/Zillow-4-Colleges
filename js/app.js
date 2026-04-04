@@ -6,13 +6,12 @@ import { renderLanding } from './landing.js';
 import { renderDetail } from './detail.js';
 import { renderExplore } from './explore.js';
 import { renderQuestions } from './questions.js';
-import { renderAdmin } from './admin.js';
 import { renderSubmit } from './submit.js';
 import { renderMethodology } from './methodology.js';
+import { renderNotFound } from './notfound.js';
 
 const app = document.getElementById('app');
 
-// Global navigation function
 export function navigateTo(path) {
   window.history.pushState({}, '', path);
   router();
@@ -21,6 +20,8 @@ export function navigateTo(path) {
 function router() {
   const path = window.location.pathname;
   const pageContainer = document.getElementById('page-container');
+
+  if (!pageContainer) return; // Safety check for admin tool
 
   if (path === '/' || path === '') {
     renderLanding(pageContainer);
@@ -31,9 +32,6 @@ function router() {
   } else if (path === '/questions') {
     renderQuestions(pageContainer);
     updateActiveNav('questions');
-  } else if (path === '/admin') {
-    renderAdmin(pageContainer);
-    updateActiveNav('');
   } else if (path === '/submit') {
     renderSubmit(pageContainer);
     updateActiveNav('');
@@ -45,8 +43,8 @@ function router() {
     renderDetail(pageContainer, collegeId);
     updateActiveNav('');
   } else {
-    renderLanding(pageContainer);
-    updateActiveNav('home');
+    renderNotFound(pageContainer);
+    updateActiveNav('');
   }
 }
 
@@ -57,6 +55,8 @@ function updateActiveNav(active) {
 }
 
 function init() {
+  if (!app) return; // Prevent crashing when loaded inside the admin tool
+
   app.innerHTML = `
     <nav class="nav">
       <div class="nav__left">
@@ -76,7 +76,6 @@ function init() {
     navigateTo('/');
   });
 
-  // Intercept all link clicks with 'data-link' to prevent page reload
   document.body.addEventListener('click', e => {
     if (e.target.matches('[data-link]') || e.target.closest('[data-link]')) {
       e.preventDefault();

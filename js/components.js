@@ -1,8 +1,3 @@
-// ========================================
-// SHARED UI COMPONENTS (v5)
-// Tier system, accordion cards, 3 report types
-// ========================================
-
 import { navigateTo } from './app.js';
 
 export function getTier(score) {
@@ -69,13 +64,26 @@ export function createCollegeCard(college, index = 0) {
   card.className = `college-card animate-fade-up stagger-${Math.min(index + 1, 12)}`;
   card.dataset.id = college.id;
 
-  let warningHTML = '';
-  if (college.hasHiddenBond) {
-    warningHTML = `<div class="warning-banner">Hidden Bond</div>`;
+  let bannerHTML = '';
+  
+  // Look for a featured tag first
+  let featuredTag = null;
+  if (college.tags) {
+    featuredTag = college.tags.find(t => typeof t === 'object' && t.featured);
+  }
+
+  if (featuredTag) {
+    const bg = featuredTag.color === 'yellow' ? 'var(--tier-s)' : (featuredTag.color === 'grey' ? 'var(--grey-mid)' : 'var(--red)');
+    const textCol = featuredTag.color === 'yellow' ? 'var(--black)' : 'var(--white)';
+    bannerHTML = `<div class="warning-banner" style="background: ${bg}; color: ${textCol};">${featuredTag.text}</div>`;
+  } else if (college.hasWarning || college.hasHiddenBond) {
+    // Fallback to warning label
+    const label = college.warningLabel || (college.hasHiddenBond ? 'HIDDEN BOND' : 'WARNING');
+    bannerHTML = `<div class="warning-banner">${label}</div>`;
   }
 
   card.innerHTML = `
-    ${warningHTML}
+    ${bannerHTML}
     <div class="college-card__top">
       <div>
         <div class="college-card__name">${college.shortName || college.name}</div>

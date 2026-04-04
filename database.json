@@ -1,4 +1,4 @@
-const COLLEGES = [
+[
   {
     "bondDetails": "",
     "hasHiddenBond": false,
@@ -1155,18 +1155,4 @@ const COLLEGES = [
     "trustScore": 30,
     "type": "Deemed University"
   }
-];
-
-function getAllPlacementQuestions() {
-  const all = [];
-  COLLEGES.forEach(college => {
-    if (college.placementQuestions) {
-      college.placementQuestions.forEach(pq => {
-        all.push({ ...pq, collegeId: college.id, collegeName: college.shortName });
-      });
-    }
-  });
-  return all;
-}
-
-export { COLLEGES, getAllPlacementQuestions };
+]

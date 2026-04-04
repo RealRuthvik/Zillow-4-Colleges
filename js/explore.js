@@ -1,7 +1,3 @@
-// ========================================
-// EXPLORE PAGE (v5) — Tier system
-// ========================================
-
 import { COLLEGES } from './data.js';
 import { getTier, tierBadgeHTML } from './components.js';
 import { navigateTo } from './app.js';
@@ -128,8 +124,8 @@ function renderTable(wrap) {
               <td><div class="explore-ctc-claimed">${c.summary.claimedCTC}</div></td>
               <td>${c.searchCount.toLocaleString()}</td>
               <td>
-                <span class="explore-bond explore-bond--${c.hasHiddenBond ? 'yes' : 'no'}">
-                  ${c.hasHiddenBond ? 'YES' : 'NO'}
+                <span class="explore-bond explore-bond--${c.hasWarning || c.hasHiddenBond ? 'yes' : 'no'}">
+                  ${c.hasWarning || c.hasHiddenBond ? 'YES' : 'NO'}
                 </span>
               </td>
               <td style="font-family: var(--font-heading); font-size: 18px; color: var(--white);">${c.summary.totalReports}</td>
