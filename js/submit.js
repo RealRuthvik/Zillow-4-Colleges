@@ -222,7 +222,7 @@ export function renderSubmit(container) {
 
             <div class="submit-field">
               <label class="submit-field__label">Your Comment / Experience</label>
-              <textarea class="submit-field__textarea" id="submit-comment" rows="4" placeholder="Share your honest experience. This will be shown anonymously."></textarea>
+              <textarea class="submit-field__textarea" id="submit-comment" rows="4" placeholder="Share your honest experience. This will be shown anonymously. You can include any links to images or documents that support your submission."></textarea>
             </div>
 
             <div class="submit-btn-row">
@@ -264,7 +264,7 @@ export function renderSubmit(container) {
                   <h4 style="color: #5865F2; font-family: var(--font-heading); font-size: 22px; letter-spacing: 1px; margin: 0;">SEND TO DISCORD</h4>
                 </div>
                 <p style="font-family: var(--font-body); font-size: 14px; color: var(--white); line-height: 1.5; margin: 0;">
-                  DM your screenshots or images to: <strong style="color: #5865F2; font-size: 16px; cursor: text;">@YOUR_DISCORD_USERNAME</strong><br>
+                  DM your screenshots to the server owner or drop the images to: <strong style="color: #5865F2; font-size: 16px; cursor: text;">https://discord.gg/AbX4xCaQ7m</strong><br>
                   <span style="font-size: 12px; color: var(--grey-light); display: inline-block; margin-top: 4px;">Please mention the College and Company you are submitting for so we can link it!</span>
                 </p>
               </div>
