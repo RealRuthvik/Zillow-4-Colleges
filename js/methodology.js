@@ -277,5 +277,21 @@ export function renderMethodology(container) {
     });
   });
 
+  const sections = page.querySelectorAll('.methodology-section');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => {
+          item.classList.toggle('methodology-nav__item--active', item.dataset.section === entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+
   window.scrollTo(0, 0);
 }

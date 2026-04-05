@@ -1,10 +1,4 @@
-// ========================================
-// SUBMIT PAGE — Anonymous data submission
-// Persona 5 themed multi-step form
-// ========================================
-
 import { COLLEGES } from './data.js';
-import { navigateTo } from './app.js';
 
 export function renderSubmit(container) {
   container.innerHTML = '';
@@ -18,7 +12,7 @@ export function renderSubmit(container) {
     <div class="submit-hero">
       <div class="submit-hero__accent"></div>
       <h1 class="submit-hero__title">SUBMIT / <span>FIX DATA</span></h1>
-      <p class="submit-hero__subtitle">Report incorrect information or share new placement realities - 100% anonymous.</p>
+      <p class="submit-hero__subtitle">Report incorrect information or share new placement realities.</p>
     </div>
 
     <div class="submit-layout">
@@ -30,17 +24,17 @@ export function renderSubmit(container) {
         </div>
         <div class="submit-trust__card">
           <div class="submit-trust__icon">Verified by Community</div>
-          <h3 class="submit-trust__title">All moderators are volunteers.</h3>
+          <h3 class="submit-trust__title">Moderated Data</h3>
           <p class="submit-trust__text">Each submission gets a trust score based on detail level and cross-verification.</p>
         </div>
         <div class="submit-trust__stats">
           <div class="submit-trust__stat">
             <span class="submit-trust__stat-value">${COLLEGES.reduce((a, c) => a + c.summary.totalReports, 0)}+</span>
-            <span class="submit-trust__stat-label">Reports Submitted</span>
+            <span class="submit-trust__stat-label">Reports</span>
           </div>
           <div class="submit-trust__stat">
             <span class="submit-trust__stat-value">${COLLEGES.length}</span>
-            <span class="submit-trust__stat-label">Colleges Covered</span>
+            <span class="submit-trust__stat-label">Colleges</span>
           </div>
         </div>
       </aside>
@@ -51,12 +45,12 @@ export function renderSubmit(container) {
           <div class="submit-steps">
             <div class="submit-step submit-step--active" data-step="1">
               <span class="submit-step__num">1</span>
-              <span class="submit-step__label">College</span>
+              <span class="submit-step__label">Stats</span>
             </div>
             <div class="submit-step__line"></div>
             <div class="submit-step" data-step="2">
               <span class="submit-step__num">2</span>
-              <span class="submit-step__label">Details</span>
+              <span class="submit-step__label">Reports</span>
             </div>
             <div class="submit-step__line"></div>
             <div class="submit-step" data-step="3">
@@ -71,158 +65,211 @@ export function renderSubmit(container) {
           </div>
 
           <div class="submit-panel submit-panel--active" id="step-1">
-            <h2 class="submit-panel__title">Select Your College</h2>
+            <h2 class="submit-panel__title">Select & Fix College Stats</h2>
+            <p class="submit-desc">Leave fields blank if you don't know the information. We only update what you provide.</p>
 
-            <div class="submit-field">
-              <label class="submit-field__label">College</label>
-              <select class="submit-field__select" id="submit-college" required>
-                <option value="">- Choose a college -</option>
-                ${COLLEGES.map(c => `<option value="${c.id}">${c.name} - ${c.location}</option>`).join('')}
-                <option value="__other">My college is not listed</option>
-              </select>
+            <div class="submit-field-row">
+              <div class="submit-field">
+                <label class="submit-field__label">Target College *</label>
+                <select class="submit-field__select" id="submit-college" required>
+                  <option value="">Choose a college...</option>
+                  ${COLLEGES.map(c => `<option value="${c.id}">${c.name} (${c.location})</option>`).join('')}
+                  <option value="__other">My college is not listed</option>
+                </select>
+              </div>
+              <div class="submit-field">
+                <label class="submit-field__label">Data Year (e.g. 2023-2024)</label>
+                <input class="submit-field__input" type="text" id="submit-stat-year" placeholder="Optional" />
+              </div>
             </div>
 
             <div class="submit-field" id="other-college-field" style="display:none;">
-              <label class="submit-field__label">College Name</label>
+              <label class="submit-field__label">College Name *</label>
               <input class="submit-field__input" type="text" id="submit-other-name" placeholder="Full college name" />
             </div>
 
+            <div id="stats-editor-container" style="display:none;">
+              <div class="stats-editor-header">
+                <h3 class="submit-panel__subtitle">Suggest Overall Overrides</h3>
+              </div>
+              <div class="stats-edit-grid" id="stats-grid">
+                </div>
+
+              <div class="stats-editor-header" style="margin-top: 32px;">
+                <h3 class="submit-panel__subtitle">Branch Specific Stats</h3>
+              </div>
+              <div id="branch-stats-container">
+                </div>
+              <button type="button" class="submit-btn submit-btn--outline" id="btn-add-branch">+ Add Branch Stat</button>
+            </div>
+
+            <div class="submit-btn-row">
+              <div></div>
+              <button type="button" class="submit-btn submit-btn--next" id="btn-next-1">Next <span>></span></button>
+            </div>
+          </div>
+
+          <div class="submit-panel" id="step-2">
+            <h2 class="submit-panel__title">Add New Reports</h2>
+            <p class="submit-desc">Want to add a specific company offer, aggregate stats, or interview questions? Select a type below or skip this step.</p>
+
             <div class="submit-field">
-              <label class="submit-field__label">Report Type</label>
               <div class="submit-type-grid">
-                <label class="submit-type-card submit-type-card--active" data-type="personal">
-                  <input type="radio" name="reportType" value="personal" checked hidden>
+                <label class="submit-type-card submit-type-card--active" data-type="none">
+                  <input type="radio" name="reportType" value="none" checked hidden>
+                  <div class="submit-type-card__icon">00</div>
+                  <div class="submit-type-card__name">Skip</div>
+                  <div class="submit-type-card__desc">Just update stats</div>
+                </label>
+                <label class="submit-type-card" data-type="personal">
+                  <input type="radio" name="reportType" value="personal" hidden>
                   <div class="submit-type-card__icon">01</div>
-                  <div class="submit-type-card__name">Individual</div>
-                  <div class="submit-type-card__desc">Your own or Someone's offer, CTC, experience</div>
+                  <div class="submit-type-card__name">Offer Data</div>
+                  <div class="submit-type-card__desc">Specific CTC breakdown</div>
                 </label>
                 <label class="submit-type-card" data-type="aggregate">
                   <input type="radio" name="reportType" value="aggregate" hidden>
                   <div class="submit-type-card__icon">02</div>
-                  <div class="submit-type-card__name">Aggregate</div>
-                  <div class="submit-type-card__desc">Batch-level stats you observed</div>
+                  <div class="submit-type-card__name">Batch Stats</div>
+                  <div class="submit-type-card__desc">New branch data</div>
                 </label>
                 <label class="submit-type-card" data-type="question">
                   <input type="radio" name="reportType" value="question" hidden>
                   <div class="submit-type-card__icon">03</div>
-                  <div class="submit-type-card__name">Interview Questions</div>
-                  <div class="submit-type-card__desc">Questions asked during placements</div>
+                  <div class="submit-type-card__name">Interview</div>
+                  <div class="submit-type-card__desc">Questions & experience</div>
                 </label>
               </div>
             </div>
 
-            <div class="submit-field">
-              <label class="submit-field__label">Year / Batch</label>
-              <select class="submit-field__select" id="submit-batch">
-                <option value="2026">2026</option>
-                <option value="2025" selected>2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-              </select>
+            <div id="dynamic-report-fields" style="display:none;">
+              
+              <div class="submit-report-meta">
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">You Are A...</label>
+                    <select class="submit-field__select" id="submit-author">
+                      <option value="Current Student">Current Student</option>
+                      <option value="Alumni">Alumni</option>
+                      <option value="Placement Cell">Placement Cell</option>
+                      <option value="Anonymous" selected>Anonymous Source</option>
+                    </select>
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Exact Date (Optional)</label>
+                    <input class="submit-field__input" type="date" id="submit-exact-date" style="color-scheme: dark;" />
+                  </div>
+                </div>
+                
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Drive Type</label>
+                    <select class="submit-field__select" id="submit-drive-type">
+                      <option value="On-Campus" selected>On-Campus</option>
+                      <option value="Off-Campus">Off-Campus</option>
+                      <option value="Pool Campus">Pool Campus</option>
+                    </select>
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Year / Batch</label>
+                    <input class="submit-field__input" type="text" id="submit-batch" placeholder="e.g. 2025" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="submit-group" id="personal-fields" style="display:none;">
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Company Name</label>
+                    <input class="submit-field__input" type="text" id="submit-company" placeholder="e.g. TCS, Google" />
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Role</label>
+                    <input class="submit-field__input" type="text" id="submit-role" placeholder="e.g. SDE-1" />
+                  </div>
+                </div>
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Branch of Student</label>
+                    <input class="submit-field__input" type="text" id="submit-personal-branch" placeholder="e.g. CSE" />
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Total CTC Offered</label>
+                    <input class="submit-field__input" type="text" id="submit-ctc" placeholder="e.g. 8.5 LPA" />
+                  </div>
+                </div>
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Base Pay</label>
+                    <input class="submit-field__input" type="text" id="submit-base" placeholder="e.g. 5.0 LPA" />
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Variable / Bonus</label>
+                    <input class="submit-field__input" type="text" id="submit-variable" placeholder="e.g. 1.5 LPA" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="submit-group" id="aggregate-fields" style="display:none;">
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Branch / Department</label>
+                    <input class="submit-field__input" type="text" id="submit-agg-branch" placeholder="e.g. Mechanical" />
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Highest Package</label>
+                    <input class="submit-field__input" type="text" id="agg-highest" placeholder="e.g. 45 LPA" />
+                  </div>
+                </div>
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Average Package</label>
+                    <input class="submit-field__input" type="text" id="agg-average" placeholder="e.g. 6.2 LPA" />
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Median Package</label>
+                    <input class="submit-field__input" type="text" id="agg-median" placeholder="e.g. 4.5 LPA" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="submit-group" id="question-fields" style="display:none;">
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Company</label>
+                    <input class="submit-field__input" type="text" id="q-company" placeholder="e.g. Amazon" />
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Role</label>
+                    <input class="submit-field__input" type="text" id="q-role" placeholder="e.g. SDE-1" />
+                  </div>
+                </div>
+                <div class="submit-field-row">
+                  <div class="submit-field">
+                    <label class="submit-field__label">Difficulty</label>
+                    <select class="submit-field__select" id="q-difficulty">
+                      <option>Easy</option>
+                      <option>Medium</option>
+                      <option selected>Medium-Hard</option>
+                      <option>Hard</option>
+                      <option>Very Hard</option>
+                    </select>
+                  </div>
+                  <div class="submit-field">
+                    <label class="submit-field__label">Interview Rounds</label>
+                    <input class="submit-field__input" type="text" id="q-rounds" placeholder="e.g. 1 OA, 2 Tech, 1 HR" />
+                  </div>
+                </div>
+                <div class="submit-field">
+                  <label class="submit-field__label">Questions Asked / Experience</label>
+                  <textarea class="submit-field__textarea" id="q-text" rows="4" placeholder="1. Reverse a linked list..."></textarea>
+                </div>
+              </div>
             </div>
 
             <div class="submit-field">
-              <label class="submit-field__label">Branch / Department</label>
-              <input class="submit-field__input" type="text" id="submit-branch" placeholder="e.g. CSE, ECE, Mechanical" />
-            </div>
-
-            <button type="button" class="submit-btn submit-btn--next" id="btn-next-1">
-              Next <span>></span>
-            </button>
-          </div>
-
-          <div class="submit-panel" id="step-2">
-            <h2 class="submit-panel__title">Share the Data</h2>
-
-            <div class="submit-group" id="personal-fields">
-              <div class="submit-field-row">
-                <div class="submit-field">
-                  <label class="submit-field__label">Company Name</label>
-                  <input class="submit-field__input" type="text" id="submit-company" placeholder="e.g. TCS, Google" />
-                </div>
-                <div class="submit-field">
-                  <label class="submit-field__label">Role</label>
-                  <input class="submit-field__input" type="text" id="submit-role" placeholder="e.g. SDE-1, Analyst" />
-                </div>
-              </div>
-
-              <div class="submit-field-row">
-                <div class="submit-field">
-                  <label class="submit-field__label">CTC Offered</label>
-                  <input class="submit-field__input" type="text" id="submit-ctc" placeholder="e.g. 8.5 LPA" />
-                </div>
-                <div class="submit-field">
-                  <label class="submit-field__label">Base Pay</label>
-                  <input class="submit-field__input" type="text" id="submit-base" placeholder="e.g. 5.0 LPA" />
-                </div>
-              </div>
-
-              <div class="submit-field-row">
-                <div class="submit-field">
-                  <label class="submit-field__label">Variable Pay</label>
-                  <input class="submit-field__input" type="text" id="submit-variable" placeholder="e.g. 1.5 LPA" />
-                </div>
-                <div class="submit-field">
-                  <label class="submit-field__label">Joining Bonus</label>
-                  <input class="submit-field__input" type="text" id="submit-bonus" placeholder="e.g. 50,000" />
-                </div>
-              </div>
-            </div>
-
-            <div class="submit-group" id="aggregate-fields" style="display:none;">
-              <div class="submit-field-row">
-                <div class="submit-field">
-                  <label class="submit-field__label">Median Package</label>
-                  <input class="submit-field__input" type="text" placeholder="e.g. 4.5 LPA" />
-                </div>
-                <div class="submit-field">
-                  <label class="submit-field__label">Average Package</label>
-                  <input class="submit-field__input" type="text" placeholder="e.g. 6.2 LPA" />
-                </div>
-              </div>
-              <div class="submit-field-row">
-                <div class="submit-field">
-                  <label class="submit-field__label">Highest Package</label>
-                  <input class="submit-field__input" type="text" placeholder="e.g. 45 LPA" />
-                </div>
-                <div class="submit-field">
-                  <label class="submit-field__label">% Placed</label>
-                  <input class="submit-field__input" type="text" placeholder="e.g. 78%" />
-                </div>
-              </div>
-            </div>
-
-            <div class="submit-group" id="question-fields" style="display:none;">
-              <div class="submit-field-row">
-                <div class="submit-field">
-                  <label class="submit-field__label">Company</label>
-                  <input class="submit-field__input" type="text" placeholder="e.g. Amazon" />
-                </div>
-                <div class="submit-field">
-                  <label class="submit-field__label">Role</label>
-                  <input class="submit-field__input" type="text" placeholder="e.g. SDE-1" />
-                </div>
-              </div>
-              <div class="submit-field">
-                <label class="submit-field__label">Difficulty</label>
-                <select class="submit-field__select">
-                  <option>Easy</option>
-                  <option>Medium</option>
-                  <option selected>Medium-Hard</option>
-                  <option>Hard</option>
-                  <option>Very Hard</option>
-                </select>
-              </div>
-              <div class="submit-field">
-                <label class="submit-field__label">Questions Asked</label>
-                <textarea class="submit-field__textarea" rows="4" placeholder="One question per line\ne.g.\n1. Reverse a linked list\n2. System design: URL shortener"></textarea>
-              </div>
-            </div>
-
-            <div class="submit-field">
-              <label class="submit-field__label">Your Comment / Experience</label>
-              <textarea class="submit-field__textarea" id="submit-comment" rows="4" placeholder="Share your honest experience. This will be shown anonymously. You can include any links to images or documents that support your submission."></textarea>
+              <label class="submit-field__label">Context / Comments</label>
+              <textarea class="submit-field__textarea" id="submit-comment" rows="2" placeholder="Share any extra context regarding the stats or the report."></textarea>
             </div>
 
             <div class="submit-btn-row">
@@ -232,42 +279,40 @@ export function renderSubmit(container) {
           </div>
 
           <div class="submit-panel" id="step-3">
-            <h2 class="submit-panel__title">Add Proof (Recommended)</h2>
-
-            <div class="submit-review" style="border-color: var(--tier-s); margin-bottom: var(--space-xl);">
-              <h3 style="color: var(--tier-s); font-family: var(--font-sub); font-size: 18px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 2px;">Get the "Verified" Badge</h3>
-              <p style="font-family: var(--font-body); font-size: 14px; color: var(--grey-light); line-height: 1.6; margin-bottom: 16px;">
-                Submissions with proof are marked as <strong>VERIFIED</strong> and carry much more weight. You can censor your name, photo, and exact dates — we just need to see the numbers, company, or college name.
-              </p>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                <div>
-                  <h4 style="color: var(--white); font-family: var(--font-sub); font-size: 12px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Accepted Documents:</h4>
-                  <ul style="list-style: none; padding: 0; font-family: var(--font-body); font-size: 13px; color: var(--grey-light); line-height: 1.8;">
-                    <li>✓ Offer Letter (CTC page)</li>
-                    <li>✓ Campus Placement Email</li>
-                    <li>✓ Placement Portal Screenshot</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 style="color: var(--white); font-family: var(--font-sub); font-size: 12px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Alternative Proofs:</h4>
-                  <ul style="list-style: none; padding: 0; font-family: var(--font-body); font-size: 13px; color: var(--grey-light); line-height: 1.8;">
-                    <li>✓ Salary Slip (First month)</li>
-                    <li>✓ College ID Card</li>
-                    <li>✓ Unofficial WhatsApp/Group Chats</li>
-                  </ul>
-                </div>
+            <h2 class="submit-panel__title">Provide Proof</h2>
+            
+            <div class="proof-container">
+              <div class="proof-info">
+                <h3>Get Verified</h3>
+                <p>Submissions with proof update the database faster. Censor personal info. We just need to see the numbers, company, or college name.</p>
+                <ul>
+                  <li>Offer Letters (CTC page)</li>
+                  <li>Campus Placement Emails</li>
+                  <li>Salary Slips</li>
+                  <li>Placement Portal Screenshots</li>
+                </ul>
               </div>
 
-              <div style="background: rgba(88, 101, 242, 0.1); border: 1px solid #5865F2; padding: 16px; border-radius: 4px;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                  <h4 style="color: #5865F2; font-family: var(--font-heading); font-size: 22px; letter-spacing: 1px; margin: 0;">SEND TO DISCORD</h4>
+              <div class="proof-inputs">
+                <div class="submit-field">
+                  <label class="submit-field__label">Upload Images/PDFs</label>
+                  <label class="file-upload-btn">
+                    <input type="file" id="submit-files" multiple accept="image/*,.pdf" />
+                    <span>Choose Files</span>
+                  </label>
+                  <div id="file-list" class="file-list"></div>
                 </div>
-                <p style="font-family: var(--font-body); font-size: 14px; color: var(--white); line-height: 1.5; margin: 0;">
-                  DM your screenshots to the server owner or drop the images to: <strong style="color: #5865F2; font-size: 16px; cursor: text;">https://discord.gg/AbX4xCaQ7m</strong><br>
-                  <span style="font-size: 12px; color: var(--grey-light); display: inline-block; margin-top: 4px;">Please mention the College and Company you are submitting for so we can link it!</span>
-                </p>
+
+                <div class="submit-field">
+                  <label class="submit-field__label">External Links (Drive, Imgur, etc.)</label>
+                  <textarea class="submit-field__textarea" id="submit-links" rows="2" placeholder="Paste links here..."></textarea>
+                </div>
               </div>
+            </div>
+
+            <div class="discord-callout">
+              <h4>Or send via Discord</h4>
+              <p>DM screenshots to the server owner or drop them here: <strong>https://discord.gg/AbX4xCaQ7m</strong></p>
             </div>
 
             <div class="submit-btn-row">
@@ -279,8 +324,7 @@ export function renderSubmit(container) {
           <div class="submit-panel" id="step-4">
             <h2 class="submit-panel__title">Review & Submit</h2>
 
-            <div class="submit-review" id="submit-review">
-            </div>
+            <div class="submit-review" id="submit-review"></div>
 
             <div class="submit-disclaimer">
               <p>By submitting, you confirm this is truthful information to the best of your knowledge. All data is anonymous and will be reviewed before being published.</p>
@@ -289,7 +333,7 @@ export function renderSubmit(container) {
             <div class="submit-btn-row">
               <button type="button" class="submit-btn submit-btn--back" id="btn-back-4">< Back</button>
               <button type="submit" class="submit-btn submit-btn--submit" id="btn-submit">
-                <span class="submit-btn__icon">*</span> Submit Report
+                <span class="submit-btn__icon">*</span> Submit Data
               </button>
             </div>
           </div>
@@ -297,8 +341,8 @@ export function renderSubmit(container) {
           <div class="submit-panel" id="step-success" style="display:none;">
             <div class="submit-success">
               <div class="submit-success__icon">Y</div>
-              <h2 class="submit-success__title">Report Submitted!</h2>
-              <p class="submit-success__text">Thank you for helping the community. Your submission will be reviewed and added to the database.</p>
+              <h2 class="submit-success__title">Data Submitted!</h2>
+              <p class="submit-success__text">Thank you for helping the community. Your submission is in the queue for moderator review.</p>
               <div class="submit-success__actions">
                 <a href="/" data-link class="submit-btn submit-btn--next">Go Home</a>
                 <button type="button" class="submit-btn submit-btn--back" id="btn-another">Submit Another</button>
@@ -312,13 +356,23 @@ export function renderSubmit(container) {
 
   container.appendChild(page);
 
+  // Element References
   const steps = page.querySelectorAll('.submit-step');
   const panels = page.querySelectorAll('.submit-panel');
   const typeCards = page.querySelectorAll('.submit-type-card');
   const collegeSelect = page.querySelector('#submit-college');
   const otherField = page.querySelector('#other-college-field');
+  const statsEditor = page.querySelector('#stats-editor-container');
+  const statsGrid = page.querySelector('#stats-grid');
+  const branchContainer = page.querySelector('#branch-stats-container');
+  const dynamicReportFields = page.querySelector('#dynamic-report-fields');
+  const fileInput = page.querySelector('#submit-files');
+  const fileList = page.querySelector('#file-list');
 
   let currentStep = 1;
+  let activeReportType = 'none';
+  let uploadedFiles = [];
+  let branchCount = 0;
 
   function goToStep(n) {
     currentStep = n;
@@ -336,84 +390,200 @@ export function renderSubmit(container) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // Generate Stats Grid
+  function renderStatsGrid(collegeId) {
+    branchContainer.innerHTML = ''; // Reset branches
+    branchCount = 0;
+
+    if (collegeId === '__other' || !collegeId) {
+      statsEditor.style.display = 'none';
+      return;
+    }
+    const college = COLLEGES.find(c => c.id === collegeId);
+    if (!college) return;
+    
+    statsEditor.style.display = 'block';
+    const s = college.summary;
+    
+    const rows = [
+      { key: 'claimedCTC', label: 'Claimed CTC', val: s.claimedCTC },
+      { key: 'reportedMedian', label: 'Median Package', val: s.reportedMedian },
+      { key: 'reportedAverage', label: 'Average Package', val: s.reportedAverage },
+      { key: 'reportedHighest', label: 'Highest Package', val: s.reportedHighest },
+      { key: 'reportedLowest', label: 'Lowest Package', val: s.reportedLowest },
+      { key: 'placementRate', label: 'Placement Rate', val: s.placementRate },
+      { key: 'batchSize', label: 'Batch Size', val: s.batchSize }
+    ];
+
+    statsGrid.innerHTML = rows.map(r => `
+      <div class="stat-edit-row">
+        <div class="stat-edit-label">${r.label}</div>
+        <div class="stat-edit-old">${r.val || 'N/A'}</div>
+        <div class="stat-edit-arrow">→</div>
+        <input type="text" class="stat-edit-input" id="update_${r.key}" placeholder="New...">
+      </div>
+    `).join('');
+  }
+
+  // Add Branch Stat Row
+  page.querySelector('#btn-add-branch').addEventListener('click', () => {
+    const row = document.createElement('div');
+    row.className = 'branch-edit-row';
+    row.innerHTML = `
+      <input type="text" class="submit-field__input b-name" placeholder="Branch (e.g. CSE)" />
+      <input type="text" class="submit-field__input b-high" placeholder="High" />
+      <input type="text" class="submit-field__input b-avg" placeholder="Avg" />
+      <input type="text" class="submit-field__input b-med" placeholder="Med" />
+      <button type="button" class="branch-edit-remove">×</button>
+    `;
+    row.querySelector('.branch-edit-remove').addEventListener('click', () => row.remove());
+    branchContainer.appendChild(row);
+    branchCount++;
+  });
+
+  collegeSelect.addEventListener('change', () => {
+    otherField.style.display = collegeSelect.value === '__other' ? '' : 'none';
+    renderStatsGrid(collegeSelect.value);
+  });
+
+  // Report Type Selection
   typeCards.forEach(card => {
     card.addEventListener('click', () => {
       typeCards.forEach(c => c.classList.remove('submit-type-card--active'));
       card.classList.add('submit-type-card--active');
       card.querySelector('input').checked = true;
+      activeReportType = card.dataset.type;
 
-      const type = card.dataset.type;
-      page.querySelector('#personal-fields').style.display = type === 'personal' ? '' : 'none';
-      page.querySelector('#aggregate-fields').style.display = type === 'aggregate' ? '' : 'none';
-      page.querySelector('#question-fields').style.display = type === 'question' ? '' : 'none';
+      dynamicReportFields.style.display = activeReportType === 'none' ? 'none' : 'block';
+      page.querySelector('#personal-fields').style.display = activeReportType === 'personal' ? 'block' : 'none';
+      page.querySelector('#aggregate-fields').style.display = activeReportType === 'aggregate' ? 'block' : 'none';
+      page.querySelector('#question-fields').style.display = activeReportType === 'question' ? 'block' : 'none';
     });
   });
 
-  collegeSelect.addEventListener('change', () => {
-    otherField.style.display = collegeSelect.value === '__other' ? '' : 'none';
+  // File Upload
+  fileInput.addEventListener('change', (e) => {
+    uploadedFiles = Array.from(e.target.files);
+    fileList.innerHTML = uploadedFiles.map(f => `<div class="file-item">${f.name}</div>`).join('');
   });
 
+  // Navigation Logic
   page.querySelector('#btn-next-1').addEventListener('click', () => {
     if (!collegeSelect.value) {
       collegeSelect.focus();
       collegeSelect.style.borderColor = 'var(--red)';
       return;
     }
+    collegeSelect.style.borderColor = 'var(--grey-mid)';
     goToStep(2);
   });
 
   page.querySelector('#btn-back-2').addEventListener('click', () => goToStep(1));
-
-  // Step 2 to 3 (Proof Step)
-  page.querySelector('#btn-next-2').addEventListener('click', () => {
-    goToStep(3);
-  });
-
-  // Proof Step back button
+  page.querySelector('#btn-next-2').addEventListener('click', () => goToStep(3));
   page.querySelector('#btn-back-3').addEventListener('click', () => goToStep(2));
 
-  // Proof Step next button -> Generates Review and goes to Step 4
   page.querySelector('#btn-next-3').addEventListener('click', () => {
-    const collegeName = collegeSelect.value === '__other'
-      ? (page.querySelector('#submit-other-name').value || 'New College')
-      : (collegeSelect.options[collegeSelect.selectedIndex]?.text || '');
-    const reportType = page.querySelector('input[name="reportType"]:checked')?.value || 'personal';
-    const batch = page.querySelector('#submit-batch').value;
-    const branch = page.querySelector('#submit-branch').value || 'Not specified';
-    const comment = page.querySelector('#submit-comment').value || 'No comment';
-
-    let dataHtml = '';
-    if (reportType === 'personal') {
-      dataHtml = `
-        <div class="submit-review__row"><span>Company</span><span>${page.querySelector('#submit-company').value || 'N/A'}</span></div>
-        <div class="submit-review__row"><span>Role</span><span>${page.querySelector('#submit-role').value || 'N/A'}</span></div>
-        <div class="submit-review__row"><span>CTC</span><span>${page.querySelector('#submit-ctc').value || 'N/A'}</span></div>
-        <div class="submit-review__row"><span>Base Pay</span><span>${page.querySelector('#submit-base').value || 'N/A'}</span></div>
-      `;
-    } else if (reportType === 'aggregate') {
-      dataHtml = `<div class="submit-review__row"><span>Type</span><span>Aggregate / Batch Stats</span></div>`;
-    } else {
-      dataHtml = `<div class="submit-review__row"><span>Type</span><span>Interview Questions</span></div>`;
-    }
-
-    page.querySelector('#submit-review').innerHTML = `
-      <div class="submit-review__row"><span>College</span><span>${collegeName}</span></div>
-      <div class="submit-review__row"><span>Batch</span><span>${batch}</span></div>
-      <div class="submit-review__row"><span>Branch</span><span>${branch}</span></div>
-      <div class="submit-review__row"><span>Report Type</span><span>${reportType}</span></div>
-      ${dataHtml}
-      <div class="submit-review__comment">
-        <span>Comment</span>
-        <p>${comment}</p>
-      </div>
-    `;
+    generateReview();
     goToStep(4);
   });
 
-  // Review step back button
   page.querySelector('#btn-back-4').addEventListener('click', () => goToStep(3));
 
-  // Submit Final
+  // Review Generation
+  function generateReview() {
+    const collegeName = collegeSelect.value === '__other'
+      ? (page.querySelector('#submit-other-name').value || 'New College')
+      : (collegeSelect.options[collegeSelect.selectedIndex]?.text || '');
+    
+    const dataYear = page.querySelector('#submit-stat-year').value || 'Not Specified';
+
+    let html = `
+      <div class="submit-review__section">
+        <div class="submit-review__row"><span>Target College</span><span>${collegeName}</span></div>
+        <div class="submit-review__row"><span>Data Year</span><span>${dataYear}</span></div>
+      </div>
+    `;
+
+    // Overall Stats
+    const statsUpdates = [];
+    if (collegeSelect.value !== '__other' && collegeSelect.value !== '') {
+      statsGrid.querySelectorAll('.stat-edit-input').forEach(input => {
+        if (input.value.trim() !== '') {
+          const label = input.closest('.stat-edit-row').querySelector('.stat-edit-label').textContent;
+          const old = input.closest('.stat-edit-row').querySelector('.stat-edit-old').textContent;
+          statsUpdates.push(`<tr><td>${label}</td><td>${old}</td><td>${input.value}</td></tr>`);
+        }
+      });
+    }
+
+    if (statsUpdates.length > 0) {
+      html += `
+        <div class="submit-review__section">
+          <h4>Overall Stats Updates</h4>
+          <table class="review-table">
+            <thead><tr><th>Stat</th><th>Current</th><th>Suggested</th></tr></thead>
+            <tbody>${statsUpdates.join('')}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Branch Stats
+    const branchRows = branchContainer.querySelectorAll('.branch-edit-row');
+    if (branchRows.length > 0) {
+      let bHtml = `<div class="submit-review__section"><h4>Branch Stats</h4><table class="review-table"><thead><tr><th>Branch</th><th>High</th><th>Avg</th><th>Med</th></tr></thead><tbody>`;
+      branchRows.forEach(row => {
+        const n = row.querySelector('.b-name').value || '-';
+        const h = row.querySelector('.b-high').value || '-';
+        const a = row.querySelector('.b-avg').value || '-';
+        const m = row.querySelector('.b-med').value || '-';
+        if(n !== '-' || h !== '-' || a !== '-' || m !== '-') {
+           bHtml += `<tr><td>${n}</td><td>${h}</td><td>${a}</td><td>${m}</td></tr>`;
+        }
+      });
+      bHtml += `</tbody></table></div>`;
+      html += bHtml;
+    }
+
+    // Report Review
+    if (activeReportType !== 'none') {
+      const author = page.querySelector('#submit-author').value;
+      const date = page.querySelector('#submit-exact-date').value || 'Not Specified';
+      const drive = page.querySelector('#submit-drive-type').value;
+
+      html += `<div class="submit-review__section"><h4>New Report: ${activeReportType.toUpperCase()}</h4>`;
+      html += `
+        <div class="submit-review__row"><span>Author / Date</span><span>${author} | ${date}</span></div>
+        <div class="submit-review__row"><span>Drive Type</span><span>${drive}</span></div>
+      `;
+
+      if (activeReportType === 'personal') {
+        html += `
+          <div class="submit-review__row"><span>Company/Role</span><span>${page.querySelector('#submit-company').value || '-'} / ${page.querySelector('#submit-role').value || '-'}</span></div>
+          <div class="submit-review__row"><span>CTC</span><span>${page.querySelector('#submit-ctc').value || '-'}</span></div>
+        `;
+      } else if (activeReportType === 'aggregate') {
+        html += `<div class="submit-review__row"><span>Branch</span><span>${page.querySelector('#submit-agg-branch').value || '-'}</span></div>`;
+      } else if (activeReportType === 'question') {
+        html += `<div class="submit-review__row"><span>Company</span><span>${page.querySelector('#q-company').value || '-'}</span></div>`;
+      }
+      html += `</div>`;
+    }
+
+    const proofLinks = page.querySelector('#submit-links').value.trim();
+    const comment = page.querySelector('#submit-comment').value.trim();
+
+    html += `<div class="submit-review__section"><h4>Attachments & Notes</h4>`;
+    if (uploadedFiles.length > 0) html += `<p class="review-text"><strong>Files:</strong> ${uploadedFiles.map(f => f.name).join(', ')}</p>`;
+    if (proofLinks) html += `<p class="review-text"><strong>Links:</strong> ${proofLinks}</p>`;
+    if (comment) html += `<p class="review-text"><strong>Comment:</strong> ${comment}</p>`;
+    if (uploadedFiles.length === 0 && !proofLinks && !comment) html += `<p class="review-empty">None provided.</p>`;
+    html += `</div>`;
+
+    page.querySelector('#submit-review').innerHTML = html;
+  }
+
+  // Webhook Submit logic
   page.querySelector('#submit-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -422,46 +592,61 @@ export function renderSubmit(container) {
     submitBtn.disabled = true;
 
     const collegeName = collegeSelect.value === '__other' ? (page.querySelector('#submit-other-name').value || 'New College') : (collegeSelect.options[collegeSelect.selectedIndex]?.text || 'Unknown');
-    const reportType = page.querySelector('input[name="reportType"]:checked')?.value || 'personal';
-    const batch = page.querySelector('#submit-batch').value;
-    const branch = page.querySelector('#submit-branch').value || 'Not specified';
-    const comment = page.querySelector('#submit-comment').value || 'No comment';
-
-    let fields = [
-      { name: "College", value: collegeName, inline: true },
-      { name: "Batch", value: batch, inline: true },
-      { name: "Branch", value: branch, inline: true },
-      { name: "Type", value: reportType, inline: true }
+    const fields = [
+      { name: "Target", value: `${collegeName} (Year: ${page.querySelector('#submit-stat-year').value || 'N/A'})`, inline: false }
     ];
 
-    if (reportType === 'personal') {
-      fields.push({ name: "Company", value: page.querySelector('#submit-company').value || 'N/A', inline: true });
-      fields.push({ name: "Role", value: page.querySelector('#submit-role').value || 'N/A', inline: true });
-      fields.push({ name: "CTC", value: page.querySelector('#submit-ctc').value || 'N/A', inline: true });
-      fields.push({ name: "Base Pay", value: page.querySelector('#submit-base').value || 'N/A', inline: true });
-    } else if (reportType === 'aggregate') {
-      const aggInputs = page.querySelectorAll('#aggregate-fields .submit-field__input');
-      fields.push({ name: "Median Package", value: aggInputs[0].value || 'N/A', inline: true });
-      fields.push({ name: "Average Package", value: aggInputs[1].value || 'N/A', inline: true });
-      fields.push({ name: "Highest Package", value: aggInputs[2].value || 'N/A', inline: true });
-      fields.push({ name: "% Placed", value: aggInputs[3].value || 'N/A', inline: true });
-    } else if (reportType === 'question') {
-      const qInputs = page.querySelectorAll('#question-fields .submit-field__input');
-      const qSelect = page.querySelector('#question-fields .submit-field__select');
-      const qText = page.querySelector('#question-fields .submit-field__textarea');
-      fields.push({ name: "Company", value: qInputs[0].value || 'N/A', inline: true });
-      fields.push({ name: "Role", value: qInputs[1].value || 'N/A', inline: true });
-      fields.push({ name: "Difficulty", value: qSelect.value || 'N/A', inline: true });
-      fields.push({ name: "Questions", value: qText.value || 'N/A', inline: false });
+    // Harvest Stats
+    const statsUpdates = [];
+    if (collegeSelect.value !== '__other' && collegeSelect.value !== '') {
+      statsGrid.querySelectorAll('.stat-edit-input').forEach(input => {
+        if (input.value.trim() !== '') {
+          const label = input.closest('.stat-edit-row').querySelector('.stat-edit-label').textContent;
+          const old = input.closest('.stat-edit-row').querySelector('.stat-edit-old').textContent;
+          statsUpdates.push(`${label}: ${old} -> ${input.value}`);
+        }
+      });
+    }
+    if (statsUpdates.length > 0) fields.push({ name: "Overall Stats Changes", value: statsUpdates.join('\n'), inline: false });
+
+    // Harvest Branch Stats
+    const branchUpdates = [];
+    branchContainer.querySelectorAll('.branch-edit-row').forEach(row => {
+        const n = row.querySelector('.b-name').value;
+        if(n) {
+           branchUpdates.push(`${n} - High: ${row.querySelector('.b-high').value || '-'}, Avg: ${row.querySelector('.b-avg').value || '-'}, Med: ${row.querySelector('.b-med').value || '-'}`);
+        }
+    });
+    if (branchUpdates.length > 0) fields.push({ name: "Branch Stats Added", value: branchUpdates.join('\n'), inline: false });
+
+    // Harvest Report Data
+    if (activeReportType !== 'none') {
+      const meta = `Author: ${page.querySelector('#submit-author').value}\nDate: ${page.querySelector('#submit-exact-date').value || 'N/A'}\nDrive: ${page.querySelector('#submit-drive-type').value}\nBatch: ${page.querySelector('#submit-batch').value || 'N/A'}`;
+      fields.push({ name: "Report Meta", value: meta, inline: false });
+      
+      let rData = `Type: ${activeReportType}\n`;
+      if (activeReportType === 'personal') {
+        rData += `Company: ${page.querySelector('#submit-company').value}\nRole: ${page.querySelector('#submit-role').value}\nBranch: ${page.querySelector('#submit-personal-branch').value}\nTotal: ${page.querySelector('#submit-ctc').value}\nBase: ${page.querySelector('#submit-base').value}\nBonus: ${page.querySelector('#submit-variable').value}`;
+      } else if (activeReportType === 'aggregate') {
+        rData += `Branch: ${page.querySelector('#submit-agg-branch').value}\nHighest: ${page.querySelector('#agg-highest').value}\nAvg: ${page.querySelector('#agg-average').value}\nMed: ${page.querySelector('#agg-median').value}`;
+      } else if (activeReportType === 'question') {
+        rData += `Company: ${page.querySelector('#q-company').value}\nRole: ${page.querySelector('#q-role').value}\nDiff: ${page.querySelector('#q-difficulty').value}\nRounds: ${page.querySelector('#q-rounds').value}\nQs: ${page.querySelector('#q-text').value.substring(0, 500)}`;
+      }
+      fields.push({ name: "Report Data", value: rData, inline: false });
     }
 
-    fields.push({ name: "Comment", value: comment, inline: false });
+    const proofLinks = page.querySelector('#submit-links').value;
+    const comment = page.querySelector('#submit-comment').value;
+
+    if (uploadedFiles.length > 0) fields.push({ name: "Files Uploaded (Check Discord UI)", value: uploadedFiles.map(f => f.name).join(', '), inline: false });
+    if (proofLinks) fields.push({ name: "Proof Links", value: proofLinks, inline: false });
+    if (comment) fields.push({ name: "Comments", value: comment, inline: false });
 
     const payload = {
-      username: "CollegeUnredacted System",
+      username: "CollegeUnredacted Updater",
       embeds: [{
-        title: "[NEW SUBMISSION] College Report",
-        color: 15073298,
+        title: "[NEW SUBMISSION] Data Verification Required",
+        color: 15073298, // The red color
         fields: fields,
         timestamp: new Date().toISOString()
       }]
@@ -474,9 +659,10 @@ export function renderSubmit(container) {
         body: JSON.stringify(payload)
       });
     } catch (e) {
-      console.error(e);
+      console.error("Webhook failed:", e);
     }
 
+    // Show success panel
     panels.forEach(p => { p.classList.remove('submit-panel--active'); p.style.display = 'none'; });
     steps.forEach(s => s.classList.add('submit-step--done'));
     const success = page.querySelector('#step-success');

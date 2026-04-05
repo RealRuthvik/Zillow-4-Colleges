@@ -707,3 +707,5 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
 }
 
 document.addEventListener('DOMContentLoaded', loadData);
+
+
