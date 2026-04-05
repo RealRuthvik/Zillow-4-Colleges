@@ -31,8 +31,42 @@
   z-index: 2;
 }
 
-.hero__title span {
+.hero__truth-wrap {
+  position: relative;
+  display: inline-block;
   color: var(--red);
+}
+
+.mc-sticker {
+  position: absolute;
+  bottom: -10px;
+  right: -30px;
+  background: #FFD700;
+  color: #000;
+  font-family: var(--font-sub);
+  font-size: 16px;
+  font-weight: 800;
+  padding: 6px 12px;
+  transform: rotate(-6deg);
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+  letter-spacing: 2px;
+  display: inline-block;
+  line-height: 1;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mc-sticker.pop {
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5) rotate(-20deg); opacity: 0; }
+  100% { transform: scale(1) rotate(-6deg); opacity: 1; }
 }
 
 /* Red block behind title */

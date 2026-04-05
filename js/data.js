@@ -1,70 +1,386 @@
 const COLLEGES = [
   {
-    "hasWarning": true,
+    "id": "rvce-bengaluru",
+    "name": "R. V. College of Engineering",
+    "shortName": "RVCE",
+    "location": "Bangalore, Karnataka",
+    "type": "Tier 1.5",
+    "trustScore": 75,
+    "hasWarning": false,
+    "warningLabel": "",
+    "warningDetails": "",
+    "searchCount": 0,
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "branches": [
+        {
+          "name": "CSE / AIML / ISE",
+          "low": "6 LPA",
+          "high": "56 LPA",
+          "median": "18.76 LPA",
+          "average": "18.6 LPA"
+        },
+        {
+          "name": "ECE & Related",
+          "low": "4.05 LPA",
+          "high": "34 LPA",
+          "median": "17.5 LPA",
+          "average": "18 LPA"
+        },
+        {
+          "name": "Chemical",
+          "low": "5 LPA",
+          "high": "18.33 LPA",
+          "median": "11 LPA",
+          "average": "11.58 LPA"
+        },
+        {
+          "name": "Biotechnology",
+          "low": "9.4 LPA",
+          "high": "14.81 LPA",
+          "median": "10 LPA",
+          "average": "11.2 LPA"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "reportedMedian": "14.7 LPA",
+      "reportedAverage": "16.72 LPA",
+      "reportedLowest": "4 LPA",
+      "reportedHighest": "92 LPA",
+      "totalReports": 1,
+      "placementRate": "77%",
+      "batchSize": "~ 800"
+    },
+    "summaryDates": {
+      "median": "2024-2025",
+      "average": "2024-2025",
+      "lowest": "2024-2025",
+      "highest": "2024-2025",
+      "placementRate": "2024-2025",
+      "batchSize": "2024-2025",
+      "companies": "2024-2025"
+    },
+    "onlineSources": [
+      {
+        "name": "Highest CTC (92 LPA)",
+        "trustLevel": "Low",
+        "finding": "https://www.reddit.com/r/Btechtards/comments/16wt63n/rvce_placement_statestics_for_2024_batchall/",
+        "fileUrl": "/uploads/rvce-placement-statestics-for-2024-batch-all-branches-v0-ec3r5orn6jrb1.webp"
+      },
+      {
+        "name": "Student Led Website",
+        "trustLevel": "High",
+        "finding": "https://rvce-placements.vercel.app/placements/2025",
+        "fileUrl": ""
+      }
+    ],
+    "reports": [],
+    "placementQuestions": [
+      {
+        "company": "Samsung",
+        "logo": "https://1000logos.net/wp-content/uploads/2017/06/Samsung-Logo-1993.png",
+        "role": "Digital",
+        "ctc": "25.85",
+        "year": 2024,
+        "date": "17/09/2024",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "The Math Company",
+        "logo": "data:image/png;base64,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",
+        "role": "",
+        "ctc": "5.5 LPA",
+        "year": 2024,
+        "date": "14/09/2024",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Texas Instruments",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4fZ4mvt9xbHey6IlDv82pQY5wTFrMRF0ioA&s",
+        "role": "TSR",
+        "ctc": "30.22 LPA",
+        "year": 2024,
+        "date": "2/8/2024",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Zomato X Blinkit",
+        "logo": "data:image/png;base64,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",
+        "role": "SWE",
+        "ctc": "56 LPA",
+        "year": 2024,
+        "date": "1/8/2024",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Microsoft",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/500px-Microsoft_logo.svg.png",
+        "role": "SWE",
+        "ctc": "23 LPA",
+        "year": 2024,
+        "date": "27/07/2024",
+        "questions": [],
+        "difficulty": "Medium"
+      }
+    ],
+    "tags": []
+  },
+  {
     "id": "nitte-meenakshi-nmit-bangalore",
+    "name": "Nitte Meenakshi Institute of Technology",
+    "shortName": "NMIT",
+    "location": "Bangalore",
+    "type": "Tier 2",
+    "trustScore": 90,
+    "hasWarning": true,
+    "warningLabel": "Disclaimer",
+    "warningDetails": "Internship data is also included in the calculations.",
+    "searchCount": 0,
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "branches": [
+        {
+          "name": "CSE / ISE",
+          "low": "3 LPA",
+          "high": "26 LPA",
+          "median": "6.5 LPA",
+          "average": "8 LPA"
+        },
+        {
+          "name": "ECE / EEE",
+          "low": "1.2 LPA",
+          "high": "26 LPA",
+          "median": "5.5 LPA",
+          "average": "6.8 LPA"
+        },
+        {
+          "name": "MECH / AERO",
+          "low": "2.48 LPA",
+          "high": "21.59 LPA",
+          "median": "5 LPA",
+          "average": "5.5 LPA"
+        },
+        {
+          "name": "CIVIL",
+          "low": "3.39 LPA",
+          "high": "8 LPA",
+          "median": "4.5 LPA",
+          "average": "4.8 LPA"
+        }
+      ],
+      "claimedCTC": "~ 6 LPA",
+      "reportedMedian": "~ 6 LPA",
+      "reportedAverage": "~ 7.6 LPA",
+      "reportedLowest": "~ 1.2 LPA",
+      "reportedHighest": "~ 47 LPA",
+      "totalReports": 1,
+      "placementRate": "143",
+      "batchSize": "~ 850"
+    },
+    "summaryDates": {
+      "median": "2026",
+      "average": "2026",
+      "lowest": "2024",
+      "highest": "2024",
+      "placementRate": "2024",
+      "batchSize": "2024",
+      "companies": ""
+    },
+    "onlineSources": [
+      {
+        "name": "shiksha.com",
+        "trustLevel": "Medium",
+        "finding": "https://www.shiksha.com/college/nitte-meenakshi-institute-of-technology-yelahanaka-bangalore-27017/placement",
+        "fileUrl": ""
+      },
+      {
+        "name": "Official 2024 Placement Record",
+        "trustLevel": "High",
+        "finding": "Excel sheet containing 143 company offers across all branches with exact LPA figures.",
+        "fileUrl": ""
+      }
+    ],
+    "reports": [
+      {
+        "id": "nmit-agg-1",
+        "author": "Placement Cell Data",
+        "batch": "2024",
+        "branch": "All Branches",
+        "timestamp": "Recently",
+        "trustScore": 95,
+        "upvotes": 0,
+        "reportType": "aggregate",
+        "company": "",
+        "role": "",
+        "ctcOffered": "26 LPA",
+        "ctcBreakdown": null,
+        "comment": "Official data obtained showing 143 companies visited. Top recruiters include Toyota Connected and Nvidia at 26 LPA, and Walmart at 24 LPA. Strong presence of Japanese companies like Hitachi and Anest Iwata offering 20+ LPA packages.",
+        "dataReported": {
+          "type": "individual_offer"
+        }
+      }
+    ],
+    "placementQuestions": [
+      {
+        "company": "Anest Iwata Corporation",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdUWmbsuBHd3_gSnPPd-MmKO-vlywsYtea7Q&s",
+        "role": "",
+        "ctc": "21.59 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Vebuin",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa8ZgQUU521_7kzgNrw3RfnCgzqXCNCfGgyQ&s",
+        "role": "",
+        "ctc": "22.97 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Hitachi Industrial Equipment Systems",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuIBfkCxzSZhFR1XnjdmYQOHWnoD7uV4xLXA&s",
+        "role": "",
+        "ctc": "22.99 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Walmart India",
+        "logo": "https://1000logos.net/wp-content/uploads/2017/05/Walmart-Logo.png",
+        "role": "",
+        "ctc": "24 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Nvidia",
+        "logo": "https://www.logo.wine/a/logo/Nvidia/Nvidia-Light-Vertical-Dark-Background-Logo.wine.svg",
+        "role": "",
+        "ctc": "26 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Toyota Connected Corporation",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLGZD79JubhYOL-PUDcIwi3nen3KK4l8od_Q&s",
+        "role": "",
+        "ctc": "26 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      }
+    ],
+    "tags": [
+      {
+        "text": "MASS RECRUITER BASE",
+        "color": "red",
+        "featured": true
+      },
+      {
+        "text": "STRONG CORE PLACEMENTS",
+        "color": "yellow",
+        "featured": false
+      }
+    ]
+  },
+  {
+    "hasWarning": false,
+    "id": "bit-bangalore",
     "lastUpdated": "Apr 2026",
     "lastUpdatedFull": "5 Apr 2026",
     "location": "Bangalore",
-    "name": "Nitte Meenakshi Institute of Technology",
+    "name": "Bangalore Institute of Technology",
     "onlineSources": [
       {
         "fileUrl": "",
-        "finding": "https://www.shiksha.com/college/nitte-meenakshi-institute-of-technology-yelahanaka-bangalore-27017/placement",
-        "name": "shiksha.com",
-        "trustLevel": "Medium"
+        "finding": "https://bit-bangalore.edu.in/placement-students",
+        "name": "Offical BIT Website",
+        "trustLevel": "High"
       },
       {
-        "fileUrl": "",
-        "finding": "Excel sheet containing 143 company offers across all branches with exact LPA figures.",
+        "fileUrl": "/uploads/BIT_2024.pdf",
+        "finding": "PDF document containing 88 company records with exact LPA figures and total students placed per company.",
         "name": "Official 2024 Placement Record",
         "trustLevel": "High"
       }
     ],
     "placementQuestions": [
       {
-        "company": "Anest Iwata Corporation",
+        "company": "Cisco",
+        "ctc": "26 LPA",
         "date": "",
         "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sn_13bI3Uj0Z5jD-cs4s-6L3cnlzIBdE0Q&s",
         "questions": [],
         "role": "",
         "year": 2024
       },
       {
-        "company": "Vebuin",
+        "company": "Visa Inc (Off Campus)",
+        "ctc": "28 LPA",
         "date": "",
         "difficulty": "Medium",
+        "logo": "https://www.freepnglogos.com/uploads/visa-logo-png-image-4.png",
         "questions": [],
         "role": "",
         "year": 2024
       },
       {
-        "company": "Hitachi Industrial Equipment Systems",
+        "company": "Cisco (Off Campus)",
+        "ctc": "42 LPA",
         "date": "",
         "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sn_13bI3Uj0Z5jD-cs4s-6L3cnlzIBdE0Q&s",
         "questions": [],
         "role": "",
         "year": 2024
       },
       {
-        "company": "Walmart India",
+        "company": "Intuit (Off Campus)",
+        "ctc": "45 LPA",
         "date": "",
         "difficulty": "Medium",
+        "logo": "https://design.intuit.com/wp-content/uploads/2024/06/Group-1125087197.png",
         "questions": [],
         "role": "",
         "year": 2024
       },
       {
-        "company": "Nvidia",
+        "company": "Google",
+        "ctc": "57 LPA",
         "date": "",
         "difficulty": "Medium",
+        "logo": "https://lh7-us.googleusercontent.com/zXpCeGylb_EqnsAz-W8WGOZRuKUDgay0CkrjURvYXi1FHIK1iCb11Lls9FAKrh49GsSm2kOZ27V7VxBU1BKdJ58pwLzEzuDlD_Oz1VMWurZjBYwiD-36iJa1WQA9BynYbjWGUnhlw1GE",
         "questions": [],
         "role": "",
         "year": 2024
       },
       {
-        "company": "Toyota Connected Corporation",
+        "company": "Microsoft",
+        "ctc": "58 LPA",
         "date": "",
         "difficulty": "Medium",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
         "questions": [],
         "role": "",
         "year": 2024
@@ -75,14 +391,14 @@ const COLLEGES = [
         "author": "Placement Cell Data",
         "batch": "2024",
         "branch": "All Branches",
-        "comment": "Official data obtained showing 143 companies visited. Top recruiters include Toyota Connected and Nvidia at 26 LPA, and Walmart at 24 LPA. Strong presence of Japanese companies like Hitachi and Anest Iwata offering 20+ LPA packages.",
+        "comment": "Official 2024 placement record showing 508 total placements. Microsoft and Google offered the highest at 58 LPA and 57 LPA respectively. Several top tier packages like Intuit (45 LPA) and Cisco (42 LPA) are off-campus. Major volume recruiters include Fidelity (21 placed at 12 LPA) and L&T (16 placed at 6.8 LPA).",
         "company": "",
         "ctcBreakdown": null,
-        "ctcOffered": "26 LPA",
+        "ctcOffered": "58 LPA",
         "dataReported": {
           "type": "individual_offer"
         },
-        "id": "nmit-agg-1",
+        "id": "bit-agg-1",
         "reportType": "aggregate",
         "role": "",
         "timestamp": "Recently",
@@ -91,131 +407,44 @@ const COLLEGES = [
       }
     ],
     "searchCount": 0,
-    "shortName": "NMIT",
-    "summary": {
-      "advertisedSameAsReported": true,
-      "batchSize": "N/A",
-      "branches": [
-        {
-          "average": "8 LPA",
-          "high": "26 LPA",
-          "low": "3 LPA",
-          "median": "6.5 LPA",
-          "name": "CSE / ISE"
-        },
-        {
-          "average": "6.8 LPA",
-          "high": "26 LPA",
-          "low": "1.2 LPA",
-          "median": "5.5 LPA",
-          "name": "ECE / EEE"
-        },
-        {
-          "average": "5.5 LPA",
-          "high": "21.59 LPA",
-          "low": "2.48 LPA",
-          "median": "5 LPA",
-          "name": "MECH / AERO"
-        },
-        {
-          "average": "4.8 LPA",
-          "high": "8 LPA",
-          "low": "3.39 LPA",
-          "median": "4.5 LPA",
-          "name": "CIVIL"
-        }
-      ],
-      "claimedCTC": "~ 26 LPA",
-      "placementRate": "N/A",
-      "reportedAverage": "~ 7.3 LPA",
-      "reportedHighest": "~ 26 LPA",
-      "reportedLowest": "~ 1.2 LPA",
-      "reportedMedian": "~ 6.2 LPA",
-      "totalReports": 143
-    },
-    "tags": [
-      {
-        "color": "red",
-        "featured": true,
-        "text": "MASS RECRUITER BASE"
-      },
-      {
-        "color": "yellow",
-        "featured": false,
-        "text": "STRONG CORE PLACEMENTS"
-      }
-    ],
-    "trustScore": 90,
-    "type": "Tier 2",
-    "warningDetails": "Internship data is also included in the calculations.",
-    "warningLabel": "Disclaimer"
-  },
-  {
-    "id": "bit-bangalore",
-    "name": "Bangalore Institute of Technology",
     "shortName": "BIT",
-    "location": "Bangalore",
-    "type": "Tier 3",
-    "trustScore": 84,
-    "hasWarning": false,
-    "warningLabel": "",
-    "warningDetails": "",
-    "searchCount": 0,
-    "lastUpdated": "Apr 2026",
-    "lastUpdatedFull": "5 Apr 2026",
     "summary": {
       "advertisedSameAsReported": false,
+      "batchSize": "~ 1400",
       "branches": [],
       "claimedCTC": "10 LPA",
-      "reportedMedian": "6.5 LPA",
-      "reportedAverage": "7.5 LPA",
-      "reportedLowest": "3.0 LPA",
-      "reportedHighest": "58 LPA",
-      "totalReports": 1,
       "placementRate": "508",
-      "batchSize": "~ 1400"
+      "reportedAverage": "7.5 LPA",
+      "reportedHighest": "58 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "6.5 LPA",
+      "totalReports": 1
     },
-    "onlineSources": [
-      {
-        "name": "Official 2024 Placement Record",
-        "trustLevel": "High",
-        "finding": "PDF document containing 88 company records with exact LPA figures and total students placed per company.",
-        "fileUrl": "/uploads/BIT_2024.pdf"
-      }
-    ],
-    "reports": [
-      {
-        "id": "bit-agg-1",
-        "author": "Placement Cell Data",
-        "batch": "2024",
-        "branch": "All Branches",
-        "timestamp": "Recently",
-        "trustScore": 95,
-        "upvotes": 0,
-        "reportType": "aggregate",
-        "company": "Multiple",
-        "role": "Various",
-        "ctcOffered": "58 LPA",
-        "ctcBreakdown": null,
-        "comment": "Official 2024 placement record showing 508 total placements. Microsoft and Google offered the highest at 58 LPA and 57 LPA respectively. Several top tier packages like Intuit (45 LPA) and Cisco (42 LPA) are off-campus. Major volume recruiters include Fidelity (21 placed at 12 LPA) and L&T (16 placed at 6.8 LPA).",
-        "dataReported": {
-          "type": "individual_offer"
-        }
-      }
-    ],
-    "placementQuestions": [],
+    "summaryDates": {
+      "average": "Sep 2024",
+      "batchSize": "Sep 2024",
+      "companies": "September 2024",
+      "highest": "Sep 2024",
+      "lowest": "Sep 2024",
+      "median": "Sep 2024",
+      "placementRate": "Sep 2024"
+    },
     "tags": [
       {
-        "text": "OUTLIERS",
         "color": "red",
-        "featured": false
+        "featured": false,
+        "text": "OUTLIERS"
       },
       {
-        "text": "OFF CAMPUS HEAVY",
         "color": "orange",
-        "featured": true
+        "featured": true,
+        "text": "OFF CAMPUS HEAVY"
       }
-    ]
+    ],
+    "trustScore": 84,
+    "type": "Tier 3",
+    "warningDetails": "",
+    "warningLabel": ""
   }
 ];
 
@@ -224,7 +453,9 @@ function getAllPlacementQuestions() {
   COLLEGES.forEach(college => {
     if (college.placementQuestions) {
       college.placementQuestions.forEach(pq => {
-        all.push({ ...pq, collegeId: college.id, collegeName: college.shortName });
+        if (pq.questions && pq.questions.length > 0) {
+          all.push({ ...pq, collegeId: college.id, collegeName: college.shortName });
+        }
       });
     }
   });

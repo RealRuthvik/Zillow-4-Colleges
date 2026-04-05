@@ -205,3 +205,12 @@
   transform: translateY(-50%) rotate(-8deg);
   pointer-events: none;
 }
+
+.explore-ctc-claimed--verified {
+  color: var(--tier-a);
+}
+
+.explore-ctc-claimed--verified::after {
+  display: none;
+}
+

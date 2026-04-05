@@ -105,7 +105,7 @@ function renderTable(wrap) {
     { id: 'name', label: 'College' },
     { id: 'trustScore', label: 'Tier' },
     { id: 'reportedMedian', label: 'Median CTC' },
-    { id: 'claimedCTC', label: 'Advertised' },
+    { id: 'claimedCTC', label: 'Advertised Median' },
     { id: 'searchCount', label: 'Searches' },
     { id: 'reports', label: 'Reports', sortable: false },
   ];
@@ -138,7 +138,7 @@ function renderTable(wrap) {
                 </div>
               </td>
               <td><div class="explore-ctc-actual">${c.summary.reportedMedian}</div></td>
-              <td><div class="explore-ctc-claimed">${c.summary.claimedCTC}</div></td>
+              <td><div class="explore-ctc-claimed ${c.summary.claimedCTC === c.summary.reportedMedian ? 'explore-ctc-claimed--verified' : ''}">${c.summary.claimedCTC}</div></td>
               <td>${c.searchCount.toLocaleString()}</td>
               <td style="font-family: var(--font-heading); font-size: 18px; color: var(--white);">${c.summary.totalReports}</td>
             </tr>

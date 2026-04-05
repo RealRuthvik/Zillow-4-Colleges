@@ -109,6 +109,7 @@ export function renderDetail(container, collegeId) {
   summarySection.id = 'summary';
 
   const s = college.summary;
+  const sDates = college.summaryDates || {};
   const updatedFull = college.lastUpdatedFull || 'N/A';
   
   const hasWarn = college.hasWarning || college.hasHiddenBond;
@@ -146,21 +147,25 @@ export function renderDetail(container, collegeId) {
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${medFull}</div>
         ${medFull !== s.reportedMedian ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedMedian}</div>` : ''}
         <div class="summary-stat__label">Reported Median</div>
+        ${sDates.median ? `<div class="summary-stat__date">${sDates.median}</div>` : ''}
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${avgFull}</div>
         ${avgFull !== s.reportedAverage ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedAverage}</div>` : ''}
         <div class="summary-stat__label">Reported Avg</div>
+        ${sDates.average ? `<div class="summary-stat__date">${sDates.average}</div>` : ''}
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${lowFull}</div>
         ${lowFull !== s.reportedLowest ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedLowest}</div>` : ''}
         <div class="summary-stat__label">Lowest</div>
+        ${sDates.lowest ? `<div class="summary-stat__date">${sDates.lowest}</div>` : ''}
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${highFull}</div>
         ${highFull !== s.reportedHighest ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedHighest}</div>` : ''}
         <div class="summary-stat__label">Highest</div>
+        ${sDates.highest ? `<div class="summary-stat__date">${sDates.highest}</div>` : ''}
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${s.totalReports}</div>
@@ -169,10 +174,12 @@ export function renderDetail(container, collegeId) {
       <div class="summary-stat">
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${s.placementRate}</div>
         <div class="summary-stat__label">Placed</div>
+        ${sDates.placementRate ? `<div class="summary-stat__date">${sDates.placementRate}</div>` : ''}
       </div>
       <div class="summary-stat">
         <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${s.batchSize}</div>
         <div class="summary-stat__label">Batch Size</div>
+        ${sDates.batchSize ? `<div class="summary-stat__date">${sDates.batchSize}</div>` : ''}
       </div>
     </div>
     ${hasWarn ? `<div class="bond-alert"><strong>${warnLabel}</strong> * ${warnDetails}</div>` : ''}
@@ -254,8 +261,8 @@ export function renderDetail(container, collegeId) {
 function buildOverview(college) {
   const frag = document.createDocumentFragment();
   const reports = college.reports;
+  const sDates = college.summaryDates || {};
 
-  const offerReports = reports.filter(r => r.ctcOffered);
   const personalCount = reports.filter(r => (r.reportType || 'personal') === 'personal').length;
   const aggCount = reports.filter(r => r.reportType === 'aggregate').length;
   const multiCount = reports.filter(r => r.reportType === 'multi_personal').length;
@@ -286,23 +293,19 @@ function buildOverview(college) {
     </div>
   `;
 
-  if (offerReports.length > 0) {
-    const ctcValues = offerReports.map(r => parseFloat(r.ctcOffered)).filter(n => !isNaN(n));
-    if (ctcValues.length > 0) {
-      const minCTC = Math.min(...ctcValues);
-      const maxCTC = Math.max(...ctcValues);
-      const avgCTC = (ctcValues.reduce((a, b) => a + b, 0) / ctcValues.length).toFixed(1);
-      grid.innerHTML += `
-        <div class="overview-card">
-          <div class="overview-card__title">CTC Range (From Offers)</div>
-          <div class="overview-range">
-            <div class="overview-range__item"><div class="overview-range__value">${minCTC} LPA</div><div class="overview-range__label">Lowest</div></div>
-            <div class="overview-range__item"><div class="overview-range__value" style="font-size: 36px;">${avgCTC} LPA</div><div class="overview-range__label">Average</div></div>
-            <div class="overview-range__item"><div class="overview-range__value">${maxCTC} LPA</div><div class="overview-range__label">Highest</div></div>
-          </div>
+  const s = college.summary;
+  if (s.reportedLowest || s.reportedAverage || s.reportedMedian || s.reportedHighest) {
+    grid.innerHTML += `
+      <div class="overview-card">
+        <div class="overview-card__title">Placement Data From User Submissions</div>
+        <div class="overview-range" style="justify-content: space-around; flex-wrap: wrap; padding-top: 10px;">
+          ${s.reportedLowest ? `<div class="overview-range__item"><div class="overview-range__value">${s.reportedLowest}</div><div class="overview-range__label">Lowest</div></div>` : ''}
+          ${s.reportedAverage ? `<div class="overview-range__item"><div class="overview-range__value">${s.reportedAverage}</div><div class="overview-range__label">Average</div></div>` : ''}
+          ${s.reportedMedian ? `<div class="overview-range__item"><div class="overview-range__value" style="color: var(--tier-a);">${s.reportedMedian}</div><div class="overview-range__label">Median</div></div>` : ''}
+          ${s.reportedHighest ? `<div class="overview-range__item"><div class="overview-range__value">${s.reportedHighest}</div><div class="overview-range__label">Highest</div></div>` : ''}
         </div>
-      `;
-    }
+      </div>
+    `;
   }
 
   const companySet = new Set();
@@ -313,7 +316,10 @@ function buildOverview(college) {
   if (companies.length > 0) {
     grid.innerHTML += `
       <div class="overview-card">
-        <div class="overview-card__title">Companies Reported</div>
+        <div class="overview-card__title">
+          Companies Reported 
+          ${sDates.companies ? `<span style="float:right; font-size:9px; color:var(--grey-light); text-transform:uppercase;">As of ${sDates.companies}</span>` : ''}
+        </div>
         <div class="overview-companies">${companies.map(c => `<span class="overview-company-tag">${c}</span>`).join('')}</div>
       </div>
     `;
@@ -432,16 +438,19 @@ function renderDetailedReports(container, reports, page) {
 function buildRecruiters(college) {
   const frag = document.createDocumentFragment();
   const companyMap = {};
+  
   college.reports.forEach(r => {
     if (r.company) {
-      if (!companyMap[r.company]) companyMap[r.company] = { offers: [], questions: [] };
+      if (!companyMap[r.company]) companyMap[r.company] = { offers: [], adminData: [], logo: '' };
       companyMap[r.company].offers.push(r);
     }
   });
+
   if (college.placementQuestions) {
     college.placementQuestions.forEach(pq => {
-      if (!companyMap[pq.company]) companyMap[pq.company] = { offers: [], questions: [] };
-      companyMap[pq.company].questions.push(pq);
+      if (!companyMap[pq.company]) companyMap[pq.company] = { offers: [], adminData: [], logo: pq.logo };
+      if (pq.logo && !companyMap[pq.company].logo) companyMap[pq.company].logo = pq.logo;
+      companyMap[pq.company].adminData.push(pq); 
     });
   }
 
@@ -461,9 +470,14 @@ function buildRecruiters(college) {
     const data = companyMap[company];
     const tile = document.createElement('div');
     tile.className = 'recruiter-tile';
+    
+    const logoHtml = data.logo 
+       ? `<img src="${data.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;background:#fff;" />`
+       : company.charAt(0);
+
     tile.innerHTML = `
       <div class="recruiter-tile__header">
-        <div class="recruiter-tile__logo">${company.charAt(0)}</div>
+        <div class="recruiter-tile__logo">${logoHtml}</div>
         <div class="recruiter-tile__name">${company}</div>
       </div>
       <div class="recruiter-tile__body">
@@ -486,26 +500,42 @@ function buildRecruiters(college) {
 
 function buildRecruiterBody(data) {
   let html = '';
-  if (data.offers.length > 0) {
-    const offer = data.offers[0];
-    html += `<div class="recruiter-detail-grid">`;
-    html += `<div class="recruiter-detail-card"><div class="recruiter-detail-card__label">Role</div><div class="recruiter-detail-card__value">${offer.role || 'N/A'}</div></div>`;
-    html += `<div class="recruiter-detail-card"><div class="recruiter-detail-card__label">CTC</div><div class="recruiter-detail-card__value">${offer.ctcOffered || 'N/A'}</div></div>`;
-    if (offer.ctcBreakdown) {
-      html += `<div class="recruiter-detail-card"><div class="recruiter-detail-card__label">Base Pay</div><div class="recruiter-detail-card__value">${offer.ctcBreakdown.basePay}</div></div>`;
-      html += `<div class="recruiter-detail-card"><div class="recruiter-detail-card__label">Variable</div><div class="recruiter-detail-card__value">${offer.ctcBreakdown.variablePay}</div></div>`;
+  
+  const offer = data.offers.length > 0 ? data.offers[0] : null;
+  const adminEntry = data.adminData && data.adminData.length > 0 ? data.adminData[0] : null;
+  
+  if (offer || adminEntry) {
+    const role = offer?.role || adminEntry?.role || 'N/A';
+    const ctc = offer?.ctcOffered || adminEntry?.ctc || 'N/A';
+    const year = offer?.batch || adminEntry?.year || 'N/A';
+    
+    html += `<div class="recruiter-detail-strip">`;
+    html += `<div class="recruiter-detail-item"><div class="recruiter-detail-item__label">Role / Position</div><div class="recruiter-detail-item__value">${role}</div></div>`;
+    html += `<div class="recruiter-detail-item"><div class="recruiter-detail-item__label">Highest CTC</div><div class="recruiter-detail-item__value">${ctc}</div></div>`;
+    html += `<div class="recruiter-detail-item"><div class="recruiter-detail-item__label">Year of recruitment</div><div class="recruiter-detail-item__value">${year}</div></div>`;
+    
+    if (offer && offer.ctcBreakdown) {
+      if (offer.ctcBreakdown.basePay) {
+        html += `<div class="recruiter-detail-item"><div class="recruiter-detail-item__label">Base Pay</div><div class="recruiter-detail-item__value">${offer.ctcBreakdown.basePay}</div></div>`;
+      }
+      if (offer.ctcBreakdown.variablePay) {
+        html += `<div class="recruiter-detail-item"><div class="recruiter-detail-item__label">Variable</div><div class="recruiter-detail-item__value">${offer.ctcBreakdown.variablePay}</div></div>`;
+      }
     }
     html += `</div>`;
   }
-  if (data.questions.length > 0) {
+  
+  const entriesWithQuestions = (data.adminData || []).filter(pq => pq.questions && pq.questions.length > 0);
+  
+  if (entriesWithQuestions.length > 0) {
     html += `<div class="recruiter-questions-section">`;
     html += `<div class="recruiter-questions-title">Interview Questions</div>`;
-    data.questions.forEach(pq => {
+    entriesWithQuestions.forEach(pq => {
       const diffClass = pq.difficulty.replace(/\s/g, '-');
       html += `
         <div class="recruiter-question-block">
           <div class="recruiter-question-block__header">
-            <span>${pq.role} * ${pq.date}</span>
+            <span>${pq.role} * ${pq.date || pq.year}</span>
             <span class="pq-card__difficulty pq-card__difficulty--${diffClass}">${pq.difficulty}</span>
           </div>
           <ol class="recruiter-question-block__list">
@@ -516,6 +546,7 @@ function buildRecruiterBody(data) {
     });
     html += `</div>`;
   }
+  
   return html;
 }
 

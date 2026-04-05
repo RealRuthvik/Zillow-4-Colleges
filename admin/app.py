@@ -17,6 +17,26 @@ def initialize_db():
         with open(DATA_JSON_PATH, 'w', encoding='utf-8') as f:
             json.dump([], f)
 
+def write_js_file(data):
+    js_content = "const COLLEGES = " + json.dumps(data, indent=2) + ";\n\n"
+    js_content += "function getAllPlacementQuestions() {\n"
+    js_content += "  const all = [];\n"
+    js_content += "  COLLEGES.forEach(college => {\n"
+    js_content += "    if (college.placementQuestions) {\n"
+    js_content += "      college.placementQuestions.forEach(pq => {\n"
+    js_content += "        if (pq.questions && pq.questions.length > 0) {\n"
+    js_content += "          all.push({ ...pq, collegeId: college.id, collegeName: college.shortName });\n"
+    js_content += "        }\n"
+    js_content += "      });\n"
+    js_content += "    }\n"
+    js_content += "  });\n"
+    js_content += "  return all;\n"
+    js_content += "}\n\n"
+    js_content += "export { COLLEGES, getAllPlacementQuestions };\n"
+
+    with open(MAIN_SITE_JS_PATH, 'w', encoding='utf-8') as f:
+        f.write(js_content)
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
@@ -57,24 +77,17 @@ def save_data():
     with open(DATA_JSON_PATH, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2)
 
-    js_content = "const COLLEGES = " + json.dumps(data, indent=2) + ";\n\n"
-    js_content += "function getAllPlacementQuestions() {\n"
-    js_content += "  const all = [];\n"
-    js_content += "  COLLEGES.forEach(college => {\n"
-    js_content += "    if (college.placementQuestions) {\n"
-    js_content += "      college.placementQuestions.forEach(pq => {\n"
-    js_content += "        all.push({ ...pq, collegeId: college.id, collegeName: college.shortName });\n"
-    js_content += "      });\n"
-    js_content += "    }\n"
-    js_content += "  });\n"
-    js_content += "  return all;\n"
-    js_content += "}\n\n"
-    js_content += "export { COLLEGES, getAllPlacementQuestions };\n"
-
-    with open(MAIN_SITE_JS_PATH, 'w', encoding='utf-8') as f:
-        f.write(js_content)
-
+    write_js_file(data)
     return jsonify({"status": "success"})
+
+@app.route('/api/sync', methods=['POST'])
+def sync_data():
+    initialize_db()
+    with open(DATA_JSON_PATH, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    write_js_file(data)
+    return jsonify({"status": "success", "message": "Synced database.json to data.js"})
 
 if __name__ == '__main__':
     initialize_db()

@@ -45,6 +45,7 @@ function renderDashboard(container) {
     </div>
     <div class="admin-header__actions">
       <input type="text" id="admin-search" placeholder="Search colleges..." class="admin-login__input" style="width: 250px;" value="${searchQuery}" />
+      <button class="admin-btn admin-btn--primary" id="admin-sync-data" style="background: var(--tier-s); color: var(--black);">SYNC TO DATA.JS</button>
       <button class="admin-btn admin-btn--primary" id="admin-add-college">+ ADD COLLEGE</button>
     </div>
   `;
@@ -69,6 +70,24 @@ function renderDashboard(container) {
 
   header.querySelector('#admin-add-college').addEventListener('click', () => {
     renderEditor(editor, null);
+  });
+
+  header.querySelector('#admin-sync-data').addEventListener('click', async (e) => {
+    const btn = e.target;
+    const origText = btn.textContent;
+    btn.textContent = 'SYNCING...';
+    try {
+      await fetch('/api/sync', { method: 'POST' });
+      btn.textContent = 'SYNCED OK';
+      btn.style.background = 'var(--tier-a)';
+    } catch (err) {
+      btn.textContent = 'ERROR';
+      btn.style.background = 'var(--red)';
+    }
+    setTimeout(() => {
+      btn.textContent = origText;
+      btn.style.background = 'var(--tier-s)';
+    }, 2000);
   });
 
   header.querySelector('#admin-search').addEventListener('input', (e) => {
@@ -156,6 +175,7 @@ function renderEditor(editorEl, college) {
     trustScore: 50, hasWarning: false, warningLabel: '', warningDetails: '', searchCount: 0,
     lastUpdated: getShortDate(), lastUpdatedFull: getFormattedDate(),
     summary: { claimedCTC: '', reportedMedian: '', reportedAverage: '', reportedLowest: '', reportedHighest: '', totalReports: 0, topRecruiters: [], placementRate: '', batchSize: '', advertisedSameAsReported: false, branches: [] },
+    summaryDates: {},
     onlineSources: [], reports: [], placementQuestions: [], tags: []
   };
 
@@ -169,6 +189,7 @@ function renderEditor(editorEl, college) {
   const warnDetails = c.warningDetails || c.bondDetails || '';
   const advSame = c.summary.advertisedSameAsReported || false;
   const branches = c.summary.branches || [];
+  const sDates = c.summaryDates || {};
 
   const standardTags = ['BOND ALERT', 'CTC INFLATED', 'NO BONDS', 'MASS RECRUITER HEAVY', 'VERIFIED BASE CTC', 'HIGH FEES', 'BRANCH DEPENDENT', 'MEGA BATCH SIZE', 'MARKETING HEAVY', 'BPO HEAVY', 'SELF-PLACEMENTS', 'FORCED INTERNSHIP', 'LOCATION ADVANTAGE', 'BRAND PREMIUM', 'OUTLIER DRIVEN STATS', 'EXTRA FEES', 'OVERCROWDED', 'ELITE TIER'];
 
@@ -248,13 +269,61 @@ function renderEditor(editorEl, college) {
             <label><input type="checkbox" id="ed-advertisedSame" ${advSame ? 'checked' : ''} /> Advertised is same as Reported</label>
           </div>
           <div class="admin-field"><label>Advertised CTC</label><input type="text" id="ed-claimedCTC" value="${c.summary.claimedCTC}" /></div>
-          <div class="admin-field"><label>Reported Median</label><input type="text" id="ed-reportedMedian" value="${c.summary.reportedMedian}" /></div>
-          <div class="admin-field"><label>Reported Average</label><input type="text" id="ed-reportedAverage" value="${c.summary.reportedAverage}" /></div>
-          <div class="admin-field"><label>Reported Lowest</label><input type="text" id="ed-reportedLowest" value="${c.summary.reportedLowest}" /></div>
-          <div class="admin-field"><label>Reported Highest</label><input type="text" id="ed-reportedHighest" value="${c.summary.reportedHighest}" /></div>
+          
+          <div class="admin-field">
+            <label>Reported Median</label>
+            <div style="display:flex; gap: 4px;">
+              <input type="text" id="ed-reportedMedian" value="${c.summary.reportedMedian}" style="flex: 2;" />
+              <input type="text" id="ed-dateMedian" value="${sDates.median || ''}" placeholder="Date" style="flex: 1;" />
+            </div>
+          </div>
+          
+          <div class="admin-field">
+            <label>Reported Average</label>
+            <div style="display:flex; gap: 4px;">
+              <input type="text" id="ed-reportedAverage" value="${c.summary.reportedAverage}" style="flex: 2;" />
+              <input type="text" id="ed-dateAverage" value="${sDates.average || ''}" placeholder="Date" style="flex: 1;" />
+            </div>
+          </div>
+          
+          <div class="admin-field">
+            <label>Reported Lowest</label>
+            <div style="display:flex; gap: 4px;">
+              <input type="text" id="ed-reportedLowest" value="${c.summary.reportedLowest}" style="flex: 2;" />
+              <input type="text" id="ed-dateLowest" value="${sDates.lowest || ''}" placeholder="Date" style="flex: 1;" />
+            </div>
+          </div>
+          
+          <div class="admin-field">
+            <label>Reported Highest</label>
+            <div style="display:flex; gap: 4px;">
+              <input type="text" id="ed-reportedHighest" value="${c.summary.reportedHighest}" style="flex: 2;" />
+              <input type="text" id="ed-dateHighest" value="${sDates.highest || ''}" placeholder="Date" style="flex: 1;" />
+            </div>
+          </div>
+          
           <div class="admin-field"><label>Total Reports</label><input type="number" id="ed-totalReports" value="${c.summary.totalReports}" /></div>
-          <div class="admin-field"><label>Placement Rate</label><input type="text" id="ed-placementRate" value="${c.summary.placementRate}" /></div>
-          <div class="admin-field"><label>Batch Size</label><input type="text" id="ed-batchSize" value="${c.summary.batchSize}" /></div>
+          
+          <div class="admin-field">
+            <label>Placement Rate</label>
+            <div style="display:flex; gap: 4px;">
+              <input type="text" id="ed-placementRate" value="${c.summary.placementRate}" style="flex: 2;" />
+              <input type="text" id="ed-datePlacementRate" value="${sDates.placementRate || ''}" placeholder="Date" style="flex: 1;" />
+            </div>
+          </div>
+          
+          <div class="admin-field">
+            <label>Batch Size</label>
+            <div style="display:flex; gap: 4px;">
+              <input type="text" id="ed-batchSize" value="${c.summary.batchSize}" style="flex: 2;" />
+              <input type="text" id="ed-dateBatchSize" value="${sDates.batchSize || ''}" placeholder="Date" style="flex: 1;" />
+            </div>
+          </div>
+
+          <div class="admin-field">
+            <label>Companies Reported Date</label>
+            <input type="text" id="ed-dateCompanies" value="${sDates.companies || ''}" placeholder="e.g. As of Apr 2026" />
+          </div>
         </div>
 
         <div style="margin-top: 25px;">
@@ -332,7 +401,7 @@ function renderEditor(editorEl, college) {
 
   editorEl.querySelector('#ed-add-pq').addEventListener('click', () => {
     const listEl = editorEl.querySelector('#ed-pq-list');
-    listEl.insertAdjacentHTML('afterbegin', renderPQRow({ company: '', role: '', year: new Date().getFullYear(), date: '', questions: [], difficulty: 'Medium' }, Date.now(), true));
+    listEl.insertAdjacentHTML('afterbegin', renderPQRow({ company: '', role: '', logo: '', ctc: '', year: new Date().getFullYear(), date: '', questions: [], difficulty: 'Medium' }, Date.now(), true));
   });
 
   editorEl.addEventListener('change', async (e) => {
@@ -350,6 +419,11 @@ function renderEditor(editorEl, college) {
           row.querySelector('.src-file-label').textContent = file.name;
         }
       } catch (err) {}
+    }
+    
+    if (e.target.classList.contains('pq-has-questions')) {
+      const section = e.target.closest('.admin-sub-card__body').querySelector('.pq-questions-section');
+      section.style.display = e.target.checked ? 'block' : 'none';
     }
   });
 
@@ -471,6 +545,7 @@ function renderSourceRow(s, i, isNew) {
 }
 
 function renderPQRow(pq, i, isNew) {
+  const hasQ = pq.questions && pq.questions.length > 0;
   return `
     <div class="admin-pq-item admin-sub-card" data-index="${i}">
       <div class="admin-sub-card__header">
@@ -481,14 +556,29 @@ function renderPQRow(pq, i, isNew) {
         </div>
       </div>
       <div class="admin-sub-card__body" style="display: ${isNew ? 'block' : 'none'}; padding: 15px;">
+        
         <div class="admin-form-grid admin-form-grid--compact">
-          <div class="admin-field"><label>Company</label><input type="text" class="pq-company" value="${pq.company}" /></div>
-          <div class="admin-field"><label>Role / Position</label><input type="text" class="pq-role" value="${pq.role}" /></div>
-          <div class="admin-field"><label>Year</label><input type="number" class="pq-year" value="${pq.year}" /></div>
-          <div class="admin-field"><label>Date / Month</label><input type="text" class="pq-date" value="${pq.date}" /></div>
-          <div class="admin-field"><label>Difficulty</label><select class="pq-difficulty"><option ${pq.difficulty === 'Easy' ? 'selected' : ''}>Easy</option><option ${pq.difficulty === 'Medium' ? 'selected' : ''}>Medium</option><option ${pq.difficulty === 'Hard' ? 'selected' : ''}>Hard</option></select></div>
-          <div class="admin-field admin-field--full"><label>Questions Asked (newline separated)</label><textarea class="pq-questions">${(pq.questions || []).join('\n')}</textarea></div>
+          <div class="admin-field"><label>Company</label><input type="text" class="pq-company" value="${pq.company || ''}" /></div>
+          <div class="admin-field"><label>Company Logo URL</label><input type="text" class="pq-logo" value="${pq.logo || ''}" placeholder="https://..." /></div>
+          <div class="admin-field"><label>Role / Position</label><input type="text" class="pq-role" value="${pq.role || ''}" /></div>
+          <div class="admin-field"><label>CTC</label><input type="text" class="pq-ctc" value="${pq.ctc || ''}" placeholder="e.g. 12 LPA" /></div>
+          <div class="admin-field"><label>Year</label><input type="number" class="pq-year" value="${pq.year || new Date().getFullYear()}" /></div>
+          <div class="admin-field"><label>Date / Month</label><input type="text" class="pq-date" value="${pq.date || ''}" /></div>
         </div>
+
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--grey-mid);">
+          <div class="admin-field admin-field--checkbox" style="margin-bottom: 15px;">
+            <label><input type="checkbox" class="pq-has-questions" ${hasQ ? 'checked' : ''} /> Enable Interview Questions</label>
+          </div>
+          
+          <div class="pq-questions-section" style="display: ${hasQ ? 'block' : 'none'};">
+            <div class="admin-form-grid admin-form-grid--compact" style="margin-bottom: 15px;">
+              <div class="admin-field"><label>Difficulty</label><select class="pq-difficulty"><option ${pq.difficulty === 'Easy' ? 'selected' : ''}>Easy</option><option ${pq.difficulty === 'Medium' ? 'selected' : ''}>Medium</option><option ${pq.difficulty === 'Hard' ? 'selected' : ''}>Hard</option></select></div>
+            </div>
+            <div class="admin-field admin-field--full"><label>Questions Asked (newline separated)</label><textarea class="pq-questions">${(pq.questions || []).join('\n')}</textarea></div>
+          </div>
+        </div>
+
       </div>
     </div>`;
 }
@@ -524,14 +614,19 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
     };
   });
 
-  const newPQs = [...editorEl.querySelectorAll('.admin-pq-item')].map(item => ({
-    company: item.querySelector('.pq-company').value,
-    role: item.querySelector('.pq-role').value,
-    year: parseInt(item.querySelector('.pq-year').value) || 2024,
-    date: item.querySelector('.pq-date').value,
-    questions: item.querySelector('.pq-questions').value.split('\n').filter(Boolean),
-    difficulty: item.querySelector('.pq-difficulty').value
-  }));
+  const newPQs = [...editorEl.querySelectorAll('.admin-pq-item')].map(item => {
+    const hasQuestions = item.querySelector('.pq-has-questions').checked;
+    return {
+      company: item.querySelector('.pq-company').value,
+      logo: item.querySelector('.pq-logo').value.trim(),
+      role: item.querySelector('.pq-role').value,
+      ctc: item.querySelector('.pq-ctc').value.trim(),
+      year: parseInt(item.querySelector('.pq-year').value) || 2024,
+      date: item.querySelector('.pq-date').value,
+      questions: hasQuestions ? item.querySelector('.pq-questions').value.split('\n').filter(Boolean) : [],
+      difficulty: hasQuestions ? item.querySelector('.pq-difficulty').value : 'Medium'
+    };
+  });
 
   const newTags = [...editorEl.querySelectorAll('.admin-tag-row')].map(row => ({
     text: row.querySelector('.tag-text').value.trim(),
@@ -546,6 +641,16 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
     median: row.querySelector('.br-median').value.trim(),
     average: row.querySelector('.br-avg').value.trim()
   })).filter(b => b.name);
+
+  const summaryDates = {
+    median: editorEl.querySelector('#ed-dateMedian').value.trim(),
+    average: editorEl.querySelector('#ed-dateAverage').value.trim(),
+    lowest: editorEl.querySelector('#ed-dateLowest').value.trim(),
+    highest: editorEl.querySelector('#ed-dateHighest').value.trim(),
+    placementRate: editorEl.querySelector('#ed-datePlacementRate').value.trim(),
+    batchSize: editorEl.querySelector('#ed-dateBatchSize').value.trim(),
+    companies: editorEl.querySelector('#ed-dateCompanies').value.trim()
+  };
 
   const collegeData = {
     id: id, 
@@ -572,6 +677,7 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
       placementRate: editorEl.querySelector('#ed-placementRate').value.trim(), 
       batchSize: editorEl.querySelector('#ed-batchSize').value.trim()
     },
+    summaryDates: summaryDates,
     onlineSources: [...editorEl.querySelectorAll('.admin-source-item')].map(item => ({ 
       name: item.querySelector('.src-name').value, 
       trustLevel: item.querySelector('.src-trust').value, 
@@ -590,7 +696,7 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
   
   const saveBtn = editorEl.querySelector(sectionTarget === 'all' ? '#ed-save-master' : `[data-target="${sectionTarget}"]`);
   const origText = saveBtn.textContent;
-  saveBtn.textContent = 'SAVED ✓';
+  saveBtn.textContent = 'SAVED OK';
   saveBtn.style.background = 'var(--tier-a)';
   saveBtn.style.color = 'var(--black)';
   setTimeout(() => {

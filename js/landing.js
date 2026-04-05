@@ -10,7 +10,7 @@ export function renderLanding(container) {
   hero.className = 'hero';
   hero.innerHTML = `
     <div class="hero__title-wrap animate-slam">
-      <h1 class="hero__title">UNREDACT THE <span>TRUTH</span></h1>
+      <h1 class="hero__title">UNREDACT THE <span class="hero__truth-wrap">DATA<div class="mc-sticker" id="mc-sticker">HYPOTHETICAL</div></span></h1>
     </div>
     <p class="hero__subtitle animate-fade-up stagger-2">Placement data for Indian colleges submitted by students.</p>
     <div class="hero__search-wrap animate-fade-up stagger-3">
@@ -70,6 +70,20 @@ export function renderLanding(container) {
   });
 
   setTimeout(() => searchInput.focus(), 500);
+
+  // Setup cycling Minecraft-style sticker
+  const stickers = ["HYPOTHETICAL", "SPECULATIVE", "CROWD SOURCED", "MIGHT BE FAKE", "UNVERIFIED", "???", "TAKE WITH A GRAIN OF SALT", "FOR AWARENESS ONLY"];
+  let sIdx = 0;
+  setInterval(() => {
+    const stickerEl = document.getElementById('mc-sticker');
+    if(stickerEl) {
+      sIdx = (sIdx + 1) % stickers.length;
+      stickerEl.textContent = stickers[sIdx];
+      stickerEl.classList.remove('pop');
+      void stickerEl.offsetWidth; // Force DOM reflow to restart animation
+      stickerEl.classList.add('pop');
+    }
+  }, 3000);
 }
 
 function renderDropdown(dropdown, query) {

@@ -424,15 +424,15 @@
 
 .overview-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-md);
   margin-bottom: var(--space-lg);
 }
 
 .overview-card {
   background: var(--grey-dark);
   border: 1px solid var(--grey-mid);
-  padding: var(--space-lg);
+  padding: var(--space-md);
 }
 
 .overview-card__title {
@@ -539,7 +539,7 @@
   font-size: 11px;
 }
 
-/* ---- REPORT CARDS (v5 — fixed layout) ---- */
+/* ---- REPORT CARDS (v5) ---- */
 
 .report-list {
   display: flex;
@@ -591,7 +591,7 @@
 
 .report-card__meta-tags {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -618,27 +618,32 @@
   font-family: var(--font-sub);
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 2px 8px;
+  letter-spacing: 2px;
+  padding: 4px 10px;
   white-space: nowrap;
+  transform: skewX(-10deg);
+  border: 2px solid;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 rgba(0,0,0,1);
+  display: inline-block;
 }
 
 .report-type--personal {
-  color: #90CAF9;
-  background: rgba(33, 150, 243, 0.1);
-  border: 1px solid rgba(33, 150, 243, 0.3);
+  color: var(--white);
+  background: #00BCD4;
+  border-color: #008ba3;
 }
 
 .report-type--aggregate {
-  color: #FFD54F;
-  background: rgba(255, 193, 7, 0.1);
-  border: 1px solid rgba(255, 193, 7, 0.3);
+  color: var(--black);
+  background: #FFD700;
+  border-color: #B89C00;
 }
 
 .report-type--multi {
-  color: #CE93D8;
-  background: rgba(156, 39, 176, 0.1);
-  border: 1px solid rgba(156, 39, 176, 0.3);
+  color: var(--white);
+  background: #9C27B0;
+  border-color: #4a148c;
 }
 
 .report-card__header-right {
@@ -658,7 +663,7 @@
   transform: rotate(180deg);
 }
 
-/* ---- EXPANDED BODY (fixed layout) ---- */
+/* ---- EXPANDED BODY ---- */
 
 .report-card__body {
   display: none;
@@ -921,32 +926,34 @@
   animation: fadeInUp 200ms var(--ease-slam) both;
 }
 
-.recruiter-detail-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 12px;
-  margin-bottom: 16px;
-}
-
-.recruiter-detail-card {
-  background: var(--grey-surface);
+.recruiter-detail-strip {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--grey-mid);
+  gap: 1px;
   border: 1px solid var(--grey-mid);
-  padding: 10px 14px;
+  margin: 12px 0 16px;
 }
 
-.recruiter-detail-card__label {
+.recruiter-detail-item {
+  flex: 1;
+  min-width: 150px;
+  background: var(--grey-surface);
+  padding: 12px 16px;
+}
+
+.recruiter-detail-item__label {
   font-family: var(--font-sub);
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--grey-light);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.recruiter-detail-card__value {
+.recruiter-detail-item__value {
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 24px;
   color: var(--white);
   line-height: 1;
 }
