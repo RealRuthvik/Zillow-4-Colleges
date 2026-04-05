@@ -1,12 +1,16 @@
 from flask import Flask, jsonify, request, send_from_directory
 import json
 import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 DATA_JSON_PATH = 'database.json'
 MAIN_SITE_JS_PATH = os.path.join(BASE_DIR, 'js', 'data.js')
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def initialize_db():
     if not os.path.exists(DATA_JSON_PATH):
@@ -24,6 +28,22 @@ def serve_css(filename):
 @app.route('/js/<path:filename>')
 def serve_js(filename):
     return send_from_directory(os.path.join(BASE_DIR, 'js'), filename)
+
+@app.route('/uploads/<path:filename>')
+def serve_uploads(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
+@app.route('/api/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file"}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No filename"}), 400
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(filepath)
+    return jsonify({"url": "/uploads/" + filename})
 
 @app.route('/api/data', methods=['GET'])
 def get_data():

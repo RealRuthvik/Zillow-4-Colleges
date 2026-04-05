@@ -1,5 +1,5 @@
 import { COLLEGES } from './data.js';
-import { getTier, tierBadgeHTML, createReportCard, createSourceCard } from './components.js';
+import { getTier, tierBadgeHTML, createReportCard, createSourceCard, formatFullCTC } from './components.js';
 import { navigateTo } from './app.js';
 import { renderNotFound } from './notfound.js';
 
@@ -18,15 +18,19 @@ export function renderDetail(container, collegeId) {
 
   const tier = getTier(college.trustScore);
 
-  // Parse Header Tags dynamically
   let headerTagsHTML = '';
   if (college.tags) {
     headerTagsHTML = college.tags.map(t => {
-      // Backwards compat for old string tags
       if (typeof t === 'string') return `<span class="detail-sticky__type" style="background: var(--grey-mid);">${t}</span>`;
       
-      const bg = t.color === 'red' ? 'var(--red)' : (t.color === 'yellow' ? 'var(--tier-s)' : 'var(--grey-mid)');
-      const shadow = t.color === 'red' ? 'var(--red-dark)' : (t.color === 'yellow' ? '#B89C00' : 'var(--black)');
+      let bg = 'var(--grey-mid)';
+      let shadow = 'var(--black)';
+      if (t.color === 'red') { bg = 'var(--red)'; shadow = 'var(--red-dark)'; }
+      if (t.color === 'yellow') { bg = 'var(--tier-s)'; shadow = '#B89C00'; }
+      if (t.color === 'blue') { bg = 'var(--tier-b)'; shadow = '#008ba3'; }
+      if (t.color === 'orange') { bg = 'var(--tier-c)'; shadow = '#c67100'; }
+      if (t.color === 'green') { bg = 'var(--tier-a)'; shadow = '#00b35c'; }
+
       const textCol = t.color === 'yellow' ? 'var(--black)' : 'var(--white)';
       return `<span class="detail-sticky__bond" style="background: ${bg}; color: ${textCol}; box-shadow: 2px 2px 0 ${shadow};">${t.text}</span>`;
     }).join('');
@@ -111,6 +115,23 @@ export function renderDetail(container, collegeId) {
   const warnLabel = college.warningLabel || (college.hasHiddenBond ? 'HIDDEN BOND' : 'WARNING');
   const warnDetails = college.warningDetails || college.bondDetails || '';
 
+  const advFull = formatFullCTC(s.claimedCTC) || s.claimedCTC;
+  let advBlock = `
+    <div class="summary-stat__value summary-stat__value--muted" style="font-size: 24px; margin-bottom: 2px;">${advFull}</div>
+    <div class="summary-stat__label summary-stat__value--muted" style="font-size: 12px; margin-bottom: 8px;">${s.claimedCTC}</div>
+  `;
+  const medFull = formatFullCTC(s.reportedMedian) || s.reportedMedian;
+  if (s.advertisedSameAsReported) {
+    advBlock = `
+      <div class="summary-stat__value" style="color: var(--tier-a); font-size: 22px; margin-bottom: 2px;">${medFull}</div>
+      <div class="summary-stat__label" style="color: var(--tier-a); font-size: 12px; margin-bottom: 8px;">${s.reportedMedian}</div>
+    `;
+  }
+
+  const avgFull = formatFullCTC(s.reportedAverage) || s.reportedAverage;
+  const lowFull = formatFullCTC(s.reportedLowest) || s.reportedLowest;
+  const highFull = formatFullCTC(s.reportedHighest) || s.reportedHighest;
+
   summarySection.innerHTML = `
     <div class="detail-section__title">
       Summary
@@ -118,47 +139,43 @@ export function renderDetail(container, collegeId) {
     </div>
     <div class="detail-summary">
       <div class="summary-stat">
-        <div class="summary-stat__value summary-stat__value--muted">${s.claimedCTC}</div>
+        ${advBlock}
         <div class="summary-stat__label">Advertised CTC</div>
-        <div class="summary-stat__date">Source: College site</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.reportedMedian}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${medFull}</div>
+        ${medFull !== s.reportedMedian ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedMedian}</div>` : ''}
         <div class="summary-stat__label">Reported Median</div>
-        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.reportedAverage}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${avgFull}</div>
+        ${avgFull !== s.reportedAverage ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedAverage}</div>` : ''}
         <div class="summary-stat__label">Reported Avg</div>
-        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.reportedLowest}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${lowFull}</div>
+        ${lowFull !== s.reportedLowest ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedLowest}</div>` : ''}
         <div class="summary-stat__label">Lowest</div>
-        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.reportedHighest}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${highFull}</div>
+        ${highFull !== s.reportedHighest ? `<div class="summary-stat__label" style="font-size: 12px; color: var(--grey-light); margin-bottom: 8px;">${s.reportedHighest}</div>` : ''}
         <div class="summary-stat__label">Highest</div>
-        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.totalReports}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${s.totalReports}</div>
         <div class="summary-stat__label">Reports</div>
-        <div class="summary-stat__date">All time</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.placementRate}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${s.placementRate}</div>
         <div class="summary-stat__label">Placed</div>
-        <div class="summary-stat__date">${college.lastUpdated || 'N/A'}</div>
       </div>
       <div class="summary-stat">
-        <div class="summary-stat__value">${s.batchSize}</div>
+        <div class="summary-stat__value" style="font-size: 24px; margin-bottom: 2px;">${s.batchSize}</div>
         <div class="summary-stat__label">Batch Size</div>
-        <div class="summary-stat__date">Approx.</div>
       </div>
     </div>
-    ${hasWarn ? `<div class="bond-alert"><strong>${warnLabel}</strong> — ${warnDetails}</div>` : ''}
+    ${hasWarn ? `<div class="bond-alert"><strong>${warnLabel}</strong> * ${warnDetails}</div>` : ''}
   `;
   main.appendChild(summarySection);
 
@@ -223,7 +240,7 @@ export function renderDetail(container, collegeId) {
     <div class="page-footer__heart">♥</div>
     <p class="page-footer__tagline">Made for students, by students.</p>
     <p class="page-footer__honesty">Every number on this platform is crowd-sourced, unverified, and shown as-is.<br/>No data is altered. No college pays us. Transparency is the only agenda.</p>
-    <p class="page-footer__disclaimer">ALL DATA IS CROWD-SOURCED & UNVERIFIED · FOR AWARENESS ONLY</p>
+    <p class="page-footer__disclaimer">ALL DATA IS CROWD-SOURCED & UNVERIFIED * FOR AWARENESS ONLY</p>
   `;
   main.appendChild(footer);
 
@@ -288,7 +305,6 @@ function buildOverview(college) {
     }
   }
 
-  // AUTO POPULATE COMPANIES
   const companySet = new Set();
   college.reports?.forEach(r => { if(r.company) companySet.add(r.company.trim()); });
   college.placementQuestions?.forEach(pq => { if(pq.company) companySet.add(pq.company.trim()); });
@@ -301,6 +317,43 @@ function buildOverview(college) {
         <div class="overview-companies">${companies.map(c => `<span class="overview-company-tag">${c}</span>`).join('')}</div>
       </div>
     `;
+  }
+
+  if (college.summary.branches && college.summary.branches.length > 0) {
+    const branchDiv = document.createElement('div');
+    branchDiv.className = 'overview-card';
+    branchDiv.style.gridColumn = '1 / -1';
+    
+    let branchRows = college.summary.branches.map(b => `
+      <tr style="border-bottom: 1px solid var(--grey-mid);">
+        <td style="padding: 12px 16px; font-weight: 700;">${b.name}</td>
+        <td style="padding: 12px 16px; color: var(--grey-light);">${b.low}</td>
+        <td style="padding: 12px 16px; color: var(--grey-light);">${b.high}</td>
+        <td style="padding: 12px 16px; color: var(--white);">${b.median}</td>
+        <td style="padding: 12px 16px; color: var(--grey-light);">${b.average}</td>
+      </tr>
+    `).join('');
+
+    branchDiv.innerHTML = `
+      <div class="overview-card__title">Branch Placement Data</div>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: var(--font-body); font-size: 14px;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--grey-mid); font-family: var(--font-sub); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-light);">
+              <th style="padding: 12px 16px;">Branch</th>
+              <th style="padding: 12px 16px;">Lowest CTC</th>
+              <th style="padding: 12px 16px;">Highest CTC</th>
+              <th style="padding: 12px 16px;">Median CTC</th>
+              <th style="padding: 12px 16px;">Average CTC</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${branchRows}
+          </tbody>
+        </table>
+      </div>
+    `;
+    grid.appendChild(branchDiv);
   }
 
   frag.appendChild(grid);
@@ -352,7 +405,7 @@ function renderDetailedReports(container, reports, page) {
     pag.className = 'pagination';
     const prevBtn = document.createElement('button');
     prevBtn.className = 'pagination__btn';
-    prevBtn.textContent = '← Prev';
+    prevBtn.textContent = 'BACK';
     prevBtn.disabled = page <= 1;
     prevBtn.addEventListener('click', () => renderDetailedReports(container, reports, page - 1));
     pag.appendChild(prevBtn);
@@ -367,7 +420,7 @@ function renderDetailedReports(container, reports, page) {
 
     const nextBtn = document.createElement('button');
     nextBtn.className = 'pagination__btn';
-    nextBtn.textContent = 'Next →';
+    nextBtn.textContent = 'NEXT';
     nextBtn.disabled = page >= totalPages;
     nextBtn.addEventListener('click', () => renderDetailedReports(container, reports, page + 1));
     pag.appendChild(nextBtn);
@@ -452,7 +505,7 @@ function buildRecruiterBody(data) {
       html += `
         <div class="recruiter-question-block">
           <div class="recruiter-question-block__header">
-            <span>${pq.role} · ${pq.date}</span>
+            <span>${pq.role} * ${pq.date}</span>
             <span class="pq-card__difficulty pq-card__difficulty--${diffClass}">${pq.difficulty}</span>
           </div>
           <ol class="recruiter-question-block__list">

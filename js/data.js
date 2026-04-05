@@ -1,1159 +1,221 @@
 const COLLEGES = [
   {
-    "bondDetails": "",
-    "hasHiddenBond": false,
-    "id": "vit-vellore",
-    "lastUpdated": "Mar 2026",
-    "lastUpdatedFull": "28 Mar 2026",
-    "location": "Vellore, Tamil Nadu",
-    "name": "VIT University",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b95.0 LPA \u2014 closer to reality than marketing",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      },
-      {
-        "finding": "Average fresher salary: \u20b93.8-5.0 LPA",
-        "name": "Glassdoor Reviews (200+)",
-        "trustLevel": "Medium"
-      },
-      {
-        "finding": "Average first job: \u20b94.5 LPA",
-        "name": "LinkedIn Alumni (150 sampled)",
-        "trustLevel": "Medium"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Amazon",
-        "date": "August 2024",
-        "difficulty": "Hard",
-        "questions": [
-          "Two coding questions \u2014 array manipulation and graph BFS",
-          "System design: Design a notification service",
-          "Behavioral: Tell me about a time you disagreed with a team member"
-        ],
-        "role": "SDE-1",
-        "year": 2024
-      },
-      {
-        "company": "Wipro",
-        "date": "September 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "Aptitude test \u2014 60 questions",
-          "Essay writing",
-          "Technical MCQs on Java/C++",
-          "HR interview"
-        ],
-        "role": "Project Engineer",
-        "year": 2024
-      },
-      {
-        "company": "Capgemini",
-        "date": "October 2023",
-        "difficulty": "Easy-Medium",
-        "questions": [
-          "Game-based aptitude round",
-          "Coding: 2 easy-medium questions",
-          "Communication assessment",
-          "HR round"
-        ],
-        "role": "Analyst",
-        "year": 2023
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "VIT's claimed average is misleading. Remove the top 5% outliers and actual average drops to 4-5 LPA base. The Amazon packages and international offers skew everything.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "above5LPA": "~15%",
-          "average": "4.8 LPA",
-          "median": "4.0 LPA",
-          "placed": "~75%",
-          "type": "batch_stats"
-        },
-        "id": "r1",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "1 month ago",
-        "trustScore": 70,
-        "upvotes": 45
-      },
-      {
-        "author": "Anonymous #2",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "No bond which is good. But the management fee keeps increasing every semester with no justification. Wipro offer looks decent on paper but base is only 3.5.",
-        "company": "Wipro",
-        "ctcBreakdown": {
-          "basePay": "3.5 LPA",
-          "joiningBonus": "\u20b950,000",
-          "other": "\u2014",
-          "relocation": "\u20b940,000",
-          "variablePay": "1.2 LPA"
-        },
-        "ctcOffered": "6.5 LPA",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r2",
-        "reportType": "personal",
-        "role": "Project Engineer",
-        "timestamp": "3 weeks ago",
-        "trustScore": 65,
-        "upvotes": 30
-      },
-      {
-        "author": "Anonymous #3",
-        "batch": "2023",
-        "branch": "IT",
-        "comment": "They include PPO from internships in placement stats. Technically correct but very misleading. Also FFCS scheduling conflicts made interview prep hell.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "type": "practice_report"
-        },
-        "id": "r3",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "4 months ago",
-        "trustScore": 58,
-        "upvotes": 22
-      }
-    ],
-    "searchCount": 3201,
-    "shortName": "VIT",
-    "summary": {
-      "batchSize": "~10,000",
-      "claimedCTC": "10.8 LPA",
-      "placementRate": "78%",
-      "reportedAverage": "4.8 LPA",
-      "reportedHighest": "54 LPA",
-      "reportedLowest": "2.5 LPA",
-      "reportedMedian": "4.2 LPA",
-      "topRecruiters": [
-        "Amazon",
-        "Wipro",
-        "Capgemini",
-        "TCS",
-        "Deloitte"
-      ],
-      "totalReports": 63
-    },
-    "tags": [
-      "CTC Inflated",
-      "No Bonds",
-      "Outlier Driven Stats"
-    ],
-    "trustScore": 42,
-    "type": "Deemed University"
-  },
-  {
-    "bondDetails": "",
-    "hasHiddenBond": false,
-    "id": "manipal-karnataka",
-    "lastUpdated": "Feb 2026",
-    "lastUpdatedFull": "14 Feb 2026",
-    "location": "Manipal, Karnataka",
-    "name": "Manipal Institute of Technology",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b96.2 LPA \u2014 relatively honest reporting",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      },
-      {
-        "finding": "Average fresher salary: \u20b95.5-6.5 LPA",
-        "name": "Glassdoor (80+ reviews)",
-        "trustLevel": "Medium"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Microsoft",
-        "date": "July 2024",
-        "difficulty": "Hard",
-        "questions": [
-          "3 coding rounds: Trees, DP, Graphs",
-          "System design: Design a chat application",
-          "Behavioral round with skip-level manager"
-        ],
-        "role": "SDE",
-        "year": 2024
-      },
-      {
-        "company": "Goldman Sachs",
-        "date": "August 2024",
-        "difficulty": "Hard",
-        "questions": [
-          "Quantitative aptitude + Coding",
-          "System design basics",
-          "HR + Technical mix round"
-        ],
-        "role": "Analyst",
-        "year": 2024
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "Honestly one of the better colleges. Base pay reality is closer to what they claim compared to others. But this is CSE \u2014 other branches have a very different story.",
-        "company": "Microsoft",
-        "ctcBreakdown": {
-          "basePay": "14.5 LPA",
-          "joiningBonus": "\u20b91,50,000",
-          "other": "Stocks",
-          "relocation": "\u2014",
-          "variablePay": "2.0 LPA"
-        },
-        "ctcOffered": "18 LPA",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r1",
-        "reportType": "personal",
-        "role": "SDE",
-        "timestamp": "2 months ago",
-        "trustScore": 82,
-        "upvotes": 56
-      },
-      {
-        "author": "Anonymous #2",
-        "batch": "2023",
-        "branch": "Mechanical",
-        "comment": "No bond, decent placements, but you're stuck in a small town. Off-campus hustle is all on you. Mech placement rate is maybe 40% honestly. Fees 20L+ for 4 years and base pay under 4 LPA for mech.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "average": "3.8 LPA",
-          "median": "3.5 LPA",
-          "placed": "~40%",
-          "type": "batch_stats"
-        },
-        "id": "r2",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "5 months ago",
-        "trustScore": 75,
-        "upvotes": 38
-      },
-      {
-        "author": "Anonymous #3",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "GS was hard to crack but compensation is real. However, only 5 students got GS from our batch. The average is heavily weighted by a handful of us.",
-        "company": "Goldman Sachs",
-        "ctcBreakdown": {
-          "basePay": "16 LPA",
-          "joiningBonus": "\u20b92,00,000",
-          "other": "\u2014",
-          "relocation": "\u20b950,000",
-          "variablePay": "3.5 LPA"
-        },
-        "ctcOffered": "22 LPA",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r3",
-        "reportType": "personal",
-        "role": "Analyst",
-        "timestamp": "1 month ago",
-        "trustScore": 70,
-        "upvotes": 25
-      }
-    ],
-    "searchCount": 1956,
-    "shortName": "MIT Manipal",
-    "summary": {
-      "batchSize": "~3,500",
-      "claimedCTC": "9.5 LPA",
-      "placementRate": "82%",
-      "reportedAverage": "6.2 LPA",
-      "reportedHighest": "45 LPA",
-      "reportedLowest": "3.0 LPA",
-      "reportedMedian": "5.8 LPA",
-      "topRecruiters": [
-        "Microsoft",
-        "Goldman Sachs",
-        "TCS Digital",
-        "Cisco",
-        "SAP"
-      ],
-      "totalReports": 38
-    },
-    "tags": [
-      "No Bonds",
-      "Verified Base CTC",
-      "High Fees"
-    ],
-    "trustScore": 68,
-    "type": "Deemed University"
-  },
-  {
-    "bondDetails": "\u20b91,50,000 bond for 1 year with partner companies.",
-    "hasHiddenBond": true,
-    "id": "amity-noida",
-    "lastUpdated": "Jan 2026",
-    "lastUpdatedFull": "22 Jan 2026",
-    "location": "Noida, Uttar Pradesh",
-    "name": "Amity University",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b93.0 LPA \u2014 massive gap from claimed 8 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      },
-      {
-        "finding": "Average fresher salary: \u20b92.5-3.5 LPA",
-        "name": "AmbitionBox",
-        "trustLevel": "Medium"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Concentrix",
-        "date": "September 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "English communication test",
-          "Typing speed test",
-          "Voice/accent assessment",
-          "HR round"
-        ],
-        "role": "Process Associate",
-        "year": 2024
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "Brand name is all marketing. Actual placements are dismal. Most of batch ends up in BPO roles. They count Amity employees hiring Amity students as 'placements'. The conflict of interest is unreal.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "type": "practice_report"
-        },
-        "id": "r1",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "1 month ago",
-        "trustScore": 80,
-        "upvotes": 89
-      },
-      {
-        "author": "Anonymous #2",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "This is what 'placements' look like at Amity. A BPO role at 2.8 LPA CTC after paying 15L in fees. The bond makes it worse \u2014 you can't leave for 1 year.",
-        "company": "Concentrix",
-        "ctcBreakdown": {
-          "basePay": "2.4 LPA",
-          "joiningBonus": "\u2014",
-          "other": "\u2014",
-          "relocation": "\u2014",
-          "variablePay": "0.4 LPA"
-        },
-        "ctcOffered": "2.8 LPA",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r2",
-        "reportType": "personal",
-        "role": "Process Associate",
-        "timestamp": "3 weeks ago",
-        "trustScore": 72,
-        "upvotes": 45
-      }
-    ],
-    "searchCount": 1523,
-    "shortName": "Amity",
-    "summary": {
-      "batchSize": "~6,000",
-      "claimedCTC": "8.0 LPA",
-      "placementRate": "55%",
-      "reportedAverage": "3.1 LPA",
-      "reportedHighest": "12 LPA",
-      "reportedLowest": "1.8 LPA",
-      "reportedMedian": "2.8 LPA",
-      "topRecruiters": [
-        "Amity Group Companies",
-        "Concentrix",
-        "Genpact",
-        "HCL"
-      ],
-      "totalReports": 29
-    },
-    "tags": [
-      "Bond Alert",
-      "CTC Inflated",
-      "Self-Placements"
-    ],
-    "trustScore": 18,
-    "type": "Private University"
-  },
-  {
-    "bondDetails": "Dumbass college",
-    "hasHiddenBond": true,
-    "id": "lpu-punjab",
+    "hasWarning": true,
+    "id": "nitte-meenakshi-nmit-bangalore",
     "lastUpdated": "Apr 2026",
-    "lastUpdatedFull": "4 Apr 2026",
-    "location": "Phagwara, Punjab",
-    "name": "Lovely Professional University",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bangalore",
+    "name": "Nitte Meenakshi Institute of Technology",
     "onlineSources": [
       {
-        "finding": "Median salary: \u20b93.2 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
+        "fileUrl": "",
+        "finding": "https://www.shiksha.com/college/nitte-meenakshi-institute-of-technology-yelahanaka-bangalore-27017/placement",
+        "name": "shiksha.com",
+        "trustLevel": "Medium"
       },
       {
-        "finding": "Average: \u20b93.0-3.5 LPA for LPU freshers",
-        "name": "Glassdoor",
+        "fileUrl": "",
+        "finding": "Excel sheet containing 143 company offers across all branches with exact LPA figures.",
+        "name": "Official 2024 Placement Record",
         "trustLevel": "High"
       }
     ],
     "placementQuestions": [
       {
-        "company": "TCS",
-        "date": "September 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "TCS NQT based \u2014 aptitude + coding",
-          "Email writing",
-          "HR interview"
-        ],
-        "role": "Systems Engineer",
+        "company": "Anest Iwata Corporation",
+        "date": "",
+        "difficulty": "Medium",
+        "questions": [],
+        "role": "",
         "year": 2024
       },
       {
-        "company": "Infosys",
-        "date": "October 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "InfyTQ platform test",
-          "3 coding questions (easy)",
-          "HR interview"
-        ],
-        "role": "Systems Engineer",
+        "company": "Vebuin",
+        "date": "",
+        "difficulty": "Medium",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Hitachi Industrial Equipment Systems",
+        "date": "",
+        "difficulty": "Medium",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Walmart India",
+        "date": "",
+        "difficulty": "Medium",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Nvidia",
+        "date": "",
+        "difficulty": "Medium",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Toyota Connected Corporation",
+        "date": "",
+        "difficulty": "Medium",
+        "questions": [],
+        "role": "",
         "year": 2024
       }
     ],
     "reports": [
       {
-        "author": "Anonymous #1",
+        "author": "Placement Cell Data",
         "batch": "2024",
-        "branch": "CSE",
-        "comment": "10,000 students. Think about that. Even if 2000 get placed well, what about the other 8000? The CTC they advertise is the HIGHEST package, not average. Very misleading.",
+        "branch": "All Branches",
+        "comment": "Official data obtained showing 143 companies visited. Top recruiters include Toyota Connected and Nvidia at 26 LPA, and Walmart at 24 LPA. Strong presence of Japanese companies like Hitachi and Anest Iwata offering 20+ LPA packages.",
         "company": "",
         "ctcBreakdown": null,
-        "ctcOffered": "",
+        "ctcOffered": "26 LPA",
         "dataReported": {
           "type": "individual_offer"
         },
-        "id": "r1",
+        "id": "nmit-agg-1",
         "reportType": "aggregate",
         "role": "",
         "timestamp": "Recently",
-        "trustScore": 75,
+        "trustScore": 95,
         "upvotes": 0
       }
     ],
-    "searchCount": 2105,
-    "shortName": "LPU",
+    "searchCount": 0,
+    "shortName": "NMIT",
     "summary": {
-      "batchSize": "~12,000+",
-      "claimedCTC": "7.5 LPA",
-      "placementRate": "65%",
-      "reportedAverage": "3.4 LPA",
-      "reportedHighest": "42 LPA",
-      "reportedLowest": "2.0 LPA",
-      "reportedMedian": "3.0 LPA",
-      "topRecruiters": [
-        "TCS",
-        "Infosys"
+      "advertisedSameAsReported": true,
+      "batchSize": "N/A",
+      "branches": [
+        {
+          "average": "8 LPA",
+          "high": "26 LPA",
+          "low": "3 LPA",
+          "median": "6.5 LPA",
+          "name": "CSE / ISE"
+        },
+        {
+          "average": "6.8 LPA",
+          "high": "26 LPA",
+          "low": "1.2 LPA",
+          "median": "5.5 LPA",
+          "name": "ECE / EEE"
+        },
+        {
+          "average": "5.5 LPA",
+          "high": "21.59 LPA",
+          "low": "2.48 LPA",
+          "median": "5 LPA",
+          "name": "MECH / AERO"
+        },
+        {
+          "average": "4.8 LPA",
+          "high": "8 LPA",
+          "low": "3.39 LPA",
+          "median": "4.5 LPA",
+          "name": "CIVIL"
+        }
       ],
-      "totalReports": 85
-    },
-    "tags": [],
-    "trustScore": 32,
-    "type": "Private University"
-  },
-  {
-    "bondDetails": "",
-    "hasHiddenBond": false,
-    "id": "bits-pilani",
-    "lastUpdated": "Mar 2026",
-    "lastUpdatedFull": "28 Mar 2026",
-    "location": "Pilani, Rajasthan",
-    "name": "BITS Pilani",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b914.0 LPA \u2014 among highest in India",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      },
-      {
-        "finding": "Strong alumni network. First job avg: \u20b912-15 LPA",
-        "name": "LinkedIn Alumni",
-        "trustLevel": "High"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Google",
-        "date": "July 2024",
-        "difficulty": "Very Hard",
-        "questions": [
-          "4 coding rounds: Heavy DSA",
-          "System design: Design Google Maps routing",
-          "Googleyness & Leadership round"
-        ],
-        "role": "SDE-2",
-        "year": 2024
-      },
-      {
-        "company": "Tower Research",
-        "date": "August 2024",
-        "difficulty": "Very Hard",
-        "questions": [
-          "Probability puzzles",
-          "C++ optimization problems",
-          "Low-latency system design",
-          "Brain teasers"
-        ],
-        "role": "Quant Developer",
-        "year": 2024
-      },
-      {
-        "company": "Microsoft",
-        "date": "September 2023",
-        "difficulty": "Hard",
-        "questions": [
-          "3 coding rounds",
-          "System design: Message queue",
-          "Behavioral round"
-        ],
-        "role": "SDE",
-        "year": 2023
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "BITS is genuinely good. No bonds, strong peer group, real alumni network. But PS-2 (Practice School) is basically unpaid labor sometimes. Fees are astronomical \u2014 25L+ for 4 years.",
-        "company": "Google",
-        "ctcBreakdown": {
-          "basePay": "25 LPA",
-          "joiningBonus": "\u20b95,00,000",
-          "other": "Stocks, RSUs",
-          "relocation": "\u20b92,00,000",
-          "variablePay": "8 LPA"
-        },
-        "ctcOffered": "45 LPA",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r1",
-        "reportType": "personal",
-        "role": "SDE-2",
-        "timestamp": "1 month ago",
-        "trustScore": 88,
-        "upvotes": 72
-      },
-      {
-        "author": "Anonymous #2",
-        "batch": "2024",
-        "branch": "EEE",
-        "comment": "One of the few colleges where CTC is somewhat real. But the stat includes all campuses (Goa, Hyderabad) consolidated. Pilani campus alone might be higher. Still, non-CS branches range 6-10 LPA base which is honest.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "average": "14 LPA",
-          "median": "12 LPA",
-          "placed": "~85%",
-          "type": "batch_stats"
-        },
-        "id": "r2",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "2 months ago",
-        "trustScore": 80,
-        "upvotes": 45
-      }
-    ],
-    "searchCount": 4521,
-    "shortName": "BITS",
-    "summary": {
-      "batchSize": "~2,000",
-      "claimedCTC": "18.0 LPA",
-      "placementRate": "88%",
-      "reportedAverage": "14.2 LPA",
-      "reportedHighest": "1.2 Cr",
-      "reportedLowest": "6.0 LPA",
-      "reportedMedian": "12.5 LPA",
-      "topRecruiters": [
-        "Google",
-        "Microsoft",
-        "Tower Research",
-        "Goldman Sachs",
-        "Uber"
-      ],
-      "totalReports": 55
+      "claimedCTC": "~ 26 LPA",
+      "placementRate": "N/A",
+      "reportedAverage": "~ 7.3 LPA",
+      "reportedHighest": "~ 26 LPA",
+      "reportedLowest": "~ 1.2 LPA",
+      "reportedMedian": "~ 6.2 LPA",
+      "totalReports": 143
     },
     "tags": [
-      "No Bonds",
-      "Verified Base CTC",
-      "High Fees",
-      "Elite Tier"
-    ],
-    "trustScore": 82,
-    "type": "Deemed University"
-  },
-  {
-    "bondDetails": "Mandatory 6-month internship acts as de-facto bond. Leaving early = degree withheld.",
-    "hasHiddenBond": true,
-    "id": "chitkara-punjab",
-    "lastUpdated": "Dec 2025",
-    "lastUpdatedFull": "10 Dec 2025",
-    "location": "Rajpura, Punjab",
-    "name": "Chitkara University",
-    "onlineSources": [
       {
-        "finding": "Median salary: \u20b93.5 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
+        "color": "red",
+        "featured": true,
+        "text": "MASS RECRUITER BASE"
       },
       {
-        "finding": "Listed average: 5.5 LPA \u2014 likely college-submitted data",
-        "name": "College Dunia",
-        "trustLevel": "Low-Medium"
+        "color": "yellow",
+        "featured": false,
+        "text": "STRONG CORE PLACEMENTS"
       }
     ],
-    "placementQuestions": [
-      {
-        "company": "Infosys",
-        "date": "October 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "Standard InfyTQ assessment",
-          "Coding: 2 problems",
-          "HR interview"
-        ],
-        "role": "Systems Engineer",
-        "year": 2024
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "The mandatory internship is basically free labor for companies the college has deals with. Good teaching quality but placement model is exploitative. You work 6 months for \u20b98,000-12,000/month.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "type": "practice_report"
-        },
-        "id": "r1",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "2 months ago",
-        "trustScore": 70,
-        "upvotes": 18
-      }
-    ],
-    "searchCount": 876,
-    "shortName": "Chitkara",
+    "trustScore": 90,
+    "type": "Tier 2",
+    "warningDetails": "Internship data is also included in the calculations.",
+    "warningLabel": "Disclaimer"
+  },
+  {
+    "id": "bit-bangalore",
+    "name": "Bangalore Institute of Technology",
+    "shortName": "BIT",
+    "location": "Bangalore",
+    "type": "Tier 3",
+    "trustScore": 84,
+    "hasWarning": false,
+    "warningLabel": "",
+    "warningDetails": "",
+    "searchCount": 0,
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
     "summary": {
-      "batchSize": "~2,000",
-      "claimedCTC": "8.2 LPA",
-      "placementRate": "70%",
-      "reportedAverage": "4.0 LPA",
-      "reportedHighest": "15 LPA",
-      "reportedLowest": "2.5 LPA",
-      "reportedMedian": "3.8 LPA",
-      "topRecruiters": [
-        "Infosys",
-        "Partner Companies (NDA)",
-        "HCL",
-        "Wipro"
-      ],
-      "totalReports": 21
+      "advertisedSameAsReported": false,
+      "branches": [],
+      "claimedCTC": "10 LPA",
+      "reportedMedian": "6.5 LPA",
+      "reportedAverage": "7.5 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedHighest": "58 LPA",
+      "totalReports": 1,
+      "placementRate": "508",
+      "batchSize": "~ 1400"
     },
-    "tags": [
-      "Bond Alert",
-      "Forced Internship",
-      "CTC Inflated"
-    ],
-    "trustScore": 35,
-    "type": "Private University"
-  },
-  {
-    "bondDetails": "",
-    "hasHiddenBond": false,
-    "id": "thapar-punjab",
-    "lastUpdated": "Feb 2026",
-    "lastUpdatedFull": "14 Feb 2026",
-    "location": "Patiala, Punjab",
-    "name": "Thapar Institute of Engineering & Technology",
     "onlineSources": [
       {
-        "finding": "Median salary: \u20b95.8 LPA \u2014 reasonably honest",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      },
-      {
-        "finding": "First job average: \u20b95.5 LPA",
-        "name": "LinkedIn Alumni (80 sampled)",
-        "trustLevel": "Medium"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Adobe",
-        "date": "August 2024",
-        "difficulty": "Hard",
-        "questions": [
-          "Online test: 3 coding + MCQs",
-          "Technical: DSA deep dive",
-          "System design round",
-          "Hiring manager round"
-        ],
-        "role": "MTS",
-        "year": 2024
-      },
-      {
-        "company": "Deloitte",
-        "date": "September 2024",
-        "difficulty": "Medium",
-        "questions": [
-          "Game-based assessment",
-          "Group case study",
-          "Technical + HR combined"
-        ],
-        "role": "Analyst",
-        "year": 2024
+        "name": "Official 2024 Placement Record",
+        "trustLevel": "High",
+        "finding": "PDF document containing 88 company records with exact LPA figures and total students placed per company.",
+        "fileUrl": "/uploads/BIT_2024.pdf"
       }
     ],
     "reports": [
       {
-        "author": "Anonymous #1",
+        "id": "bit-agg-1",
+        "author": "Placement Cell Data",
         "batch": "2024",
-        "branch": "CSE",
-        "comment": "Solid college for Punjab region. No shady bonds. Placements are decent for CS/IT. Good faculty, reasonable fees compared to VIT/Manipal. Base CTC reporting is mostly honest.",
-        "company": "Adobe",
-        "ctcBreakdown": {
-          "basePay": "15 LPA",
-          "joiningBonus": "\u20b92,00,000",
-          "other": "Stocks",
-          "relocation": "\u20b950,000",
-          "variablePay": "3 LPA"
-        },
-        "ctcOffered": "21 LPA",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r1",
-        "reportType": "personal",
-        "role": "MTS",
-        "timestamp": "3 months ago",
-        "trustScore": 85,
-        "upvotes": 40
-      },
-      {
-        "author": "Anonymous #2",
-        "batch": "2023",
-        "branch": "Civil",
-        "comment": "If you're not CS, placement scene is rough. Mech/Civil students struggle a lot here. I switched to IT services after graduating. Civil placements are maybe 25-30%.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "median": "2.8 LPA",
-          "placed": "~28%",
-          "type": "batch_stats"
-        },
-        "id": "r2",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "5 months ago",
-        "trustScore": 78,
-        "upvotes": 33
-      }
-    ],
-    "searchCount": 1342,
-    "shortName": "Thapar",
-    "summary": {
-      "batchSize": "~2,500",
-      "claimedCTC": "9.0 LPA",
-      "placementRate": "80%",
-      "reportedAverage": "5.8 LPA",
-      "reportedHighest": "35 LPA",
-      "reportedLowest": "2.5 LPA",
-      "reportedMedian": "5.5 LPA",
-      "topRecruiters": [
-        "Adobe",
-        "Deloitte",
-        "TCS Digital",
-        "Infosys",
-        "Wipro"
-      ],
-      "totalReports": 32
-    },
-    "tags": [
-      "No Bonds",
-      "Verified Base CTC",
-      "Branch Dependent"
-    ],
-    "trustScore": 65,
-    "type": "Deemed University"
-  },
-  {
-    "bondDetails": "1-year service bond. \u20b950,000 to \u20b92,00,000 depending on company.",
-    "hasHiddenBond": true,
-    "id": "sharda-noida",
-    "lastUpdated": "Nov 2025",
-    "lastUpdatedFull": "05 Nov 2025",
-    "location": "Greater Noida, Uttar Pradesh",
-    "name": "Sharda University",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b92.5 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Concentrix",
-        "date": "August 2024",
-        "difficulty": "Very Easy",
-        "questions": [
-          "English proficiency test",
-          "Typing test",
-          "Voice assessment",
-          "HR \u2014 5 min"
-        ],
-        "role": "Process Associate",
-        "year": 2024
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "Don't come here for placements. Most offers are call center jobs dressed up as 'analyst' roles. They charge a separate placement fee on top of tuition. \u20b925,000-50,000 extra. And then the companies that come are bottom-tier BPOs.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "type": "practice_report"
-        },
-        "id": "r1",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "2 months ago",
-        "trustScore": 82,
-        "upvotes": 56
-      }
-    ],
-    "searchCount": 645,
-    "shortName": "Sharda",
-    "summary": {
-      "batchSize": "~4,000",
-      "claimedCTC": "6.5 LPA",
-      "placementRate": "40%",
-      "reportedAverage": "2.5 LPA",
-      "reportedHighest": "8 LPA",
-      "reportedLowest": "1.5 LPA",
-      "reportedMedian": "2.2 LPA",
-      "topRecruiters": [
-        "Concentrix",
-        "Teleperformance",
-        "Genpact"
-      ],
-      "totalReports": 15
-    },
-    "tags": [
-      "Bond Alert",
-      "CTC Inflated",
-      "BPO Heavy",
-      "Extra Fees"
-    ],
-    "trustScore": 15,
-    "type": "Private University"
-  },
-  {
-    "bondDetails": "",
-    "hasHiddenBond": false,
-    "id": "chandigarh-univ",
-    "location": "Mohali, Punjab",
-    "name": "Chandigarh Universitys",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b93.0 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      },
-      {
-        "finding": "Heavily sponsored content. Finding unsponsored reviews is difficult.",
-        "name": "YouTube (Organic)",
-        "trustLevel": "Low"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Wipro",
-        "date": "September 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "Online aptitude test",
-          "Essay writing",
-          "Technical MCQs",
-          "HR interview"
-        ],
-        "role": "Project Engineer",
-        "year": 2024
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "CU is all about marketing. Guinness records, YouTube ads. 30,000 students \u2014 let that sink in. The placement stats they show are percentages, not absolute numbers. No bond which is nice, but you're competing with thousands.",
-        "company": "",
-        "ctcBreakdown": null,
-        "ctcOffered": "",
-        "dataReported": {
-          "type": "individual_offer"
-        },
-        "id": "r1",
-        "reportType": "aggregate",
-        "role": "",
+        "branch": "All Branches",
         "timestamp": "Recently",
-        "trustScore": 73,
-        "upvotes": 0
-      }
-    ],
-    "searchCount": 1876,
-    "shortName": "CU",
-    "summary": {
-      "batchSize": "~30,000+",
-      "claimedCTC": "9.0 LPA",
-      "placementRate": "60%",
-      "reportedAverage": "3.5 LPA",
-      "reportedHighest": "30 LPA",
-      "reportedLowest": "2.0 LPA",
-      "reportedMedian": "3.2 LPA",
-      "topRecruiters": [
-        "Wipro",
-        "HCLTech",
-        "TCS",
-        "Infosys"
-      ],
-      "totalReports": 52
-    },
-    "tags": [
-      "CTC Inflated",
-      "No Bonds",
-      "Mega Batch Size",
-      "Marketing Heavy"
-    ],
-    "trustScore": 25,
-    "type": "Private University"
-  },
-  {
-    "bondDetails": "",
-    "hasHiddenBond": false,
-    "id": "symbiosis-pune",
-    "lastUpdated": "Jan 2026",
-    "lastUpdatedFull": "22 Jan 2026",
-    "location": "Pune, Maharashtra",
-    "name": "Symbiosis Institute of Technology",
-    "onlineSources": [
-      {
-        "finding": "Median salary: \u20b95.0 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
-      }
-    ],
-    "placementQuestions": [
-      {
-        "company": "Persistent Systems",
-        "date": "August 2024",
-        "difficulty": "Medium",
-        "questions": [
-          "Online coding test \u2014 3 problems",
-          "Technical interview: OOP + DBMS",
-          "HR round"
-        ],
-        "role": "Software Engineer",
-        "year": 2024
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "Pune location is a huge plus for off-campus. On-campus placements don't justify the fees though. No bonds, decent faculty. Symbiosis charges a premium for the name.",
-        "company": "Persistent Systems",
-        "ctcBreakdown": {
-          "basePay": "4.2 LPA",
-          "joiningBonus": "\u20b950,000",
-          "other": "\u2014",
-          "relocation": "\u20b935,000",
-          "variablePay": "1.0 LPA"
-        },
-        "ctcOffered": "6.5 LPA",
+        "trustScore": 95,
+        "upvotes": 0,
+        "reportType": "aggregate",
+        "company": "Multiple",
+        "role": "Various",
+        "ctcOffered": "58 LPA",
+        "ctcBreakdown": null,
+        "comment": "Official 2024 placement record showing 508 total placements. Microsoft and Google offered the highest at 58 LPA and 57 LPA respectively. Several top tier packages like Intuit (45 LPA) and Cisco (42 LPA) are off-campus. Major volume recruiters include Fidelity (21 placed at 12 LPA) and L&T (16 placed at 6.8 LPA).",
         "dataReported": {
           "type": "individual_offer"
-        },
-        "id": "r1",
-        "reportType": "personal",
-        "role": "Software Engineer",
-        "timestamp": "3 months ago",
-        "trustScore": 68,
-        "upvotes": 20
+        }
       }
     ],
-    "searchCount": 1234,
-    "shortName": "SIT Pune",
-    "summary": {
-      "batchSize": "~1,500",
-      "claimedCTC": "8.5 LPA",
-      "placementRate": "75%",
-      "reportedAverage": "5.0 LPA",
-      "reportedHighest": "20 LPA",
-      "reportedLowest": "2.8 LPA",
-      "reportedMedian": "4.5 LPA",
-      "topRecruiters": [
-        "Persistent Systems",
-        "Infosys",
-        "TCS",
-        "Accenture"
-      ],
-      "totalReports": 24
-    },
+    "placementQuestions": [],
     "tags": [
-      "No Bonds",
-      "Brand Premium",
-      "Location Advantage"
-    ],
-    "trustScore": 55,
-    "type": "Deemed University"
-  },
-  {
-    "bondDetails": "Some partner companies require 1-year commitment facilitated by college.",
-    "hasHiddenBond": true,
-    "id": "kiit-odisha",
-    "lastUpdated": "Feb 2026",
-    "lastUpdatedFull": "14 Feb 2026",
-    "location": "Bhubaneswar, Odisha",
-    "name": "KIIT University",
-    "onlineSources": [
       {
-        "finding": "Median salary: \u20b93.8 LPA",
-        "name": "NIRF Data 2025",
-        "trustLevel": "High"
+        "text": "OUTLIERS",
+        "color": "red",
+        "featured": false
       },
       {
-        "finding": "Average: \u20b93.2-4.0 LPA for KIIT freshers",
-        "name": "AmbitionBox",
-        "trustLevel": "Medium"
+        "text": "OFF CAMPUS HEAVY",
+        "color": "orange",
+        "featured": true
       }
-    ],
-    "placementQuestions": [
-      {
-        "company": "TCS",
-        "date": "September 2024",
-        "difficulty": "Easy",
-        "questions": [
-          "TCS NQT \u2014 standard format",
-          "Email writing",
-          "HR interview"
-        ],
-        "role": "Systems Engineer",
-        "year": 2024
-      },
-      {
-        "company": "Accenture",
-        "date": "September 2023",
-        "difficulty": "Easy-Medium",
-        "questions": [
-          "Cognitive + Technical assessment",
-          "Coding: 2 problems",
-          "Communication assessment"
-        ],
-        "role": "ASE",
-        "year": 2023
-      }
-    ],
-    "reports": [
-      {
-        "author": "Anonymous #1",
-        "batch": "2024",
-        "branch": "CSE",
-        "comment": "KIIT grew too fast. 5 years ago it was better. Now every branch is overcrowded. Bond through company (not college) confirmed \u2014 college says it's 'company policy' but students have no choice.",
-        "company": null,
-        "ctcBreakdown": null,
-        "ctcOffered": null,
-        "dataReported": {
-          "type": "practice_report"
-        },
-        "id": "r1",
-        "reportType": "aggregate",
-        "role": null,
-        "timestamp": "2 months ago",
-        "trustScore": 72,
-        "upvotes": 38
-      }
-    ],
-    "searchCount": 1567,
-    "shortName": "KIIT",
-    "summary": {
-      "batchSize": "~8,000",
-      "claimedCTC": "7.8 LPA",
-      "placementRate": "68%",
-      "reportedAverage": "3.8 LPA",
-      "reportedHighest": "25 LPA",
-      "reportedLowest": "2.0 LPA",
-      "reportedMedian": "3.5 LPA",
-      "topRecruiters": [
-        "TCS",
-        "LTIMindtree",
-        "Accenture",
-        "Wipro"
-      ],
-      "totalReports": 36
-    },
-    "tags": [
-      "Bond Alert",
-      "CTC Inflated",
-      "Overcrowded"
-    ],
-    "trustScore": 30,
-    "type": "Deemed University"
+    ]
   }
 ];
 

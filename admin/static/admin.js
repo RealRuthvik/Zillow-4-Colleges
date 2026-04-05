@@ -155,20 +155,20 @@ function renderEditor(editorEl, college) {
     id: '', name: '', shortName: '', location: '', type: 'Private University',
     trustScore: 50, hasWarning: false, warningLabel: '', warningDetails: '', searchCount: 0,
     lastUpdated: getShortDate(), lastUpdatedFull: getFormattedDate(),
-    summary: { claimedCTC: '', reportedMedian: '', reportedAverage: '', reportedLowest: '', reportedHighest: '', totalReports: 0, topRecruiters: [], placementRate: '', batchSize: '' },
+    summary: { claimedCTC: '', reportedMedian: '', reportedAverage: '', reportedLowest: '', reportedHighest: '', totalReports: 0, topRecruiters: [], placementRate: '', batchSize: '', advertisedSameAsReported: false, branches: [] },
     onlineSources: [], reports: [], placementQuestions: [], tags: []
   };
 
-  // Convert old string tags to object tags for backwards compatibility
   let parsedTags = (c.tags || []).map(t => {
     if (typeof t === 'string') return { text: t, color: 'grey', featured: false };
     return t;
   });
 
-  // Backward compatibility for old bond logic
   const hasWarn = c.hasWarning || c.hasHiddenBond;
   const warnLabel = c.warningLabel || (c.hasHiddenBond ? 'HIDDEN BOND' : '');
   const warnDetails = c.warningDetails || c.bondDetails || '';
+  const advSame = c.summary.advertisedSameAsReported || false;
+  const branches = c.summary.branches || [];
 
   const standardTags = ['BOND ALERT', 'CTC INFLATED', 'NO BONDS', 'MASS RECRUITER HEAVY', 'VERIFIED BASE CTC', 'HIGH FEES', 'BRANCH DEPENDENT', 'MEGA BATCH SIZE', 'MARKETING HEAVY', 'BPO HEAVY', 'SELF-PLACEMENTS', 'FORCED INTERNSHIP', 'LOCATION ADVANTAGE', 'BRAND PREMIUM', 'OUTLIER DRIVEN STATS', 'EXTRA FEES', 'OVERCROWDED', 'ELITE TIER'];
 
@@ -192,9 +192,10 @@ function renderEditor(editorEl, college) {
           <div class="admin-field"><label>Location</label><input type="text" id="ed-location" value="${c.location}" /></div>
           <div class="admin-field">
             <label>Type</label>
-            <select id="ed-type">
-              ${['Deemed University', 'Private University', 'State University', 'Central University', 'IIT', 'NIT', 'IIIT'].map(t => `<option ${c.type === t ? 'selected' : ''}>${t}</option>`).join('')}
-            </select>
+            <input type="text" id="ed-type" value="${c.type}" list="type-options" autocomplete="off" />
+            <datalist id="type-options">
+              ${['Deemed University', 'Private University', 'State University', 'Central University', 'IIT', 'NIT', 'IIIT'].map(t => `<option value="${t}">`).join('')}
+            </datalist>
           </div>
           <div class="admin-field"><label>Trust Score</label><input type="number" id="ed-trustScore" value="${c.trustScore}" /></div>
           <div class="admin-field"><label>Search Count</label><input type="number" id="ed-searchCount" value="${c.searchCount}" /></div>
@@ -243,6 +244,9 @@ function renderEditor(editorEl, college) {
       <div class="admin-section" id="sec-summary">
         <div class="admin-section__title">Placement Summary <button class="admin-btn admin-btn--sm admin-btn--ghost ed-save-section" data-target="summary">Save Section</button></div>
         <div class="admin-form-grid">
+          <div class="admin-field admin-field--checkbox admin-field--full">
+            <label><input type="checkbox" id="ed-advertisedSame" ${advSame ? 'checked' : ''} /> Advertised is same as Reported</label>
+          </div>
           <div class="admin-field"><label>Advertised CTC</label><input type="text" id="ed-claimedCTC" value="${c.summary.claimedCTC}" /></div>
           <div class="admin-field"><label>Reported Median</label><input type="text" id="ed-reportedMedian" value="${c.summary.reportedMedian}" /></div>
           <div class="admin-field"><label>Reported Average</label><input type="text" id="ed-reportedAverage" value="${c.summary.reportedAverage}" /></div>
@@ -251,6 +255,16 @@ function renderEditor(editorEl, college) {
           <div class="admin-field"><label>Total Reports</label><input type="number" id="ed-totalReports" value="${c.summary.totalReports}" /></div>
           <div class="admin-field"><label>Placement Rate</label><input type="text" id="ed-placementRate" value="${c.summary.placementRate}" /></div>
           <div class="admin-field"><label>Batch Size</label><input type="text" id="ed-batchSize" value="${c.summary.batchSize}" /></div>
+        </div>
+
+        <div style="margin-top: 25px;">
+          <div style="display:flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+            <h4 style="font-family: var(--font-sub); font-size: 12px; color: var(--white); text-transform: uppercase;">Branch Placement Data</h4>
+            <button class="admin-btn admin-btn--sm admin-btn--primary" id="ed-add-branch">+ ADD BRANCH</button>
+          </div>
+          <div class="admin-branches-list" id="ed-branches-list">
+            ${branches.map((b, i) => renderBranchRow(b, i, false)).join('')}
+          </div>
         </div>
       </div>
 
@@ -301,6 +315,11 @@ function renderEditor(editorEl, college) {
     editorEl.querySelector('#tag-custom').value = '';
   });
 
+  editorEl.querySelector('#ed-add-branch').addEventListener('click', () => {
+    const listEl = editorEl.querySelector('#ed-branches-list');
+    listEl.insertAdjacentHTML('beforeend', renderBranchRow({ name: '', low: '', high: '', median: '', average: '' }, Date.now(), true));
+  });
+
   editorEl.querySelector('#ed-add-report').addEventListener('click', () => {
     const listEl = editorEl.querySelector('#ed-reports-list');
     listEl.insertAdjacentHTML('afterbegin', renderReportRow({ id: `r${Date.now()}`, author: '', batch: '', branch: '', timestamp: 'Just now', trustScore: 50, reportType: 'personal', company: '', role: '', ctcOffered: '', ctcBreakdown: null, comment: '', dataReported: { type: 'individual_offer' } }, Date.now(), true));
@@ -308,7 +327,7 @@ function renderEditor(editorEl, college) {
 
   editorEl.querySelector('#ed-add-source').addEventListener('click', () => {
     const listEl = editorEl.querySelector('#ed-sources-list');
-    listEl.insertAdjacentHTML('afterbegin', renderSourceRow({ name: '', trustLevel: 'Medium', finding: '' }, Date.now(), true));
+    listEl.insertAdjacentHTML('afterbegin', renderSourceRow({ name: '', trustLevel: 'Medium', finding: '', fileUrl: '' }, Date.now(), true));
   });
 
   editorEl.querySelector('#ed-add-pq').addEventListener('click', () => {
@@ -316,9 +335,27 @@ function renderEditor(editorEl, college) {
     listEl.insertAdjacentHTML('afterbegin', renderPQRow({ company: '', role: '', year: new Date().getFullYear(), date: '', questions: [], difficulty: 'Medium' }, Date.now(), true));
   });
 
+  editorEl.addEventListener('change', async (e) => {
+    if (e.target.classList.contains('src-file')) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.url) {
+          const row = e.target.closest('.admin-source-item');
+          row.querySelector('.src-file-url').value = data.url;
+          row.querySelector('.src-file-label').textContent = file.name;
+        }
+      } catch (err) {}
+    }
+  });
+
   editorEl.addEventListener('click', (e) => {
     if (e.target.classList.contains('admin-remove-row')) {
-      e.target.closest('.admin-sub-card, .admin-tag-row').remove();
+      e.target.closest('.admin-sub-card, .admin-tag-row, .admin-branch-item').remove();
     }
     if (e.target.classList.contains('toggle-row-btn')) {
       const body = e.target.closest('.admin-sub-card').querySelector('.admin-sub-card__body');
@@ -334,17 +371,42 @@ function renderEditor(editorEl, college) {
   editorEl.querySelector('#ed-save-master').addEventListener('click', () => saveCollege(editorEl, c, isNew, 'all'));
 }
 
+function renderBranchRow(b, i, isNew) {
+  return `
+    <div class="admin-branch-item admin-sub-card" data-index="${i}">
+      <div class="admin-sub-card__header">
+        <span>Branch: ${b.name || 'New'}</span>
+        <div style="display:flex; gap: 8px;">
+          <button class="admin-btn admin-btn--sm admin-btn--ghost toggle-row-btn">${isNew ? 'Collapse' : 'Edit'}</button>
+          <button class="admin-btn admin-btn--sm admin-btn--danger admin-remove-row">X</button>
+        </div>
+      </div>
+      <div class="admin-sub-card__body" style="display: ${isNew ? 'block' : 'none'}; padding: 15px;">
+        <div class="admin-form-grid admin-form-grid--compact">
+          <div class="admin-field"><label>Branch Name</label><input type="text" class="br-name" value="${b.name || ''}" /></div>
+          <div class="admin-field"><label>Lowest CTC</label><input type="text" class="br-low" value="${b.low || ''}" /></div>
+          <div class="admin-field"><label>Highest CTC</label><input type="text" class="br-high" value="${b.high || ''}" /></div>
+          <div class="admin-field"><label>Median CTC</label><input type="text" class="br-median" value="${b.median || ''}" /></div>
+          <div class="admin-field"><label>Average CTC</label><input type="text" class="br-avg" value="${b.average || ''}" /></div>
+        </div>
+      </div>
+    </div>`;
+}
+
 function renderTagRow(t, i) {
   return `
     <div class="admin-tag-row admin-sub-card" style="padding: 10px; display: flex; gap: 15px; align-items: center; margin-bottom: 0;">
       <input type="text" class="tag-text admin-login__input" value="${t.text}" style="flex: 1;" placeholder="Tag Name" />
       <select class="tag-color admin-login__input" style="width: 150px;">
-        <option value="grey" ${t.color === 'grey' ? 'selected' : ''}>Grey (Standard)</option>
-        <option value="red" ${t.color === 'red' ? 'selected' : ''}>Red (Warning)</option>
-        <option value="yellow" ${t.color === 'yellow' ? 'selected' : ''}>Yellow (Highlight)</option>
+        <option value="grey" ${t.color === 'grey' ? 'selected' : ''}>Grey</option>
+        <option value="red" ${t.color === 'red' ? 'selected' : ''}>Red</option>
+        <option value="yellow" ${t.color === 'yellow' ? 'selected' : ''}>Yellow</option>
+        <option value="blue" ${t.color === 'blue' ? 'selected' : ''}>Blue</option>
+        <option value="orange" ${t.color === 'orange' ? 'selected' : ''}>Orange</option>
+        <option value="green" ${t.color === 'green' ? 'selected' : ''}>Green</option>
       </select>
       <label style="display: flex; align-items: center; gap: 5px; color: var(--white); font-family: var(--font-sub); font-size: 12px; min-width: 130px;">
-        <input type="checkbox" class="tag-featured" ${t.featured ? 'checked' : ''} /> Featured (Home Card)
+        <input type="checkbox" class="tag-featured" ${t.featured ? 'checked' : ''} /> Featured
       </label>
       <button class="admin-btn admin-btn--sm admin-btn--danger admin-remove-row">X</button>
     </div>
@@ -396,6 +458,12 @@ function renderSourceRow(s, i, isNew) {
         <div class="admin-form-grid admin-form-grid--compact">
           <div class="admin-field"><label>Name</label><input type="text" class="src-name" value="${s.name}" /></div>
           <div class="admin-field"><label>Trust Level</label><select class="src-trust"><option ${s.trustLevel === 'High' ? 'selected' : ''}>High</option><option ${s.trustLevel === 'Medium' ? 'selected' : ''}>Medium</option><option ${s.trustLevel === 'Low' ? 'selected' : ''}>Low</option></select></div>
+          <div class="admin-field">
+            <label>Upload Excel File</label>
+            <input type="file" class="src-file" accept=".xlsx,.xls,.csv" />
+            <input type="hidden" class="src-file-url" value="${s.fileUrl || ''}" />
+            <div class="src-file-label" style="font-size: 11px; color: var(--tier-a); margin-top: 5px;">${s.fileUrl ? 'File attached' : ''}</div>
+          </div>
           <div class="admin-field admin-field--full"><label>Finding</label><input type="text" class="src-finding" value="${s.finding}" /></div>
         </div>
       </div>
@@ -471,6 +539,14 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
     featured: row.querySelector('.tag-featured').checked
   })).filter(t => t.text);
 
+  const newBranches = [...editorEl.querySelectorAll('.admin-branch-item')].map(row => ({
+    name: row.querySelector('.br-name').value.trim(),
+    low: row.querySelector('.br-low').value.trim(),
+    high: row.querySelector('.br-high').value.trim(),
+    median: row.querySelector('.br-median').value.trim(),
+    average: row.querySelector('.br-avg').value.trim()
+  })).filter(b => b.name);
+
   const collegeData = {
     id: id, 
     name: editorEl.querySelector('#ed-name').value.trim(),
@@ -485,6 +561,8 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
     lastUpdated: sectionTarget === 'all' || sectionTarget !== 'basic' ? getShortDate() : original.lastUpdated,
     lastUpdatedFull: sectionTarget === 'all' || sectionTarget !== 'basic' ? getFormattedDate() : original.lastUpdatedFull,
     summary: {
+      advertisedSameAsReported: editorEl.querySelector('#ed-advertisedSame').checked,
+      branches: newBranches,
       claimedCTC: editorEl.querySelector('#ed-claimedCTC').value.trim(), 
       reportedMedian: editorEl.querySelector('#ed-reportedMedian').value.trim(),
       reportedAverage: editorEl.querySelector('#ed-reportedAverage').value.trim(), 
@@ -497,7 +575,8 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
     onlineSources: [...editorEl.querySelectorAll('.admin-source-item')].map(item => ({ 
       name: item.querySelector('.src-name').value, 
       trustLevel: item.querySelector('.src-trust').value, 
-      finding: item.querySelector('.src-finding').value 
+      finding: item.querySelector('.src-finding').value,
+      fileUrl: item.querySelector('.src-file-url').value 
     })),
     reports: newReports,
     placementQuestions: newPQs,

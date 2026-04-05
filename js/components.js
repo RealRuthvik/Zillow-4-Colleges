@@ -55,10 +55,10 @@ export function renderDetailedCTC(ctcStr) {
 
 function getReportTypeInfo(report) {
   if (report.reportType === 'aggregate') {
-    return { label: 'Aggregate', icon: '', class: 'report-type--aggregate', desc: 'Based on batch-wide observation' };
+    return { label: 'Aggregate', icon: '', class: 'report-type--aggregate', desc: 'Based on batch observation' };
   }
   if (report.reportType === 'multi_personal') {
-    return { label: 'Multi-Personal', icon: '', class: 'report-type--multi', desc: 'Reporting for multiple students' };
+    return { label: 'Multi', icon: '', class: 'report-type--multi', desc: 'Reporting for multiple students' };
   }
   return { label: 'Personal', icon: '', class: 'report-type--personal', desc: 'Individual experience' };
 }
@@ -70,20 +70,29 @@ export function createCollegeCard(college, index = 0) {
 
   let bannerHTML = '';
   
-  // Look for a featured tag first
   let featuredTag = null;
   if (college.tags) {
     featuredTag = college.tags.find(t => typeof t === 'object' && t.featured);
   }
 
   if (featuredTag) {
-    const bg = featuredTag.color === 'yellow' ? 'var(--tier-s)' : (featuredTag.color === 'grey' ? 'var(--grey-mid)' : 'var(--red)');
+    let bg = 'var(--grey-mid)';
+    if (featuredTag.color === 'yellow') bg = 'var(--tier-s)';
+    if (featuredTag.color === 'red') bg = 'var(--red)';
+    if (featuredTag.color === 'blue') bg = 'var(--tier-b)';
+    if (featuredTag.color === 'orange') bg = 'var(--tier-c)';
+    if (featuredTag.color === 'green') bg = 'var(--tier-a)';
+
     const textCol = featuredTag.color === 'yellow' ? 'var(--black)' : 'var(--white)';
     bannerHTML = `<div class="warning-banner" style="background: ${bg}; color: ${textCol};">${featuredTag.text}</div>`;
   } else if (college.hasWarning || college.hasHiddenBond) {
-    // Fallback to warning label
     const label = college.warningLabel || (college.hasHiddenBond ? 'HIDDEN BOND' : 'WARNING');
     bannerHTML = `<div class="warning-banner">${label}</div>`;
+  }
+
+  let advertisedHTML = `<div class="college-card__stat-value college-card__stat-value--muted">${college.summary.claimedCTC}</div>`;
+  if (college.summary.advertisedSameAsReported) {
+    advertisedHTML = `<div class="college-card__stat-value" style="color: var(--tier-a); font-size: 22px;">${college.summary.reportedMedian}</div>`;
   }
 
   card.innerHTML = `
@@ -96,18 +105,22 @@ export function createCollegeCard(college, index = 0) {
       ${tierBadgeHTML(college.trustScore, 'lg')}
     </div>
     <div class="college-card__divider"></div>
-    <div class="college-card__stats">
+    <div class="college-card__stats" style="flex-wrap: wrap;">
       <div class="college-card__stat">
-        <div class="college-card__stat-label">Advertised</div>
-        <div class="college-card__stat-value college-card__stat-value--muted">${college.summary.claimedCTC}</div>
+        <div class="college-card__stat-label">Advertised Median</div>
+        ${advertisedHTML}
       </div>
       <div class="college-card__stat">
-        <div class="college-card__stat-label">Reported Median</div>
+        <div class="college-card__stat-label">Median</div>
         <div class="college-card__stat-value">${college.summary.reportedMedian}</div>
       </div>
       <div class="college-card__stat">
-        <div class="college-card__stat-label">Reports</div>
-        <div class="college-card__stat-value">${college.summary.totalReports}</div>
+        <div class="college-card__stat-label">Average</div>
+        <div class="college-card__stat-value">${college.summary.reportedAverage}</div>
+      </div>
+      <div class="college-card__stat">
+        <div class="college-card__stat-label">Lowest</div>
+        <div class="college-card__stat-value">${college.summary.reportedLowest}</div>
       </div>
     </div>
   `;
@@ -144,9 +157,9 @@ export function createReportCard(report, index = 0) {
         ['Variable Pay', b.variablePay],
         ['Joining Bonus', formatFullCTC(b.joiningBonus) || b.joiningBonus],
         ['Relocation', formatFullCTC(b.relocation) || b.relocation],
-      ].filter(([, v]) => v && v !== '—');
+      ].filter(([, v]) => v && v !== '-');
 
-      let otherHTML = b.other && b.other !== '—' ? `<div class="report-card__breakdown-other">+ ${b.other}</div>` : '';
+      let otherHTML = b.other && b.other !== '-' ? `<div class="report-card__breakdown-other">+ ${b.other}</div>` : '';
       breakdownHTML = `
         <details class="report-card__breakdown-details">
           <summary class="report-card__breakdown-summary">CTC Breakdown</summary>
@@ -206,7 +219,7 @@ export function createReportCard(report, index = 0) {
     } else if (d.type === 'practice_report') {
       bodyHTML += `
         <div class="report-card__data-badge report-card__data-badge--practice">
-          <div class="report-card__data-badge-title">PRACTICE / POLICY REPORT</div>
+          <div class="report-card__data-badge-title">PRACTICE OR POLICY REPORT</div>
         </div>
       `;
     }
@@ -223,13 +236,13 @@ export function createReportCard(report, index = 0) {
       <div class="report-card__header-left">
         <span class="report-card__author">${report.author}</span>
         <div class="report-card__meta-tags">
-          <span class="report-card__tag">${report.batch} · ${report.branch}</span>
+          <span class="report-card__tag">${report.batch} * ${report.branch}</span>
           ${headerTags}
         </div>
       </div>
       <div class="report-card__header-right">
         ${verifyBadgeHTML}
-        <span class="report-card__expand-icon">▼</span>
+        <span class="report-card__expand-icon">V</span>
       </div>
     </div>
     <div class="report-card__body">${bodyHTML}</div>
@@ -241,11 +254,16 @@ export function createReportCard(report, index = 0) {
 export function createSourceCard(source) {
   const el = document.createElement('div');
   el.className = 'source-card';
+  let actions = '';
+  if (source.fileUrl) {
+    actions = `<div style="margin-top: 10px;"><a href="${source.fileUrl}" download class="admin-btn admin-btn--sm admin-btn--primary" style="text-decoration:none;">Download Data</a></div>`;
+  }
   el.innerHTML = `
     <span class="source-card__trust source-card__trust--${source.trustLevel}">${source.trustLevel}</span>
     <div class="source-card__body">
       <div class="source-card__name">${source.name}</div>
       <div class="source-card__finding">${source.finding}</div>
+      ${actions}
     </div>
   `;
   return el;
@@ -260,7 +278,7 @@ export function createPQCard(pq, collegeName, index = 0) {
     <div class="pq-card__header">
       <div>
         <div class="pq-card__company">${pq.company}</div>
-        <div class="pq-card__role">${pq.role}${collegeName ? ` · ${collegeName}` : ''}</div>
+        <div class="pq-card__role">${pq.role}${collegeName ? ` * ${collegeName}` : ''}</div>
       </div>
       <span class="pq-card__difficulty pq-card__difficulty--${diffClass}">${pq.difficulty}</span>
     </div>
