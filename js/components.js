@@ -1,9 +1,9 @@
 import { navigateTo } from './app.js';
 
 export function getTier(score) {
-  if (score >= 80) return { letter: 'S', color: 'var(--tier-s)', label: 'Elite' };
-  if (score >= 65) return { letter: 'A', color: 'var(--tier-a)', label: 'Great' };
-  if (score >= 50) return { letter: 'B', color: 'var(--tier-b)', label: 'Good' };
+  if (score > 90) return { letter: 'S', color: 'var(--tier-s)', label: 'Elite' };
+  if (score >= 80) return { letter: 'A', color: 'var(--tier-a)', label: 'Great' };
+  if (score >= 65) return { letter: 'B', color: 'var(--tier-b)', label: 'Good' };
   if (score >= 35) return { letter: 'C', color: 'var(--tier-c)', label: 'Average' };
   if (score >= 20) return { letter: 'D', color: 'var(--tier-d)', label: 'Poor' };
   return { letter: 'F', color: 'var(--tier-f)', label: 'Avoid' };

@@ -98,8 +98,8 @@ function renderDashboard(container) {
 }
 
 function renderCollegeList(list) {
-  let filtered = COLLEGES.filter(c => 
-    c.name.toLowerCase().includes(searchQuery) || 
+  let filtered = COLLEGES.filter(c =>
+    c.name.toLowerCase().includes(searchQuery) ||
     c.shortName.toLowerCase().includes(searchQuery)
   );
 
@@ -115,7 +115,7 @@ function renderCollegeList(list) {
       <div class="admin-list-header__col admin-list-header__col--actions">Actions</div>
     </div>
     ${paginated.map(c => {
-      return `
+    return `
         <div class="admin-college-row" data-id="${c.id}" style="grid-template-columns: 2fr 80px 80px 120px;">
           <div class="admin-college-row__name">
             <strong>${c.shortName}</strong>
@@ -132,7 +132,7 @@ function renderCollegeList(list) {
           </div>
         </div>
       `;
-    }).join('')}
+  }).join('')}
     
     <div class="pagination" style="margin-top: 20px; justify-content: flex-end;">
       <button class="admin-btn admin-btn--ghost" id="page-prev" ${currentPage === 1 ? 'disabled' : ''}>Prev</button>
@@ -142,10 +142,10 @@ function renderCollegeList(list) {
   `;
 
   const prevBtn = list.querySelector('#page-prev');
-  if(prevBtn) prevBtn.addEventListener('click', () => { if(currentPage > 1) { currentPage--; renderCollegeList(list); } });
-  
+  if (prevBtn) prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderCollegeList(list); } });
+
   const nextBtn = list.querySelector('#page-next');
-  if(nextBtn) nextBtn.addEventListener('click', () => { if(currentPage < totalPages) { currentPage++; renderCollegeList(list); } });
+  if (nextBtn) nextBtn.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; renderCollegeList(list); } });
 
   list.querySelectorAll('[data-edit]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -376,10 +376,10 @@ function renderEditor(editorEl, college) {
     const custom = editorEl.querySelector('#tag-custom').value.trim();
     const val = custom || preset;
     if (!val) return;
-    
+
     const listEl = editorEl.querySelector('#ed-tags-list');
     listEl.insertAdjacentHTML('beforeend', renderTagRow({ text: val, color: 'grey', featured: false }, Date.now()));
-    
+
     editorEl.querySelector('#tag-preset').value = '';
     editorEl.querySelector('#tag-custom').value = '';
   });
@@ -418,9 +418,9 @@ function renderEditor(editorEl, college) {
           row.querySelector('.src-file-url').value = data.url;
           row.querySelector('.src-file-label').textContent = file.name;
         }
-      } catch (err) {}
+      } catch (err) { }
     }
-    
+
     if (e.target.classList.contains('pq-has-questions')) {
       const section = e.target.closest('.admin-sub-card__body').querySelector('.pq-questions-section');
       section.style.display = e.target.checked ? 'block' : 'none';
@@ -653,7 +653,7 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
   };
 
   const collegeData = {
-    id: id, 
+    id: id,
     name: editorEl.querySelector('#ed-name').value.trim(),
     shortName: editorEl.querySelector('#ed-shortName').value.trim(),
     location: editorEl.querySelector('#ed-location').value.trim(),
@@ -668,21 +668,21 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
     summary: {
       advertisedSameAsReported: editorEl.querySelector('#ed-advertisedSame').checked,
       branches: newBranches,
-      claimedCTC: editorEl.querySelector('#ed-claimedCTC').value.trim(), 
+      claimedCTC: editorEl.querySelector('#ed-claimedCTC').value.trim(),
       reportedMedian: editorEl.querySelector('#ed-reportedMedian').value.trim(),
-      reportedAverage: editorEl.querySelector('#ed-reportedAverage').value.trim(), 
+      reportedAverage: editorEl.querySelector('#ed-reportedAverage').value.trim(),
       reportedLowest: editorEl.querySelector('#ed-reportedLowest').value.trim(),
-      reportedHighest: editorEl.querySelector('#ed-reportedHighest').value.trim(), 
+      reportedHighest: editorEl.querySelector('#ed-reportedHighest').value.trim(),
       totalReports: parseInt(editorEl.querySelector('#ed-totalReports').value) || 0,
-      placementRate: editorEl.querySelector('#ed-placementRate').value.trim(), 
+      placementRate: editorEl.querySelector('#ed-placementRate').value.trim(),
       batchSize: editorEl.querySelector('#ed-batchSize').value.trim()
     },
     summaryDates: summaryDates,
-    onlineSources: [...editorEl.querySelectorAll('.admin-source-item')].map(item => ({ 
-      name: item.querySelector('.src-name').value, 
-      trustLevel: item.querySelector('.src-trust').value, 
+    onlineSources: [...editorEl.querySelectorAll('.admin-source-item')].map(item => ({
+      name: item.querySelector('.src-name').value,
+      trustLevel: item.querySelector('.src-trust').value,
       finding: item.querySelector('.src-finding').value,
-      fileUrl: item.querySelector('.src-file-url').value 
+      fileUrl: item.querySelector('.src-file-url').value
     })),
     reports: newReports,
     placementQuestions: newPQs,
@@ -693,7 +693,7 @@ async function saveCollege(editorEl, original, isNew, sectionTarget) {
   else COLLEGES[COLLEGES.findIndex(c => c.id === collegeData.id)] = collegeData;
 
   await pushData();
-  
+
   const saveBtn = editorEl.querySelector(sectionTarget === 'all' ? '#ed-save-master' : `[data-target="${sectionTarget}"]`);
   const origText = saveBtn.textContent;
   saveBtn.textContent = 'SAVED OK';

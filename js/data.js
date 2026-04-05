@@ -1,11 +1,315 @@
 const COLLEGES = [
   {
+    "hasWarning": false,
     "id": "rvce-bengaluru",
-    "name": "R. V. College of Engineering",
-    "shortName": "RVCE",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
     "location": "Bangalore, Karnataka",
-    "type": "Tier 1.5",
+    "name": "R. V. College of Engineering",
+    "onlineSources": [
+      {
+        "fileUrl": "/uploads/rvce-placement-statestics-for-2024-batch-all-branches-v0-ec3r5orn6jrb1.webp",
+        "finding": "https://www.reddit.com/r/Btechtards/comments/16wt63n/rvce_placement_statestics_for_2024_batchall/",
+        "name": "Highest CTC (92 LPA)",
+        "trustLevel": "Low"
+      },
+      {
+        "fileUrl": "",
+        "finding": "https://rvce-placements.vercel.app/placements/2025",
+        "name": "Student Led Website",
+        "trustLevel": "High"
+      }
+    ],
+    "placementQuestions": [
+      {
+        "company": "Samsung",
+        "ctc": "25.85",
+        "date": "17/09/2024",
+        "difficulty": "Medium",
+        "logo": "https://1000logos.net/wp-content/uploads/2017/06/Samsung-Logo-1993.png",
+        "questions": [],
+        "role": "Digital",
+        "year": 2024
+      },
+      {
+        "company": "The Math Company",
+        "ctc": "5.5 LPA",
+        "date": "14/09/2024",
+        "difficulty": "Medium",
+        "logo": "data:image/png;base64,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",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Texas Instruments",
+        "ctc": "30.22 LPA",
+        "date": "2/8/2024",
+        "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4fZ4mvt9xbHey6IlDv82pQY5wTFrMRF0ioA&s",
+        "questions": [],
+        "role": "TSR",
+        "year": 2024
+      },
+      {
+        "company": "Zomato X Blinkit",
+        "ctc": "56 LPA",
+        "date": "1/8/2024",
+        "difficulty": "Medium",
+        "logo": "data:image/png;base64,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",
+        "questions": [],
+        "role": "SWE",
+        "year": 2024
+      },
+      {
+        "company": "Microsoft",
+        "ctc": "23 LPA",
+        "date": "27/07/2024",
+        "difficulty": "Medium",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/500px-Microsoft_logo.svg.png",
+        "questions": [],
+        "role": "SWE",
+        "year": 2024
+      }
+    ],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "RVCE",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 800",
+      "branches": [
+        {
+          "average": "18.6 LPA",
+          "high": "56 LPA",
+          "low": "6 LPA",
+          "median": "18.76 LPA",
+          "name": "CSE / AIML / ISE"
+        },
+        {
+          "average": "18 LPA",
+          "high": "34 LPA",
+          "low": "4.05 LPA",
+          "median": "17.5 LPA",
+          "name": "ECE & Related"
+        },
+        {
+          "average": "11.58 LPA",
+          "high": "18.33 LPA",
+          "low": "5 LPA",
+          "median": "11 LPA",
+          "name": "Chemical"
+        },
+        {
+          "average": "11.2 LPA",
+          "high": "14.81 LPA",
+          "low": "9.4 LPA",
+          "median": "10 LPA",
+          "name": "Biotechnology"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "placementRate": "77%",
+      "reportedAverage": "16.72 LPA",
+      "reportedHighest": "92 LPA",
+      "reportedLowest": "4 LPA",
+      "reportedMedian": "14.7 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2024-2025",
+      "batchSize": "2024-2025",
+      "companies": "2024-2025",
+      "highest": "2024-2025",
+      "lowest": "2024-2025",
+      "median": "2024-2025",
+      "placementRate": "2024-2025"
+    },
+    "tags": [],
     "trustScore": 75,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": true,
+    "id": "nitte-meenakshi-nmit-bangalore",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bangalore",
+    "name": "Nitte Meenakshi Institute of Technology",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.shiksha.com/college/nitte-meenakshi-institute-of-technology-yelahanaka-bangalore-27017/placement",
+        "name": "shiksha.com",
+        "trustLevel": "Medium"
+      },
+      {
+        "fileUrl": "",
+        "finding": "Excel sheet containing 143 company offers across all branches with exact LPA figures.",
+        "name": "Official 2024 Placement Record",
+        "trustLevel": "High"
+      }
+    ],
+    "placementQuestions": [
+      {
+        "company": "Anest Iwata Corporation",
+        "ctc": "21.59 LPA",
+        "date": "",
+        "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdUWmbsuBHd3_gSnPPd-MmKO-vlywsYtea7Q&s",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Vebuin",
+        "ctc": "22.97 LPA",
+        "date": "",
+        "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa8ZgQUU521_7kzgNrw3RfnCgzqXCNCfGgyQ&s",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Hitachi Industrial Equipment Systems",
+        "ctc": "22.99 LPA",
+        "date": "",
+        "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuIBfkCxzSZhFR1XnjdmYQOHWnoD7uV4xLXA&s",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Walmart India",
+        "ctc": "24 LPA",
+        "date": "",
+        "difficulty": "Medium",
+        "logo": "https://1000logos.net/wp-content/uploads/2017/05/Walmart-Logo.png",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Nvidia",
+        "ctc": "26 LPA",
+        "date": "",
+        "difficulty": "Medium",
+        "logo": "https://www.logo.wine/a/logo/Nvidia/Nvidia-Light-Vertical-Dark-Background-Logo.wine.svg",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      },
+      {
+        "company": "Toyota Connected Corporation",
+        "ctc": "26 LPA",
+        "date": "",
+        "difficulty": "Medium",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLGZD79JubhYOL-PUDcIwi3nen3KK4l8od_Q&s",
+        "questions": [],
+        "role": "",
+        "year": 2024
+      }
+    ],
+    "reports": [
+      {
+        "author": "Placement Cell Data",
+        "batch": "2024",
+        "branch": "All Branches",
+        "comment": "Official data obtained showing 143 companies visited. Top recruiters include Toyota Connected and Nvidia at 26 LPA, and Walmart at 24 LPA. Strong presence of Japanese companies like Hitachi and Anest Iwata offering 20+ LPA packages.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "26 LPA",
+        "dataReported": {
+          "type": "individual_offer"
+        },
+        "id": "nmit-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 95,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "NMIT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 850",
+      "branches": [
+        {
+          "average": "8 LPA",
+          "high": "26 LPA",
+          "low": "3 LPA",
+          "median": "6.5 LPA",
+          "name": "CSE / ISE"
+        },
+        {
+          "average": "6.8 LPA",
+          "high": "26 LPA",
+          "low": "1.2 LPA",
+          "median": "5.5 LPA",
+          "name": "ECE / EEE"
+        },
+        {
+          "average": "5.5 LPA",
+          "high": "21.59 LPA",
+          "low": "2.48 LPA",
+          "median": "5 LPA",
+          "name": "MECH / AERO"
+        },
+        {
+          "average": "4.8 LPA",
+          "high": "8 LPA",
+          "low": "3.39 LPA",
+          "median": "4.5 LPA",
+          "name": "CIVIL"
+        }
+      ],
+      "claimedCTC": "~ 6 LPA",
+      "placementRate": "143",
+      "reportedAverage": "~ 7.6 LPA",
+      "reportedHighest": "~ 47 LPA",
+      "reportedLowest": "~ 1.2 LPA",
+      "reportedMedian": "~ 6 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2026",
+      "batchSize": "2024",
+      "companies": "",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2026",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "red",
+        "featured": true,
+        "text": "MASS RECRUITER BASE"
+      },
+      {
+        "color": "yellow",
+        "featured": false,
+        "text": "STRONG CORE PLACEMENTS"
+      }
+    ],
+    "trustScore": 90,
+    "type": "Tier 2",
+    "warningDetails": "Internship data is also included in the calculations.",
+    "warningLabel": "Disclaimer"
+  },
+  {
+    "id": "bit-bangalore",
+    "name": "Bangalore Institute of Technology",
+    "shortName": "BIT",
+    "location": "Bangalore",
+    "type": "Tier 3",
+    "trustScore": 84,
     "hasWarning": false,
     "warningLabel": "",
     "warningDetails": "",
@@ -13,204 +317,43 @@ const COLLEGES = [
     "lastUpdated": "Apr 2026",
     "lastUpdatedFull": "5 Apr 2026",
     "summary": {
-      "advertisedSameAsReported": true,
-      "branches": [
-        {
-          "name": "CSE / AIML / ISE",
-          "low": "6 LPA",
-          "high": "56 LPA",
-          "median": "18.76 LPA",
-          "average": "18.6 LPA"
-        },
-        {
-          "name": "ECE & Related",
-          "low": "4.05 LPA",
-          "high": "34 LPA",
-          "median": "17.5 LPA",
-          "average": "18 LPA"
-        },
-        {
-          "name": "Chemical",
-          "low": "5 LPA",
-          "high": "18.33 LPA",
-          "median": "11 LPA",
-          "average": "11.58 LPA"
-        },
-        {
-          "name": "Biotechnology",
-          "low": "9.4 LPA",
-          "high": "14.81 LPA",
-          "median": "10 LPA",
-          "average": "11.2 LPA"
-        }
-      ],
-      "claimedCTC": "15 LPA",
-      "reportedMedian": "14.7 LPA",
-      "reportedAverage": "16.72 LPA",
-      "reportedLowest": "4 LPA",
-      "reportedHighest": "92 LPA",
+      "advertisedSameAsReported": false,
+      "branches": [],
+      "claimedCTC": "10 LPA",
+      "reportedMedian": "6.5 LPA",
+      "reportedAverage": "7.5 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedHighest": "58 LPA",
       "totalReports": 1,
-      "placementRate": "77%",
-      "batchSize": "~ 800"
+      "placementRate": "508",
+      "batchSize": "~ 1400"
     },
     "summaryDates": {
-      "median": "2024-2025",
-      "average": "2024-2025",
-      "lowest": "2024-2025",
-      "highest": "2024-2025",
-      "placementRate": "2024-2025",
-      "batchSize": "2024-2025",
-      "companies": "2024-2025"
+      "median": "Sep 2024",
+      "average": "Sep 2024",
+      "lowest": "Sep 2024",
+      "highest": "Sep 2024",
+      "placementRate": "Sep 2024",
+      "batchSize": "Sep 2024",
+      "companies": "September 2024"
     },
     "onlineSources": [
       {
-        "name": "Highest CTC (92 LPA)",
-        "trustLevel": "Low",
-        "finding": "https://www.reddit.com/r/Btechtards/comments/16wt63n/rvce_placement_statestics_for_2024_batchall/",
-        "fileUrl": "/uploads/rvce-placement-statestics-for-2024-batch-all-branches-v0-ec3r5orn6jrb1.webp"
-      },
-      {
-        "name": "Student Led Website",
+        "name": "Offical BIT Website",
         "trustLevel": "High",
-        "finding": "https://rvce-placements.vercel.app/placements/2025",
-        "fileUrl": ""
-      }
-    ],
-    "reports": [],
-    "placementQuestions": [
-      {
-        "company": "Samsung",
-        "logo": "https://1000logos.net/wp-content/uploads/2017/06/Samsung-Logo-1993.png",
-        "role": "Digital",
-        "ctc": "25.85",
-        "year": 2024,
-        "date": "17/09/2024",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "The Math Company",
-        "logo": "data:image/png;base64,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",
-        "role": "",
-        "ctc": "5.5 LPA",
-        "year": 2024,
-        "date": "14/09/2024",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Texas Instruments",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4fZ4mvt9xbHey6IlDv82pQY5wTFrMRF0ioA&s",
-        "role": "TSR",
-        "ctc": "30.22 LPA",
-        "year": 2024,
-        "date": "2/8/2024",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Zomato X Blinkit",
-        "logo": "data:image/png;base64,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",
-        "role": "SWE",
-        "ctc": "56 LPA",
-        "year": 2024,
-        "date": "1/8/2024",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Microsoft",
-        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/500px-Microsoft_logo.svg.png",
-        "role": "SWE",
-        "ctc": "23 LPA",
-        "year": 2024,
-        "date": "27/07/2024",
-        "questions": [],
-        "difficulty": "Medium"
-      }
-    ],
-    "tags": []
-  },
-  {
-    "id": "nitte-meenakshi-nmit-bangalore",
-    "name": "Nitte Meenakshi Institute of Technology",
-    "shortName": "NMIT",
-    "location": "Bangalore",
-    "type": "Tier 2",
-    "trustScore": 90,
-    "hasWarning": true,
-    "warningLabel": "Disclaimer",
-    "warningDetails": "Internship data is also included in the calculations.",
-    "searchCount": 0,
-    "lastUpdated": "Apr 2026",
-    "lastUpdatedFull": "5 Apr 2026",
-    "summary": {
-      "advertisedSameAsReported": true,
-      "branches": [
-        {
-          "name": "CSE / ISE",
-          "low": "3 LPA",
-          "high": "26 LPA",
-          "median": "6.5 LPA",
-          "average": "8 LPA"
-        },
-        {
-          "name": "ECE / EEE",
-          "low": "1.2 LPA",
-          "high": "26 LPA",
-          "median": "5.5 LPA",
-          "average": "6.8 LPA"
-        },
-        {
-          "name": "MECH / AERO",
-          "low": "2.48 LPA",
-          "high": "21.59 LPA",
-          "median": "5 LPA",
-          "average": "5.5 LPA"
-        },
-        {
-          "name": "CIVIL",
-          "low": "3.39 LPA",
-          "high": "8 LPA",
-          "median": "4.5 LPA",
-          "average": "4.8 LPA"
-        }
-      ],
-      "claimedCTC": "~ 6 LPA",
-      "reportedMedian": "~ 6 LPA",
-      "reportedAverage": "~ 7.6 LPA",
-      "reportedLowest": "~ 1.2 LPA",
-      "reportedHighest": "~ 47 LPA",
-      "totalReports": 1,
-      "placementRate": "143",
-      "batchSize": "~ 850"
-    },
-    "summaryDates": {
-      "median": "2026",
-      "average": "2026",
-      "lowest": "2024",
-      "highest": "2024",
-      "placementRate": "2024",
-      "batchSize": "2024",
-      "companies": ""
-    },
-    "onlineSources": [
-      {
-        "name": "shiksha.com",
-        "trustLevel": "Medium",
-        "finding": "https://www.shiksha.com/college/nitte-meenakshi-institute-of-technology-yelahanaka-bangalore-27017/placement",
+        "finding": "https://bit-bangalore.edu.in/placement-students",
         "fileUrl": ""
       },
       {
         "name": "Official 2024 Placement Record",
         "trustLevel": "High",
-        "finding": "Excel sheet containing 143 company offers across all branches with exact LPA figures.",
-        "fileUrl": ""
+        "finding": "PDF document containing 88 company records with exact LPA figures and total students placed per company.",
+        "fileUrl": "/uploads/BIT_2024.pdf"
       }
     ],
     "reports": [
       {
-        "id": "nmit-agg-1",
+        "id": "bit-agg-1",
         "author": "Placement Cell Data",
         "batch": "2024",
         "branch": "All Branches",
@@ -220,9 +363,9 @@ const COLLEGES = [
         "reportType": "aggregate",
         "company": "",
         "role": "",
-        "ctcOffered": "26 LPA",
+        "ctcOffered": "58 LPA",
         "ctcBreakdown": null,
-        "comment": "Official data obtained showing 143 companies visited. Top recruiters include Toyota Connected and Nvidia at 26 LPA, and Walmart at 24 LPA. Strong presence of Japanese companies like Hitachi and Anest Iwata offering 20+ LPA packages.",
+        "comment": "Official 2024 placement record showing 508 total placements. Microsoft and Google offered the highest at 58 LPA and 57 LPA respectively. Several top tier packages like Intuit (45 LPA) and Cisco (42 LPA) are off-campus. Major volume recruiters include Fidelity (21 placed at 12 LPA) and L&T (16 placed at 6.8 LPA).",
         "dataReported": {
           "type": "individual_offer"
         }
@@ -230,48 +373,8 @@ const COLLEGES = [
     ],
     "placementQuestions": [
       {
-        "company": "Anest Iwata Corporation",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdUWmbsuBHd3_gSnPPd-MmKO-vlywsYtea7Q&s",
-        "role": "",
-        "ctc": "21.59 LPA",
-        "year": 2024,
-        "date": "",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Vebuin",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa8ZgQUU521_7kzgNrw3RfnCgzqXCNCfGgyQ&s",
-        "role": "",
-        "ctc": "22.97 LPA",
-        "year": 2024,
-        "date": "",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Hitachi Industrial Equipment Systems",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuIBfkCxzSZhFR1XnjdmYQOHWnoD7uV4xLXA&s",
-        "role": "",
-        "ctc": "22.99 LPA",
-        "year": 2024,
-        "date": "",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Walmart India",
-        "logo": "https://1000logos.net/wp-content/uploads/2017/05/Walmart-Logo.png",
-        "role": "",
-        "ctc": "24 LPA",
-        "year": 2024,
-        "date": "",
-        "questions": [],
-        "difficulty": "Medium"
-      },
-      {
-        "company": "Nvidia",
-        "logo": "https://www.logo.wine/a/logo/Nvidia/Nvidia-Light-Vertical-Dark-Background-Logo.wine.svg",
+        "company": "Cisco",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sn_13bI3Uj0Z5jD-cs4s-6L3cnlzIBdE0Q&s",
         "role": "",
         "ctc": "26 LPA",
         "year": 2024,
@@ -280,10 +383,50 @@ const COLLEGES = [
         "difficulty": "Medium"
       },
       {
-        "company": "Toyota Connected Corporation",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLGZD79JubhYOL-PUDcIwi3nen3KK4l8od_Q&s",
+        "company": "Visa Inc (Off Campus)",
+        "logo": "https://www.freepnglogos.com/uploads/visa-logo-png-image-4.png",
         "role": "",
-        "ctc": "26 LPA",
+        "ctc": "28 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Cisco (Off Campus)",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sn_13bI3Uj0Z5jD-cs4s-6L3cnlzIBdE0Q&s",
+        "role": "",
+        "ctc": "42 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Intuit (Off Campus)",
+        "logo": "https://design.intuit.com/wp-content/uploads/2024/06/Group-1125087197.png",
+        "role": "",
+        "ctc": "45 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Google",
+        "logo": "https://lh7-us.googleusercontent.com/zXpCeGylb_EqnsAz-W8WGOZRuKUDgay0CkrjURvYXi1FHIK1iCb11Lls9FAKrh49GsSm2kOZ27V7VxBU1BKdJ58pwLzEzuDlD_Oz1VMWurZjBYwiD-36iJa1WQA9BynYbjWGUnhlw1GE",
+        "role": "",
+        "ctc": "57 LPA",
+        "year": 2024,
+        "date": "",
+        "questions": [],
+        "difficulty": "Medium"
+      },
+      {
+        "company": "Microsoft",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+        "role": "",
+        "ctc": "58 LPA",
         "year": 2024,
         "date": "",
         "questions": [],
@@ -292,113 +435,397 @@ const COLLEGES = [
     ],
     "tags": [
       {
-        "text": "MASS RECRUITER BASE",
+        "text": "OUTLIERS",
         "color": "red",
-        "featured": true
+        "featured": false
       },
       {
-        "text": "STRONG CORE PLACEMENTS",
-        "color": "yellow",
-        "featured": false
+        "text": "OFF CAMPUS HEAVY",
+        "color": "orange",
+        "featured": true
       }
     ]
   },
   {
     "hasWarning": false,
-    "id": "bit-bangalore",
+    "id": "iit-delhi",
     "lastUpdated": "Apr 2026",
     "lastUpdatedFull": "5 Apr 2026",
-    "location": "Bangalore",
-    "name": "Bangalore Institute of Technology",
+    "location": "New Delhi",
+    "name": "Indian Institute of Technology Delhi",
     "onlineSources": [
       {
         "fileUrl": "",
-        "finding": "https://bit-bangalore.edu.in/placement-students",
-        "name": "Offical BIT Website",
-        "trustLevel": "High"
-      },
-      {
-        "fileUrl": "/uploads/BIT_2024.pdf",
-        "finding": "PDF document containing 88 company records with exact LPA figures and total students placed per company.",
-        "name": "Official 2024 Placement Record",
+        "finding": "https://collegedunia.com/university/25455-iit-delhi-indian-institute-of-technology-iitd-new-delhi/placement",
+        "name": "Collegedunia 2025 Placements",
         "trustLevel": "High"
       }
     ],
-    "placementQuestions": [
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIT Delhi",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "1200",
+      "branches": [
+        {
+          "average": "27 LPA",
+          "median": "19 LPA",
+          "name": "UG 4 Year"
+        },
+        {
+          "median": "15.59 LPA",
+          "name": "M.Tech"
+        }
+      ],
+      "claimedCTC": "20 LPA",
+      "placementRate": "96%",
+      "reportedAverage": "27.00 LPA",
+      "reportedHighest": "1.5 CPA",
+      "reportedLowest": "5.4 LPA",
+      "reportedMedian": "19.00 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
       {
-        "company": "Cisco",
-        "ctc": "26 LPA",
-        "date": "",
-        "difficulty": "Medium",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sn_13bI3Uj0Z5jD-cs4s-6L3cnlzIBdE0Q&s",
-        "questions": [],
-        "role": "",
-        "year": 2024
-      },
-      {
-        "company": "Visa Inc (Off Campus)",
-        "ctc": "28 LPA",
-        "date": "",
-        "difficulty": "Medium",
-        "logo": "https://www.freepnglogos.com/uploads/visa-logo-png-image-4.png",
-        "questions": [],
-        "role": "",
-        "year": 2024
-      },
-      {
-        "company": "Cisco (Off Campus)",
-        "ctc": "42 LPA",
-        "date": "",
-        "difficulty": "Medium",
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sn_13bI3Uj0Z5jD-cs4s-6L3cnlzIBdE0Q&s",
-        "questions": [],
-        "role": "",
-        "year": 2024
-      },
-      {
-        "company": "Intuit (Off Campus)",
-        "ctc": "45 LPA",
-        "date": "",
-        "difficulty": "Medium",
-        "logo": "https://design.intuit.com/wp-content/uploads/2024/06/Group-1125087197.png",
-        "questions": [],
-        "role": "",
-        "year": 2024
-      },
-      {
-        "company": "Google",
-        "ctc": "57 LPA",
-        "date": "",
-        "difficulty": "Medium",
-        "logo": "https://lh7-us.googleusercontent.com/zXpCeGylb_EqnsAz-W8WGOZRuKUDgay0CkrjURvYXi1FHIK1iCb11Lls9FAKrh49GsSm2kOZ27V7VxBU1BKdJ58pwLzEzuDlD_Oz1VMWurZjBYwiD-36iJa1WQA9BynYbjWGUnhlw1GE",
-        "questions": [],
-        "role": "",
-        "year": 2024
-      },
-      {
-        "company": "Microsoft",
-        "ctc": "58 LPA",
-        "date": "",
-        "difficulty": "Medium",
-        "logo": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-        "questions": [],
-        "role": "",
-        "year": 2024
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
       }
     ],
+    "trustScore": 95,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "nit-trichy",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Tiruchirappalli, Tamil Nadu",
+    "name": "National Institute of Technology Tiruchirappalli",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.careers360.com/university/national-institute-of-technology-tiruchirappalli/placement",
+        "name": "Careers360 2025 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "NIT Trichy",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "1029",
+      "branches": [
+        {
+          "average": "23.64 LPA",
+          "high": "59.3 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "19.81 LPA",
+          "high": "46 LPA",
+          "name": "ECE"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "placementRate": "85.1%",
+      "reportedAverage": "16.43 LPA",
+      "reportedHighest": "64 LPA",
+      "reportedLowest": "6 LPA",
+      "reportedMedian": "14.35 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2024",
+      "highest": "2025",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 92,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iiit-hyderabad",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Hyderabad, Telangana",
+    "name": "International Institute of Information Technology Hyderabad",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.upgrad.com/universities/iiit-hyderabad/placements/",
+        "name": "upGrad 2025 Placement Highlights",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIIT Hyderabad",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "389",
+      "branches": [
+        {
+          "average": "31.98 LPA",
+          "high": "128 LPA",
+          "low": "11 LPA",
+          "name": "B.Tech CSE"
+        },
+        {
+          "average": "29.94 LPA",
+          "high": "74 LPA",
+          "low": "12.36 LPA",
+          "name": "B.Tech ECE"
+        }
+      ],
+      "claimedCTC": "30 LPA",
+      "placementRate": "96.14%",
+      "reportedAverage": "33.96 LPA",
+      "reportedHighest": "1.28 CPA",
+      "reportedLowest": "6 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "PREMIER IT INSTITUTE"
+      }
+    ],
+    "trustScore": 98,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "dtu-delhi",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "New Delhi",
+    "name": "Delhi Technological University",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.collegedekho.com/colleges/delhi-technological-university-placement",
+        "name": "CollegeDekho 2024-2025 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
     "reports": [
       {
-        "author": "Placement Cell Data",
-        "batch": "2024",
+        "author": "Aggregated Data",
+        "batch": "2024-2025",
         "branch": "All Branches",
-        "comment": "Official 2024 placement record showing 508 total placements. Microsoft and Google offered the highest at 58 LPA and 57 LPA respectively. Several top tier packages like Intuit (45 LPA) and Cisco (42 LPA) are off-campus. Major volume recruiters include Fidelity (21 placed at 12 LPA) and L&T (16 placed at 6.8 LPA).",
+        "comment": "The overall highest package recorded during DTU placements 2025 was INR 85 LPA. DTU provides on-campus, off-campus, and internship opportunities to all its students through its placement cell. The placement percentage at DTU is above 70-80 percent for most courses.",
         "company": "",
         "ctcBreakdown": null,
-        "ctcOffered": "58 LPA",
+        "ctcOffered": "85.3 LPA",
         "dataReported": {
-          "type": "individual_offer"
+          "type": "aggregate"
         },
-        "id": "bit-agg-1",
+        "id": "dtu-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 85,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "DTU",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 3000",
+      "branches": [
+        {
+          "average": "24 LPA",
+          "high": "1.8 CPA",
+          "name": "CSE"
+        },
+        {
+          "average": "18.46 LPA",
+          "high": "85 LPA",
+          "name": "Software Engineering"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "placementRate": "88.5%",
+      "reportedAverage": "15.45 LPA",
+      "reportedHighest": "85.30 LPA",
+      "reportedLowest": "4 LPA",
+      "reportedMedian": "14.10 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024-2025",
+      "companies": "2024-2025",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1.5 ENGINEERING"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "nit-surathkal",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Mangalore, Karnataka",
+    "name": "National Institute of Technology Karnataka Surathkal",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.shiksha.com/college/nit-surathkal-national-institute-of-technology-mangalore-24187/placement",
+        "name": "Shiksha 2025 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "All Branches",
+        "comment": "A total of 1246 students were placed out of 1611 eligible students during NIT Surathkal placement 2025. The highest and average package offered was INR 63.3 LPA and 15.08 LPA.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "63.3 LPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "nitk-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 90,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "NITK Surathkal",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "1611",
+      "branches": [
+        {
+          "average": "26.85 LPA",
+          "high": "52.42 LPA",
+          "median": "28.21 LPA",
+          "name": "Computer Science"
+        },
+        {
+          "average": "23.25 LPA",
+          "high": "63.3 LPA",
+          "median": "18.1 LPA",
+          "name": "IT"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "placementRate": "77.34%",
+      "reportedAverage": "15.08 LPA",
+      "reportedHighest": "63.3 LPA",
+      "reportedLowest": "6 LPA",
+      "reportedMedian": "12.00 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "median": "2025",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 92,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-kanpur",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Kanpur, Uttar Pradesh",
+    "name": "Indian Institute of Technology Kanpur",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.careers360.com/university/indian-institute-of-technology-kanpur/placement",
+        "name": "Careers360 2024-2025 Placements",
+        "trustLevel": "High"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2024-2025",
+        "branch": "All Branches",
+        "comment": "During Indian Institute of Technology Kanpur placement in 2025, out of 1109 offers, 1035 were accepted. During IIT Kanpur placements 2024 the total number of international offers were 989. The highest and average package offered at IIT Kanpur were INR 1.9 CPA and INR 26.27 LPA respectively.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "1.9 CPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "iitk-agg-1",
         "reportType": "aggregate",
         "role": "",
         "timestamp": "Recently",
@@ -407,42 +834,2553 @@ const COLLEGES = [
       }
     ],
     "searchCount": 0,
-    "shortName": "BIT",
+    "shortName": "IIT Kanpur",
     "summary": {
-      "advertisedSameAsReported": false,
-      "batchSize": "~ 1400",
-      "branches": [],
-      "claimedCTC": "10 LPA",
-      "placementRate": "508",
-      "reportedAverage": "7.5 LPA",
-      "reportedHighest": "58 LPA",
-      "reportedLowest": "3.0 LPA",
-      "reportedMedian": "6.5 LPA",
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1200",
+      "branches": [
+        {
+          "average": "44.70 LPA",
+          "median": "40.7 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "34.60 LPA",
+          "median": "23.5 LPA",
+          "name": "Electrical Engineering"
+        }
+      ],
+      "claimedCTC": "26 LPA",
+      "placementRate": "92.23%",
+      "reportedAverage": "26.27 LPA",
+      "reportedHighest": "1.9 CPA",
+      "reportedLowest": "12.50 LPA",
+      "reportedMedian": "19.90 LPA",
       "totalReports": 1
     },
     "summaryDates": {
-      "average": "Sep 2024",
-      "batchSize": "Sep 2024",
-      "companies": "September 2024",
-      "highest": "Sep 2024",
-      "lowest": "Sep 2024",
-      "median": "Sep 2024",
-      "placementRate": "Sep 2024"
+      "average": "2024",
+      "batchSize": "2024-2025",
+      "companies": "2024-2025",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
+      }
+    ],
+    "trustScore": 95,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-madras",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Chennai, Tamil Nadu",
+    "name": "Indian Institute of Technology Madras",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.careers360.com/university/indian-institute-of-technology-madras/placement",
+        "name": "Careers360 2025 Placements",
+        "trustLevel": "High"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "All Branches",
+        "comment": "In the 2025 recruitment cycle, over 1,091 students from IIT Madras were placed with a placement rate of approximately 80% for B.Tech. The average package offered was an impressive 22 LPA, with a median salary of 19.60 LPA. The highest package reached INR 4.3 crore per annum, awarded by Jane Street.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "4.3 CPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "iitm-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 95,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "IIT Madras",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1500",
+      "branches": [
+        {
+          "average": "53.2 LPA",
+          "median": "46.0 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "28.8 LPA",
+          "median": "22.5 LPA",
+          "name": "Electrical Engineering"
+        }
+      ],
+      "claimedCTC": "20 LPA",
+      "placementRate": "80%",
+      "reportedAverage": "22.00 LPA",
+      "reportedHighest": "4.3 CPA",
+      "reportedLowest": "5.4 LPA",
+      "reportedMedian": "19.60 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "median": "2025",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
+      }
+    ],
+    "trustScore": 96,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-kharagpur",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Kharagpur, West Bengal",
+    "name": "Indian Institute of Technology Kharagpur",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://collegedunia.com/university/26007-iit-kharagpur-indian-institute-of-technology-iitkgp-kharagpur/placement",
+        "name": "Collegedunia 2025 Placements",
+        "trustLevel": "High"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "All Branches",
+        "comment": "1811 placement offers have been received from Core, IT, Finance, Analytics, consultancy, IT, and software sectors. INR 2.14 CPA is the highest package received. The average package for B.Tech stood at 24 LPA, with a median of 19.76 LPA.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "2.14 CPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "iitkgp-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 95,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "IIT Kharagpur",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1500",
+      "branches": [
+        {
+          "average": "26 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "21 LPA",
+          "name": "Electrical Engineering"
+        }
+      ],
+      "claimedCTC": "20 LPA",
+      "placementRate": "69% (UG)",
+      "reportedAverage": "24.00 LPA",
+      "reportedHighest": "2.14 CPA",
+      "reportedLowest": "6 LPA",
+      "reportedMedian": "19.76 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "median": "2025",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
+      }
+    ],
+    "trustScore": 95,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-roorkee",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Roorkee, Uttarakhand",
+    "name": "Indian Institute of Technology Roorkee",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.careers360.com/university/indian-institute-of-technology-roorkee/placement",
+        "name": "Careers360 2024-2025 Placements",
+        "trustLevel": "High"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2024-2025",
+        "branch": "All Branches",
+        "comment": "The highest international package was an impressive INR 2.05 Crores, offered by Databricks. The average package across all programs was approximately INR 18.34 LPA. The CSE branch saw an average package of 34.07 LPA.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "2.05 CPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "iitr-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 94,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "IIT Roorkee",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1100",
+      "branches": [
+        {
+          "average": "34.07 LPA",
+          "median": "34.0 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "23.52 LPA",
+          "median": "21.5 LPA",
+          "name": "ECE"
+        }
+      ],
+      "claimedCTC": "18 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "18.34 LPA",
+      "reportedHighest": "2.05 CPA",
+      "reportedLowest": "5.06 LPA",
+      "reportedMedian": "17.00 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "companies": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
+      }
+    ],
+    "trustScore": 94,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "nit-warangal",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Warangal, Telangana",
+    "name": "National Institute of Technology Warangal",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.shiksha.com/college/nit-warangal-national-institute-of-technology-25425/placement",
+        "name": "Shiksha 2025 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "All Branches",
+        "comment": "NIT Warangal recorded placement rate of 79.3% in 2025. The highest package offered during NIT Warangal placements 2025 was INR 64.3 LPA. The average and median package offered was INR 14.35 LPA and INR 12 LPA, respectively.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "64.3 LPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "nitw-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 90,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "NIT Warangal",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "1201",
+      "branches": [
+        {
+          "average": "22.63 LPA",
+          "median": "20 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "20.8 LPA",
+          "median": "18 LPA",
+          "name": "ECE"
+        }
+      ],
+      "claimedCTC": "14 LPA",
+      "placementRate": "79.3%",
+      "reportedAverage": "14.35 LPA",
+      "reportedHighest": "64.3 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "12.00 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "median": "2025",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 91,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-guwahati",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Guwahati, Assam",
+    "name": "Indian Institute of Technology Guwahati",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIT Guwahati",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 900",
+      "branches": [
+        {
+          "average": "41 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "25 LPA",
+      "placementRate": "78%",
+      "reportedAverage": "25.75 LPA",
+      "reportedHighest": "2.05 CPA",
+      "reportedLowest": "6.5 LPA",
+      "reportedMedian": "21.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
+      }
+    ],
+    "trustScore": 92,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "nsut-delhi",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "New Delhi",
+    "name": "Netaji Subhas University of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "NSUT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1200",
+      "branches": [
+        {
+          "average": "22 LPA",
+          "name": "CSE / COE"
+        }
+      ],
+      "claimedCTC": "16 LPA",
+      "placementRate": "82%",
+      "reportedAverage": "16.5 LPA",
+      "reportedHighest": "1.06 CPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "12.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1.5 ENGINEERING"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "mnnit-allahabad",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Prayagraj, Uttar Pradesh",
+    "name": "Motilal Nehru National Institute of Technology Allahabad",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "MNNIT Allahabad",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1000",
+      "branches": [
+        {
+          "average": "27 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "18 LPA",
+      "placementRate": "88%",
+      "reportedAverage": "20.20 LPA",
+      "reportedHighest": "82.63 LPA",
+      "reportedLowest": "5.5 LPA",
+      "reportedMedian": "16.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 90,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "bits-pilani-goa",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Zuarinagar, Goa",
+    "name": "BITS Pilani, Goa Campus",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "BITS Goa",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 850",
+      "branches": [
+        {
+          "average": "25 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "18 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "19.5 LPA",
+      "reportedHighest": "60.75 LPA",
+      "reportedLowest": "6 LPA",
+      "reportedMedian": "16.5 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "PRIVATE TIER 1"
+      }
+    ],
+    "trustScore": 92,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "pec-chandigarh",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Chandigarh",
+    "name": "Punjab Engineering College",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "PEC",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 700",
+      "branches": [
+        {
+          "average": "20 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "14 LPA",
+      "placementRate": "80%",
+      "reportedAverage": "15.97 LPA",
+      "reportedHighest": "83.00 LPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "11.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": false,
+        "text": "TIER 2 REPUTED"
+      }
+    ],
+    "trustScore": 86,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "jadavpur-university",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Kolkata, West Bengal",
+    "name": "Jadavpur University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "JU",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1100",
+      "branches": [
+        {
+          "average": "23 LPA",
+          "name": "CSE / IT"
+        }
+      ],
+      "claimedCTC": "10 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "10.00 LPA",
+      "reportedHighest": "85.00 LPA",
+      "reportedLowest": "3.6 LPA",
+      "reportedMedian": "8.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "HIGH ROI STATE UNIV"
+      }
+    ],
+    "trustScore": 89,
+    "type": "Tier 1.5",
+    "warningDetails": "Average package reflects overall BTech including multiple core and non-core branches.",
+    "warningLabel": "Branch Disparity"
+  },
+  {
+    "hasWarning": false,
+    "id": "srmist-chennai",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Kattankulathur, Tamil Nadu",
+    "name": "SRM Institute of Science and Technology",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://www.shiksha.com/university/srm-institute-of-science-and-technology-kattankulathur-chennai-24749/placement",
+        "name": "Shiksha 2025 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "All Branches",
+        "comment": "The highest and average package offered during SRM Institute of Science and Technology placements 2025 stood at INR 65 LPA and INR 6.68 LPA, respectively. The total number of offers stood at 9740, which included 4227 high paying offers.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "65 LPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "srm-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 85,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "SRMIST",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 5000",
+      "branches": [
+        {
+          "average": "9 LPA",
+          "high": "55 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "9 LPA",
+      "placementRate": "3098 Placed",
+      "reportedAverage": "6.68 LPA",
+      "reportedHighest": "65.00 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "7.50 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "orange",
+        "featured": true,
+        "text": "MASS RECRUITER BASE"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 2",
+    "warningDetails": "Placement percentage relies heavily on service-based mass recruiters.",
+    "warningLabel": "High Volume Batch"
+  },
+  {
+    "hasWarning": true,
+    "id": "lpu-phagwara",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Phagwara, Punjab",
+    "name": "Lovely Professional University",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://collegewollege.com/university/lovely-professional-university-lpu-jalandhar-c10910/placements",
+        "name": "College Wollege 2025 Placements",
+        "trustLevel": "Low"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "All Branches",
+        "comment": "The highest international package reached INR 3 Crore per annum, while the highest domestic package stood at INR 2.5 Crore. The average package for the top 25% of placed students was INR 10.23 LPA. However, with a massive batch size, the overall median is substantially lower.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "3 CPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "lpu-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 70,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "LPU",
+    "summary": {
+      "advertisedSameAsReported": false,
+      "batchSize": "~ 7000+",
+      "branches": [
+        {
+          "average": "10.23 LPA",
+          "name": "Top 25% Overall"
+        }
+      ],
+      "claimedCTC": "14 LPA",
+      "placementRate": "90%",
+      "reportedAverage": "6.50 LPA",
+      "reportedHighest": "3 CPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "5.50 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "median": "2025",
+      "placementRate": "2025"
     },
     "tags": [
       {
         "color": "red",
-        "featured": false,
+        "featured": true,
         "text": "OUTLIERS"
       },
       {
         "color": "orange",
+        "featured": false,
+        "text": "MASSIVE BATCH SIZE"
+      }
+    ],
+    "trustScore": 65,
+    "type": "Tier 3",
+    "warningDetails": "Highly advertised top packages are often international off-campus outliers. The overall average and median are much lower due to the massive batch size.",
+    "warningLabel": "Marketing Inflation"
+  },
+  {
+    "hasWarning": false,
+    "id": "amity-noida",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Noida, Uttar Pradesh",
+    "name": "Amity University, Noida",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://collegedunia.com/university/54797-amity-university-noida/placement",
+        "name": "Collegedunia 2025 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2025",
+        "branch": "Engineering",
+        "comment": "The highest package offered at Amity University Noida Placements 2025 for B.Tech stood at INR 35.9 LPA. The average package stood at INR 9.6 LPA in 2025, and the median package was INR 6 LPA. Over 110 companies visited the campus.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "35.9 LPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "amity-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 82,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "Amity Noida",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 2000+",
+      "branches": [
+        {
+          "average": "9.6 LPA",
+          "median": "6.0 LPA",
+          "name": "B.Tech"
+        }
+      ],
+      "claimedCTC": "9.6 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "9.60 LPA",
+      "reportedHighest": "75.00 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "6.00 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2025",
+      "batchSize": "2025",
+      "companies": "2025",
+      "highest": "2025",
+      "lowest": "2025",
+      "median": "2025",
+      "placementRate": "2025"
+    },
+    "tags": [
+      {
+        "color": "yellow",
         "featured": true,
-        "text": "OFF CAMPUS HEAVY"
+        "text": "PRIVATE TIER 3"
+      }
+    ],
+    "trustScore": 80,
+    "type": "Tier 3",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": true,
+    "id": "galgotias-university",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Greater Noida, Uttar Pradesh",
+    "name": "Galgotias University",
+    "onlineSources": [
+      {
+        "fileUrl": "",
+        "finding": "https://collegewollege.com/university/galgotias-university-greater-noida-c10368/placements",
+        "name": "College Wollege 2024 Placements",
+        "trustLevel": "Medium"
+      }
+    ],
+    "placementQuestions": [],
+    "reports": [
+      {
+        "author": "Aggregated Data",
+        "batch": "2024",
+        "branch": "All Branches",
+        "comment": "For the 2024 placements, the highest BTech salary package offered was INR 39 LPA. The official data states that INR 5.40 LPA was the average package provided to the passing-out cohort overall.",
+        "company": "",
+        "ctcBreakdown": null,
+        "ctcOffered": "39 LPA",
+        "dataReported": {
+          "type": "aggregate"
+        },
+        "id": "galgotias-agg-1",
+        "reportType": "aggregate",
+        "role": "",
+        "timestamp": "Recently",
+        "trustScore": 75,
+        "upvotes": 0
+      }
+    ],
+    "searchCount": 0,
+    "shortName": "Galgotias",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 4000",
+      "branches": [
+        {
+          "average": "5.40 LPA",
+          "name": "Overall B.Tech"
+        }
+      ],
+      "claimedCTC": "8 LPA",
+      "placementRate": "89%",
+      "reportedAverage": "5.40 LPA",
+      "reportedHighest": "39.00 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "4.50 LPA",
+      "totalReports": 1
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "companies": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "red",
+        "featured": true,
+        "text": "LOW MEDIAN"
+      }
+    ],
+    "trustScore": 72,
+    "type": "Tier 3",
+    "warningDetails": "Placement percentage and averages are diluted due to a very high student intake and reliance on low-paying service sector mass recruiters.",
+    "warningLabel": "Low ROI"
+  },
+  {
+    "hasWarning": true,
+    "id": "cu-chandigarh",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Chandigarh",
+    "name": "Chandigarh University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "CU",
+    "summary": {
+      "advertisedSameAsReported": false,
+      "batchSize": "~ 8000+",
+      "branches": [],
+      "claimedCTC": "12 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "6.50 LPA",
+      "reportedHighest": "54.75 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "5.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "orange",
+        "featured": true,
+        "text": "MASSIVE BATCH SIZE"
+      },
+      {
+        "color": "red",
+        "featured": false,
+        "text": "OUTLIERS"
+      }
+    ],
+    "trustScore": 68,
+    "type": "Tier 3",
+    "warningDetails": "Like other massive private universities, CU relies heavily on marketing highly inflated outlier packages, while the median remains standard for service-based IT roles.",
+    "warningLabel": "Marketing Inflation"
+  },
+  {
+    "hasWarning": false,
+    "id": "kiit-bhubaneswar",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bhubaneswar, Odisha",
+    "name": "Kalinga Institute of Industrial Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "KIIT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 3500",
+      "branches": [
+        {
+          "average": "8.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "9 LPA",
+      "placementRate": "90%",
+      "reportedAverage": "7.50 LPA",
+      "reportedHighest": "63.00 LPA",
+      "reportedLowest": "4.0 LPA",
+      "reportedMedian": "6.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2.5"
+      }
+    ],
+    "trustScore": 82,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-bhu-varanasi",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Varanasi, Uttar Pradesh",
+    "name": "Indian Institute of Technology (BHU) Varanasi",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIT BHU",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1300",
+      "branches": [
+        {
+          "average": "32 LPA",
+          "name": "CSE"
+        },
+        {
+          "average": "25 LPA",
+          "name": "MnC"
+        }
+      ],
+      "claimedCTC": "20 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "21.89 LPA",
+      "reportedHighest": "1.2 CPA",
+      "reportedLowest": "6.0 LPA",
+      "reportedMedian": "18.96 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1 PREMIER"
+      }
+    ],
+    "trustScore": 93,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iit-hyderabad",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Sangareddy, Telangana",
+    "name": "Indian Institute of Technology Hyderabad",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IITH",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 800",
+      "branches": [
+        {
+          "average": "34 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "22 LPA",
+      "placementRate": "78%",
+      "reportedAverage": "24.32 LPA",
+      "reportedHighest": "65.00 LPA",
+      "reportedLowest": "6.5 LPA",
+      "reportedMedian": "20.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "FAST GROWING NEW IIT"
+      }
+    ],
+    "trustScore": 94,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iiit-allahabad",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Prayagraj, Uttar Pradesh",
+    "name": "Indian Institute of Information Technology Allahabad",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIITA",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 400",
+      "branches": [
+        {
+          "average": "32.5 LPA",
+          "name": "IT"
+        },
+        {
+          "average": "28 LPA",
+          "name": "ECE"
+        }
+      ],
+      "claimedCTC": "28 LPA",
+      "placementRate": "96%",
+      "reportedAverage": "30.68 LPA",
+      "reportedHighest": "82.50 LPA",
+      "reportedLowest": "8.5 LPA",
+      "reportedMedian": "28.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "PREMIER IT INSTITUTE"
+      }
+    ],
+    "trustScore": 95,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "nit-rourkela",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Rourkela, Odisha",
+    "name": "National Institute of Technology Rourkela",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "NITR",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1400",
+      "branches": [
+        {
+          "average": "21.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "13 LPA",
+      "placementRate": "82%",
+      "reportedAverage": "13.89 LPA",
+      "reportedHighest": "52.89 LPA",
+      "reportedLowest": "3.6 LPA",
+      "reportedMedian": "10.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 90,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "mit-manipal",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Manipal, Karnataka",
+    "name": "Manipal Institute of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "MIT Manipal",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 2500",
+      "branches": [
+        {
+          "average": "14.2 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "10 LPA",
+      "placementRate": "75%",
+      "reportedAverage": "10.49 LPA",
+      "reportedHighest": "54.75 LPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "8.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
       }
     ],
     "trustScore": 84,
+    "type": "Tier 2",
+    "warningDetails": "Batch size is quite large; median package represents the bulk of placements.",
+    "warningLabel": "High Volume Batch"
+  },
+  {
+    "hasWarning": false,
+    "id": "tiet-patiala",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Patiala, Punjab",
+    "name": "Thapar Institute of Engineering and Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "TIET",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 2000",
+      "branches": [
+        {
+          "average": "14.5 LPA",
+          "name": "Computer Engineering"
+        }
+      ],
+      "claimedCTC": "11 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "11.90 LPA",
+      "reportedHighest": "55.75 LPA",
+      "reportedLowest": "5.0 LPA",
+      "reportedMedian": "10.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
+      }
+    ],
+    "trustScore": 86,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "msrit-bangalore",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bangalore, Karnataka",
+    "name": "Ramaiah Institute of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "MSRIT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1200",
+      "branches": [
+        {
+          "average": "13 LPA",
+          "name": "CSE / ISE"
+        }
+      ],
+      "claimedCTC": "7.5 LPA",
+      "placementRate": "88%",
+      "reportedAverage": "7.66 LPA",
+      "reportedHighest": "50.00 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "6.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "COMEDK TOP TIER"
+      }
+    ],
+    "trustScore": 85,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "vjti-mumbai",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Mumbai, Maharashtra",
+    "name": "Veermata Jijabai Technological Institute",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "VJTI",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 600",
+      "branches": [
+        {
+          "average": "20 LPA",
+          "name": "Computer Engineering"
+        },
+        {
+          "average": "18 LPA",
+          "name": "IT"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "placementRate": "90%",
+      "reportedAverage": "15.00 LPA",
+      "reportedHighest": "62.00 LPA",
+      "reportedLowest": "5.0 LPA",
+      "reportedMedian": "12.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "HIGH ROI STATE UNIV"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "coep-pune",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Pune, Maharashtra",
+    "name": "College of Engineering Pune",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "COEP",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 800",
+      "branches": [
+        {
+          "average": "17 LPA",
+          "name": "Computer Engineering"
+        }
+      ],
+      "claimedCTC": "11 LPA",
+      "placementRate": "82%",
+      "reportedAverage": "11.35 LPA",
+      "reportedHighest": "50.50 LPA",
+      "reportedLowest": "4.0 LPA",
+      "reportedMedian": "9.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "HIGH ROI STATE UNIV"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": true,
+    "id": "vit-bhopal",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bhopal, Madhya Pradesh",
+    "name": "VIT Bhopal University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "VIT Bhopal",
+    "summary": {
+      "advertisedSameAsReported": false,
+      "batchSize": "~ 3000",
+      "branches": [],
+      "claimedCTC": "8 LPA",
+      "placementRate": "90%",
+      "reportedAverage": "6.50 LPA",
+      "reportedHighest": "59.00 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "5.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "orange",
+        "featured": false,
+        "text": "MASS RECRUITER BASE"
+      },
+      {
+        "color": "red",
+        "featured": true,
+        "text": "CENTRALIZED PLACEMENTS"
+      }
+    ],
+    "trustScore": 70,
     "type": "Tier 3",
+    "warningDetails": "Placements are centralized with the main VIT Vellore campus. High packages are mostly outliers from the combined pool, and the median for this specific campus leans heavily toward mass recruitment.",
+    "warningLabel": "Centralized Pool"
+  },
+  {
+    "hasWarning": false,
+    "id": "nit-calicut",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Kozhikode, Kerala",
+    "name": "National Institute of Technology Calicut",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "NITC",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1100",
+      "branches": [
+        {
+          "average": "22.03 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "14 LPA",
+      "placementRate": "84%",
+      "reportedAverage": "13.77 LPA",
+      "reportedHighest": "50.00 LPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "10.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 91,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "bmsce-bangalore",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bangalore, Karnataka",
+    "name": "BMS College of Engineering",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "BMSCE",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1300",
+      "branches": [
+        {
+          "average": "11.5 LPA",
+          "name": "CSE / ISE"
+        }
+      ],
+      "claimedCTC": "9 LPA",
+      "placementRate": "80%",
+      "reportedAverage": "8.50 LPA",
+      "reportedHighest": "50.00 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "7.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "COMEDK TOP TIER"
+      }
+    ],
+    "trustScore": 86,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": true,
+    "id": "pes-university",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bangalore, Karnataka",
+    "name": "PES University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "PESU",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1800",
+      "branches": [
+        {
+          "average": "14 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "12 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "11.00 LPA",
+      "reportedHighest": "65.00 LPA",
+      "reportedLowest": "4.0 LPA",
+      "reportedMedian": "9.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
+      }
+    ],
+    "trustScore": 80,
+    "type": "Tier 2",
+    "warningDetails": "Batch size has significantly increased recently. Placements are highly competitive internally.",
+    "warningLabel": "High Internal Competition"
+  },
+  {
+    "hasWarning": false,
+    "id": "snu-noida",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Greater Noida, Uttar Pradesh",
+    "name": "Shiv Nadar University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "SNU",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 600",
+      "branches": [
+        {
+          "average": "14.5 LPA",
+          "name": "Engineering"
+        }
+      ],
+      "claimedCTC": "11 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "11.35 LPA",
+      "reportedHighest": "58.09 LPA",
+      "reportedLowest": "5.0 LPA",
+      "reportedMedian": "9.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
+      }
+    ],
+    "trustScore": 87,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "jiit-noida",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Noida, Uttar Pradesh",
+    "name": "Jaypee Institute of Information Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "JIIT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1100",
+      "branches": [
+        {
+          "average": "9.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "8 LPA",
+      "placementRate": "92%",
+      "reportedAverage": "8.50 LPA",
+      "reportedHighest": "82.89 LPA",
+      "reportedLowest": "4.0 LPA",
+      "reportedMedian": "7.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": false,
+        "text": "PRIVATE TIER 2.5"
+      }
+    ],
+    "trustScore": 84,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": true,
+    "id": "chitkara-university",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Rajpura, Punjab",
+    "name": "Chitkara University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "CU Punjab",
+    "summary": {
+      "advertisedSameAsReported": false,
+      "batchSize": "~ 3500",
+      "branches": [],
+      "claimedCTC": "9 LPA",
+      "placementRate": "80%",
+      "reportedAverage": "6.00 LPA",
+      "reportedHighest": "40.00 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "5.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "orange",
+        "featured": true,
+        "text": "MASSIVE BATCH SIZE"
+      }
+    ],
+    "trustScore": 71,
+    "type": "Tier 3",
+    "warningDetails": "High reliance on IT service companies offering standard 3.5 to 4.5 LPA packages. High marketing inflation.",
+    "warningLabel": "Marketing Inflation"
+  },
+  {
+    "hasWarning": false,
+    "id": "pict-pune",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Pune, Maharashtra",
+    "name": "Pune Institute of Computer Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "PICT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 800",
+      "branches": [
+        {
+          "average": "13 LPA",
+          "name": "Computer Engineering"
+        }
+      ],
+      "claimedCTC": "12 LPA",
+      "placementRate": "91%",
+      "reportedAverage": "11.50 LPA",
+      "reportedHighest": "47.00 LPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "10.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": true,
+    "id": "haldia-institute",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Haldia, West Bengal",
+    "name": "Haldia Institute of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "HIT Haldia",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1200",
+      "branches": [
+        {
+          "average": "5.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "6 LPA",
+      "placementRate": "75%",
+      "reportedAverage": "4.80 LPA",
+      "reportedHighest": "40.00 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "4.20 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "orange",
+        "featured": false,
+        "text": "MASS RECRUITER BASE"
+      }
+    ],
+    "trustScore": 73,
+    "type": "Tier 3",
+    "warningDetails": "Placements are highly dependent on bulk hiring by TCS, Cognizant, and Wipro at base packages.",
+    "warningLabel": "Low Median"
+  },
+  {
+    "hasWarning": true,
+    "id": "sathyabama-chennai",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Chennai, Tamil Nadu",
+    "name": "Sathyabama Institute of Science and Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "Sathyabama",
+    "summary": {
+      "advertisedSameAsReported": false,
+      "batchSize": "~ 2500",
+      "branches": [],
+      "claimedCTC": "6 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "5.20 LPA",
+      "reportedHighest": "53.00 LPA",
+      "reportedLowest": "3.0 LPA",
+      "reportedMedian": "4.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "orange",
+        "featured": true,
+        "text": "MASS RECRUITER BASE"
+      }
+    ],
+    "trustScore": 70,
+    "type": "Tier 3",
+    "warningDetails": "The highest package is often off-campus or international. The vast majority of placements are in service-based IT companies.",
+    "warningLabel": "Massive Batch Size"
+  },
+  {
+    "hasWarning": false,
+    "id": "nirma-university",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Ahmedabad, Gujarat",
+    "name": "Nirma University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "Nirma",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1000",
+      "branches": [
+        {
+          "average": "10 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "9 LPA",
+      "placementRate": "88%",
+      "reportedAverage": "8.50 LPA",
+      "reportedHighest": "55.00 LPA",
+      "reportedLowest": "4.0 LPA",
+      "reportedMedian": "7.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
+      }
+    ],
+    "trustScore": 85,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iiit-bangalore",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Bangalore, Karnataka",
+    "name": "International Institute of Information Technology Bangalore",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIITB",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 300",
+      "branches": [
+        {
+          "average": "35.3 LPA",
+          "name": "iMTech CSE"
+        },
+        {
+          "average": "29.5 LPA",
+          "name": "iMTech ECE"
+        }
+      ],
+      "claimedCTC": "30 LPA",
+      "placementRate": "95%",
+      "reportedAverage": "34.00 LPA",
+      "reportedHighest": "65.00 LPA",
+      "reportedLowest": "12.0 LPA",
+      "reportedMedian": "28.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "PREMIER IT INSTITUTE"
+      }
+    ],
+    "trustScore": 96,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "iiit-delhi-indraprastha",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "New Delhi",
+    "name": "Indraprastha Institute of Information Technology Delhi",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "IIITD",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 600",
+      "branches": [
+        {
+          "average": "25.39 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "20 LPA",
+      "placementRate": "96%",
+      "reportedAverage": "23.72 LPA",
+      "reportedHighest": "51.30 LPA",
+      "reportedLowest": "7.5 LPA",
+      "reportedMedian": "18.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "TIER 1.5 ENGINEERING"
+      }
+    ],
+    "trustScore": 93,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "mnit-jaipur",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Jaipur, Rajasthan",
+    "name": "Malaviya National Institute of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "MNIT Jaipur",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1100",
+      "branches": [
+        {
+          "average": "20.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "13 LPA",
+      "placementRate": "86%",
+      "reportedAverage": "13.20 LPA",
+      "reportedHighest": "64.00 LPA",
+      "reportedLowest": "5.0 LPA",
+      "reportedMedian": "11.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 90,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "vnit-nagpur",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Nagpur, Maharashtra",
+    "name": "Visvesvaraya National Institute of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "VNIT Nagpur",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1000",
+      "branches": [
+        {
+          "average": "18.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "12 LPA",
+      "placementRate": "82%",
+      "reportedAverage": "11.50 LPA",
+      "reportedHighest": "64.67 LPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "9.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 89,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "bits-hyderabad",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Hyderabad, Telangana",
+    "name": "BITS Pilani, Hyderabad Campus",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "BITS Hyderabad",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 900",
+      "branches": [
+        {
+          "average": "24.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "18 LPA",
+      "placementRate": "86%",
+      "reportedAverage": "19.00 LPA",
+      "reportedHighest": "60.75 LPA",
+      "reportedLowest": "6.0 LPA",
+      "reportedMedian": "16.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "PRIVATE TIER 1"
+      }
+    ],
+    "trustScore": 92,
+    "type": "Tier 1",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "daiict-gandhinagar",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Gandhinagar, Gujarat",
+    "name": "Dhirubhai Ambani Institute of Information and Communication Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "DA-IICT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 450",
+      "branches": [
+        {
+          "average": "17.1 LPA",
+          "name": "B.Tech ICT"
+        }
+      ],
+      "claimedCTC": "15 LPA",
+      "placementRate": "92%",
+      "reportedAverage": "17.10 LPA",
+      "reportedHighest": "82.00 LPA",
+      "reportedLowest": "6.5 LPA",
+      "reportedMedian": "13.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "blue",
+        "featured": true,
+        "text": "PREMIER IT INSTITUTE"
+      }
+    ],
+    "trustScore": 93,
+    "type": "Tier 1.5",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "sastra-thanjavur",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Thanjavur, Tamil Nadu",
+    "name": "SASTRA Deemed University",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "SASTRA",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 2200",
+      "branches": [
+        {
+          "average": "9.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "7.5 LPA",
+      "placementRate": "88%",
+      "reportedAverage": "7.20 LPA",
+      "reportedHighest": "34.00 LPA",
+      "reportedLowest": "3.5 LPA",
+      "reportedMedian": "6.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "PRIVATE TIER 2"
+      }
+    ],
+    "trustScore": 86,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "ssn-chennai",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Chennai, Tamil Nadu",
+    "name": "SSN College of Engineering",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "SSNCE",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1100",
+      "branches": [
+        {
+          "average": "13.5 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "10 LPA",
+      "placementRate": "92%",
+      "reportedAverage": "9.50 LPA",
+      "reportedHighest": "1.1 CPA",
+      "reportedLowest": "4.5 LPA",
+      "reportedMedian": "7.50 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "HIGH ROI STATE UNIV"
+      }
+    ],
+    "trustScore": 90,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "psg-coimbatore",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Coimbatore, Tamil Nadu",
+    "name": "PSG College of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "PSG Tech",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1200",
+      "branches": [
+        {
+          "average": "12 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "9 LPA",
+      "placementRate": "85%",
+      "reportedAverage": "8.50 LPA",
+      "reportedHighest": "40.00 LPA",
+      "reportedLowest": "4.0 LPA",
+      "reportedMedian": "7.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "yellow",
+        "featured": true,
+        "text": "HIGH ROI STATE UNIV"
+      }
+    ],
+    "trustScore": 88,
+    "type": "Tier 2",
+    "warningDetails": "",
+    "warningLabel": ""
+  },
+  {
+    "hasWarning": false,
+    "id": "svnit-surat",
+    "lastUpdated": "Apr 2026",
+    "lastUpdatedFull": "5 Apr 2026",
+    "location": "Surat, Gujarat",
+    "name": "Sardar Vallabhbhai National Institute of Technology",
+    "onlineSources": [],
+    "placementQuestions": [],
+    "reports": [],
+    "searchCount": 0,
+    "shortName": "SVNIT",
+    "summary": {
+      "advertisedSameAsReported": true,
+      "batchSize": "~ 1000",
+      "branches": [
+        {
+          "average": "18.2 LPA",
+          "name": "CSE"
+        }
+      ],
+      "claimedCTC": "13 LPA",
+      "placementRate": "80%",
+      "reportedAverage": "12.50 LPA",
+      "reportedHighest": "44.00 LPA",
+      "reportedLowest": "5.0 LPA",
+      "reportedMedian": "10.00 LPA",
+      "totalReports": 0
+    },
+    "summaryDates": {
+      "average": "2024",
+      "batchSize": "2024",
+      "highest": "2024",
+      "lowest": "2024",
+      "median": "2024",
+      "placementRate": "2024"
+    },
+    "tags": [
+      {
+        "color": "green",
+        "featured": true,
+        "text": "TOP NIT"
+      }
+    ],
+    "trustScore": 89,
+    "type": "Tier 1",
     "warningDetails": "",
     "warningLabel": ""
   }

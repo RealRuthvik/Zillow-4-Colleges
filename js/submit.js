@@ -401,10 +401,10 @@ export function renderSubmit(container) {
     }
     const college = COLLEGES.find(c => c.id === collegeId);
     if (!college) return;
-    
+
     statsEditor.style.display = 'block';
     const s = college.summary;
-    
+
     const rows = [
       { key: 'claimedCTC', label: 'Claimed CTC', val: s.claimedCTC },
       { key: 'reportedMedian', label: 'Median Package', val: s.reportedMedian },
@@ -494,7 +494,7 @@ export function renderSubmit(container) {
     const collegeName = collegeSelect.value === '__other'
       ? (page.querySelector('#submit-other-name').value || 'New College')
       : (collegeSelect.options[collegeSelect.selectedIndex]?.text || '');
-    
+
     const dataYear = page.querySelector('#submit-stat-year').value || 'Not Specified';
 
     let html = `
@@ -537,8 +537,8 @@ export function renderSubmit(container) {
         const h = row.querySelector('.b-high').value || '-';
         const a = row.querySelector('.b-avg').value || '-';
         const m = row.querySelector('.b-med').value || '-';
-        if(n !== '-' || h !== '-' || a !== '-' || m !== '-') {
-           bHtml += `<tr><td>${n}</td><td>${h}</td><td>${a}</td><td>${m}</td></tr>`;
+        if (n !== '-' || h !== '-' || a !== '-' || m !== '-') {
+          bHtml += `<tr><td>${n}</td><td>${h}</td><td>${a}</td><td>${m}</td></tr>`;
         }
       });
       bHtml += `</tbody></table></div>`;
@@ -612,10 +612,10 @@ export function renderSubmit(container) {
     // Harvest Branch Stats
     const branchUpdates = [];
     branchContainer.querySelectorAll('.branch-edit-row').forEach(row => {
-        const n = row.querySelector('.b-name').value;
-        if(n) {
-           branchUpdates.push(`${n} - High: ${row.querySelector('.b-high').value || '-'}, Avg: ${row.querySelector('.b-avg').value || '-'}, Med: ${row.querySelector('.b-med').value || '-'}`);
-        }
+      const n = row.querySelector('.b-name').value;
+      if (n) {
+        branchUpdates.push(`${n} - High: ${row.querySelector('.b-high').value || '-'}, Avg: ${row.querySelector('.b-avg').value || '-'}, Med: ${row.querySelector('.b-med').value || '-'}`);
+      }
     });
     if (branchUpdates.length > 0) fields.push({ name: "Branch Stats Added", value: branchUpdates.join('\n'), inline: false });
 
@@ -623,7 +623,7 @@ export function renderSubmit(container) {
     if (activeReportType !== 'none') {
       const meta = `Author: ${page.querySelector('#submit-author').value}\nDate: ${page.querySelector('#submit-exact-date').value || 'N/A'}\nDrive: ${page.querySelector('#submit-drive-type').value}\nBatch: ${page.querySelector('#submit-batch').value || 'N/A'}`;
       fields.push({ name: "Report Meta", value: meta, inline: false });
-      
+
       let rData = `Type: ${activeReportType}\n`;
       if (activeReportType === 'personal') {
         rData += `Company: ${page.querySelector('#submit-company').value}\nRole: ${page.querySelector('#submit-role').value}\nBranch: ${page.querySelector('#submit-personal-branch').value}\nTotal: ${page.querySelector('#submit-ctc').value}\nBase: ${page.querySelector('#submit-base').value}\nBonus: ${page.querySelector('#submit-variable').value}`;

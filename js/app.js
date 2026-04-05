@@ -1,7 +1,3 @@
-// ========================================
-// APP — Router & Initialization (v4 - History API)
-// ========================================
-
 import { renderLanding } from './landing.js';
 import { renderDetail } from './detail.js';
 import { renderExplore } from './explore.js';
@@ -21,7 +17,9 @@ function router() {
   const path = window.location.pathname;
   const pageContainer = document.getElementById('page-container');
 
-  if (!pageContainer) return; // Safety check for admin tool
+  if (!pageContainer) return;
+
+  window.scrollTo(0, 0);
 
   if (path === '/' || path === '') {
     renderLanding(pageContainer);

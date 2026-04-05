@@ -2,6 +2,8 @@ import { COLLEGES } from './data.js';
 import { createCollegeCard, tierBadgeHTML } from './components.js';
 import { navigateTo } from './app.js';
 
+let stickerInterval;
+
 export function renderLanding(container) {
   container.innerHTML = '';
   container.className = 'page landing page-enter';
@@ -27,7 +29,7 @@ export function renderLanding(container) {
   section.className = 'recently-searched';
   section.innerHTML = `
     <div class="recently-searched__header animate-slide-left">
-      <h2 class="recently-searched__title">Most Searched</h2>
+      <h2 class="recently-searched__title">Start Your Search</h2>
       <div class="recently-searched__line"></div>
     </div>
   `;
@@ -36,6 +38,15 @@ export function renderLanding(container) {
   cardGrid.className = 'card-grid';
   cardGrid.id = 'card-grid';
   section.appendChild(cardGrid);
+
+  const exploreMoreContainer = document.createElement('div');
+  exploreMoreContainer.style.textAlign = 'center';
+  exploreMoreContainer.style.marginTop = '3rem';
+  exploreMoreContainer.innerHTML = `
+    <a href="/explore" data-link class="nav__submit-btn" style="display: inline-block; padding: 1rem 2rem; font-size: 1.1rem; text-decoration: none;">EXPLORE ALL COLLEGES</a>
+  `;
+  section.appendChild(exploreMoreContainer);
+
   container.appendChild(section);
 
   const footer = document.createElement('footer');
@@ -71,16 +82,19 @@ export function renderLanding(container) {
 
   setTimeout(() => searchInput.focus(), 500);
 
-  // Setup cycling Minecraft-style sticker
+  if (stickerInterval) {
+    clearInterval(stickerInterval);
+  }
+
   const stickers = ["HYPOTHETICAL", "SPECULATIVE", "CROWD SOURCED", "MIGHT BE FAKE", "UNVERIFIED", "???", "TAKE WITH A GRAIN OF SALT", "FOR AWARENESS ONLY"];
   let sIdx = 0;
-  setInterval(() => {
+  stickerInterval = setInterval(() => {
     const stickerEl = document.getElementById('mc-sticker');
     if(stickerEl) {
       sIdx = (sIdx + 1) % stickers.length;
       stickerEl.textContent = stickers[sIdx];
       stickerEl.classList.remove('pop');
-      void stickerEl.offsetWidth; // Force DOM reflow to restart animation
+      void stickerEl.offsetWidth;
       stickerEl.classList.add('pop');
     }
   }, 3000);
@@ -136,8 +150,8 @@ function renderDropdown(dropdown, query) {
 
 function renderCards(grid) {
   grid.innerHTML = '';
-  const sorted = [...COLLEGES].sort((a, b) => b.searchCount - a.searchCount);
-  sorted.forEach((college, i) => {
+  const randomColleges = [...COLLEGES].sort(() => Math.random() - 0.5).slice(0, 9);
+  randomColleges.forEach((college, i) => {
     const card = createCollegeCard(college, i);
     grid.appendChild(card);
   });

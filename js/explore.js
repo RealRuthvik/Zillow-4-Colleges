@@ -1,7 +1,3 @@
-// ========================================
-// EXPLORE PAGE (v6) — Pagination & Clean CTC
-// ========================================
-
 import { COLLEGES } from './data.js';
 import { getTier, tierBadgeHTML } from './components.js';
 import { navigateTo } from './app.js';
@@ -55,7 +51,7 @@ export function renderExplore(container) {
 
   document.getElementById('explore-search').addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
-    currentPage = 1; // Reset to page 1 on search
+    currentPage = 1;
     renderTable(tableWrap);
   });
 }
@@ -63,12 +59,25 @@ export function renderExplore(container) {
 function getSortLabel(field) {
   const labels = {
     trustScore: 'Trust Score',
-    reportedMedian: 'Reported Median',
-    claimedCTC: 'Claimed CTC',
-    name: 'Name',
-    searchCount: 'Popularity',
+    reportedHighest: 'Highest CTC',
+    reportedAverage: 'Average CTC',
+    reportedMedian: 'Median CTC',
+    reportedLowest: 'Lowest CTC',
+    claimedCTC: 'Advertised Median',
+    name: 'Name'
   };
   return labels[field] || field;
+}
+
+function parseCTC(val) {
+  if (!val) return 0;
+  const str = val.toString().toUpperCase();
+  let num = parseFloat(str.replace(/[^0-9.]/g, ''));
+  if (isNaN(num)) return 0;
+  if (str.includes('CPA')) {
+    num *= 100;
+  }
+  return num;
 }
 
 function renderTable(wrap) {
@@ -86,17 +95,18 @@ function renderTable(wrap) {
     let aVal, bVal;
     switch (sortField) {
       case 'trustScore': aVal = a.trustScore; bVal = b.trustScore; break;
-      case 'reportedMedian': aVal = parseFloat(a.summary.reportedMedian); bVal = parseFloat(b.summary.reportedMedian); break;
-      case 'claimedCTC': aVal = parseFloat(a.summary.claimedCTC); bVal = parseFloat(b.summary.claimedCTC); break;
+      case 'reportedHighest': aVal = parseCTC(a.summary.reportedHighest); bVal = parseCTC(b.summary.reportedHighest); break;
+      case 'reportedAverage': aVal = parseCTC(a.summary.reportedAverage); bVal = parseCTC(b.summary.reportedAverage); break;
+      case 'reportedMedian': aVal = parseCTC(a.summary.reportedMedian); bVal = parseCTC(b.summary.reportedMedian); break;
+      case 'reportedLowest': aVal = parseCTC(a.summary.reportedLowest); bVal = parseCTC(b.summary.reportedLowest); break;
+      case 'claimedCTC': aVal = parseCTC(a.summary.claimedCTC); bVal = parseCTC(b.summary.claimedCTC); break;
       case 'name': aVal = a.shortName; bVal = b.shortName; break;
-      case 'searchCount': aVal = a.searchCount; bVal = b.searchCount; break;
       default: aVal = a.trustScore; bVal = b.trustScore;
     }
     if (sortField === 'name') return sortDir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     return sortDir === 'desc' ? bVal - aVal : aVal - bVal;
   });
 
-  // Pagination logic
   const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
   const start = (currentPage - 1) * itemsPerPage;
   const paginated = filtered.slice(start, start + itemsPerPage);
@@ -104,10 +114,11 @@ function renderTable(wrap) {
   const columns = [
     { id: 'name', label: 'College' },
     { id: 'trustScore', label: 'Tier' },
+    { id: 'reportedHighest', label: 'Highest CTC' },
+    { id: 'reportedAverage', label: 'Average CTC' },
     { id: 'reportedMedian', label: 'Median CTC' },
-    { id: 'claimedCTC', label: 'Advertised Median' },
-    { id: 'searchCount', label: 'Searches' },
-    { id: 'reports', label: 'Reports', sortable: false },
+    { id: 'reportedLowest', label: 'Lowest CTC' },
+    { id: 'claimedCTC', label: 'Advertised Median' }
   ];
 
   wrap.innerHTML = `
@@ -137,10 +148,11 @@ function renderTable(wrap) {
                   ${tierBadgeHTML(c.trustScore, 'sm')}
                 </div>
               </td>
-              <td><div class="explore-ctc-actual">${c.summary.reportedMedian}</div></td>
-              <td><div class="explore-ctc-claimed ${c.summary.claimedCTC === c.summary.reportedMedian ? 'explore-ctc-claimed--verified' : ''}">${c.summary.claimedCTC}</div></td>
-              <td>${c.searchCount.toLocaleString()}</td>
-              <td style="font-family: var(--font-heading); font-size: 18px; color: var(--white);">${c.summary.totalReports}</td>
+              <td><div class="explore-ctc-actual">${c.summary.reportedHighest || 'N/A'}</div></td>
+              <td><div class="explore-ctc-actual">${c.summary.reportedAverage || 'N/A'}</div></td>
+              <td><div class="explore-ctc-actual">${c.summary.reportedMedian || 'N/A'}</div></td>
+              <td><div class="explore-ctc-actual">${c.summary.reportedLowest || 'N/A'}</div></td>
+              <td><div class="explore-ctc-claimed ${c.summary.claimedCTC === c.summary.reportedMedian ? 'explore-ctc-claimed--verified' : ''}">${c.summary.claimedCTC || 'N/A'}</div></td>
             </tr>
           `;
         }).join('')}
@@ -166,7 +178,7 @@ function renderTable(wrap) {
         sortField = field;
         sortDir = field === 'name' ? 'asc' : 'desc';
       }
-      currentPage = 1; // Reset to page 1 on sort
+      currentPage = 1;
       const sortInfo = document.getElementById('sort-info');
       if (sortInfo) sortInfo.innerHTML = `Sorted by: <span>${getSortLabel(sortField)}</span> (${sortDir === 'desc' ? '↓' : '↑'})`;
       renderTable(wrap);
@@ -174,18 +186,22 @@ function renderTable(wrap) {
   });
 
   wrap.querySelectorAll('tr[data-id]').forEach(row => {
-    row.addEventListener('click', () => {
-      navigateTo(`/explore`);
-    });
-  });
-
-  wrap.querySelectorAll('tr[data-id]').forEach(row => {
     row.addEventListener('click', (e) => {
-      // Prevent navigating if clicking the help icon
       if (e.target.closest('.tier-badge-help')) return;
       navigateTo(`/college/${row.dataset.id}`);
     });
   });
+
+  const prevBtn = wrap.querySelector('#explore-prev');
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable(wrap);
+        window.scrollTo({ top: wrap.offsetTop - 100, behavior: 'smooth' });
+      }
+    });
+  }
 
   const nextBtn = wrap.querySelector('#explore-next');
   if (nextBtn) {
